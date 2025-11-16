@@ -51,5 +51,38 @@
             })
         </script>
 
+        <script>
+            const token = localStorage.getItem('jwt');
+
+            if (!token) {
+                alert("Vous devez être connecté pour accéder à cette page.");
+                window.location.href = "../Company/connexion.html";
+            } else {
+                try {
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    const roles = payload.roles || [];
+
+                    if (!roles.includes('ROLE_ADMIN') && !roles.includes('ROLE_DOCTOR')) {
+                        alert("Vous n'êtes pas autorisé à accéder à cette page.");
+                        window.location.href = "../Company/connexion.html";
+                    }
+
+                } catch (e) {
+                    console.error("JWT invalide :", e);
+                    localStorage.removeItem('jwt');
+                    window.location.href = "../Company/connexion.html";
+                }
+            }
+        </script>
+
+        <script src="../js/authHeaderFooter.js"></script>
+        <script>
+            initPage({
+                headerPath: "headerAdmin.html",
+                footerPath: "../Company/footer.html",
+                allowedRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
+            });
+        </script>
+
     </body>
 </html>

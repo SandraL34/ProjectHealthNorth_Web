@@ -34,16 +34,25 @@
   gap: 8px;
 }
 
-.icon {
-    max-width: 30px;
+.headerAdminLinks button {
+  color: black;
 }
 
-/* Footer */
-footer {
-  width: 100%;
+.headerAdminLinks button:hover {
+  text-shadow: rgba(0, 0, 0, 0.5) 1px 0 10px;
+  cursor: pointer;
+}
+
+.headerAdminLinks button {
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 50px;
-  border-top: solid 0.5px;
+  gap: 8px;
+  background-color: white;
+  border: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.1rem;
+}
+
+.icon {
+    max-width: 30px;
 }

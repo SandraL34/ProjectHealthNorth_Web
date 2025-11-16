@@ -10,8 +10,7 @@
     </head>
 
     <body>
-        <header id="headerCompany">
-        </header>
+        <header id="header"></header>
 
         <div class="container">
             <div class="connexion">
@@ -21,7 +20,7 @@
                 <label class="bold" for="password">Votre mot de passe</label>
                 <input id="password" type="password" name="password" class="field" placeholder="******" required>
                 <a href="recoverPassword.html" class="forgotPassword">Mot de passe oublié ?</a>
-                <a href="../Account/account.html" class="button">Se connecter</a>
+                <button type="button" id="loginButton" class="button">Se connecter</button>
             </div>
 
             <div class="register">
@@ -39,24 +38,17 @@
         <footer id="siteFooter">
         </footer>
         
-                <!-- Header de ma page -->
+
+        <!-- Appel des scripts -->
+        
+        <script src="../js/header.js"></script>
         <script>
-            fetch("headerCompany.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("headerCompany").innerHTML = data;
-            })
-            .catch(error => console.error("Erreur lors du chargement du header :", error));
+            initHeader("headerCompany.html", "../style/Company/style_headerCompany.css");
         </script>
 
-                <!-- Footer de ma page -->
-        <script>
-            fetch("footer.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("siteFooter").innerHTML = data;
-            })
-        </script>
+        <script src="../js/footer.js"></script>
+
+        <script src="../js/login.js"></script>
 
     </body>
 </html>

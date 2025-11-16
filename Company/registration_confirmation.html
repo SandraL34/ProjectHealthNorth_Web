@@ -10,36 +10,26 @@
     </head>
 
     <body>
-        <header id="headerCompany">
-        </header>
+        <header id="header"></header>
         
         <div class="container confirmation">
             <h1>Votre compte a bien été créé !</h1>
             <p>Confirmez votre adresse email en cliquant sur le lien envoyé à l'adresse mail que vous avez renseignée.</p>
-             <a href="connexion.html" class="button">Se connecter</a>
+            <a href="connexion.html" class="button">Se connecter</a>
         </div>
 
         <footer id="siteFooter">
         </footer>
-
-                <!-- Header de ma page -->
+        
+        
+        <!-- Appel des scripts -->
+        
+        <script src="../js/header.js"></script>
         <script>
-            fetch("headerCompany.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("headerCompany").innerHTML = data;
-            })
-            .catch(error => console.error("Erreur lors du chargement du header :", error));
+            initHeader("headerCompany.html", "../style/Company/style_headerCompany.css");
         </script>
         
-                <!-- Footer de ma page -->
-        <script>
-            fetch("footer.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("siteFooter").innerHTML = data;
-            })
-        </script>
+        <script src="../js/footer.js"></script>
 
     </body>
 </html>

@@ -74,5 +74,41 @@
             })
         </script>
 
+        <script>
+            // Vérifie si l'utilisateur est connecté et a le rôle correct
+            const token = localStorage.getItem('jwt');
+
+            if (!token) {
+                // Pas connecté
+                alert("Vous devez être connecté pour accéder à cette page.");
+                window.location.href = "../Company/connexion.html";
+            } else {
+                try {
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    const roles = payload.roles || [];
+
+                    // Vérifie le rôle
+                    if (!roles.includes('ROLE_PATIENT')) {
+                        alert("Vous n'êtes pas autorisé à accéder à cette page.");
+                        window.location.href = "../Company/connexion.html";
+                    }
+
+                } catch (e) {
+                    console.error("JWT invalide :", e);
+                    localStorage.removeItem('jwt');
+                    window.location.href = "../Company/connexion.html";
+                }
+            }
+        </script>
+
+        <script src="../js/authHeaderFooter.js"></script>
+        <script>
+            initPage({
+                headerPath: "headerAccount.html",
+                footerPath: "../Company/footer.html",
+                allowedRoles: ['ROLE_PATIENT']
+            });
+        </script>
+
     </body>
 </html>

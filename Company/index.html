@@ -10,8 +10,7 @@
     </head>
 
     <body>
-        <header id="headerCompany">
-        </header>
+        <header id="header"></header>
 
         <div class="carousel">
             <div class="carouselImages">
@@ -77,55 +76,16 @@
         <footer id="siteFooter">
         </footer>
         
-                <!-- Header de ma page -->
+        
+        <!-- Appel des scripts -->
+        
+        <script src="../js/header.js"></script>
         <script>
-            fetch("headerCompany.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("headerCompany").innerHTML = data;
-            })
-            .catch(error => console.error("Erreur lors du chargement du header :", error));
+            initHeader("headerCompany.html", "../style/Company/style_headerCompany.css");
         </script>
         
-                <!-- Footer de ma page -->
-        <script>
-            fetch("footer.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("siteFooter").innerHTML = data;
-            })
-        </script>
+        <script src="../js/footer.js"></script>
 
-                <!-- Carroussel -->
-        <script>
-            const images = document.querySelector('.carouselImages');
-            const dots = document.querySelectorAll('.dot');
-            const totalSlides = dots.length;
-            let index = 0;
-
-            function updateCarousel() {
-                images.style.transform = `translateX(-${index * 100}%)`;
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-            }
-
-            document.querySelector('.next').addEventListener('click', () => {
-                index = (index + 1) % totalSlides;
-                updateCarousel();
-            });
-
-            document.querySelector('.prev').addEventListener('click', () => {
-                index = (index - 1 + totalSlides) % totalSlides;
-                updateCarousel();
-            });
-
-            dots.forEach((dot, i) => {
-                dot.addEventListener('click', () => {
-                    index = i;
-                    updateCarousel();
-                });
-            });
-        </script>
+        <script src="../js/carousel.js"></script>
     </body>
 </html>

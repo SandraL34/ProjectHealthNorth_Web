@@ -1,5 +1,6 @@
 /* Header company */
 .headerCompany {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,12 +35,7 @@
   gap: 8px;
 }
 
-/* Footer */
-footer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 50px;
-  border-top: solid 0.5px;
+#header {
+    width: 100%;
+    display: block;
 }
