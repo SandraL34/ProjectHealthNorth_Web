@@ -10,8 +10,7 @@
     </head>
 
     <body>
-        <header id="headerAccount">
-        </header>
+        <header id="header"></header>
 
         <h1>Votre espace personnel</h1>
 
@@ -55,53 +54,16 @@
         <footer id="siteFooter">
         </footer>
         
-                <!-- Header de ma page -->
+        <!-- Appel des scripts -->
+        
+        <script src="../js/header.js"></script>
         <script>
-            fetch("headerAccount.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("headerAccount").innerHTML = data;
-            })
-            .catch(error => console.error("Erreur lors du chargement du header :", error));
+            initHeader("headerAccount.html", "../style/Account/style_HeaderAccount.css");
         </script>
         
-                <!-- Footer de ma page -->
-        <script>
-            fetch("../Company/footer.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("siteFooter").innerHTML = data;
-            })
-        </script>
+        <script src="../js/footer.js"></script>
 
-        <script>
-            // Vérifie si l'utilisateur est connecté et a le rôle correct
-            const token = localStorage.getItem('jwt');
-
-            if (!token) {
-                // Pas connecté
-                alert("Vous devez être connecté pour accéder à cette page.");
-                window.location.href = "../Company/connexion.html";
-            } else {
-                try {
-                    const payload = JSON.parse(atob(token.split('.')[1]));
-                    const roles = payload.roles || [];
-
-                    // Vérifie le rôle
-                    if (!roles.includes('ROLE_PATIENT')) {
-                        alert("Vous n'êtes pas autorisé à accéder à cette page.");
-                        window.location.href = "../Company/connexion.html";
-                    }
-
-                } catch (e) {
-                    console.error("JWT invalide :", e);
-                    localStorage.removeItem('jwt');
-                    window.location.href = "../Company/connexion.html";
-                }
-            }
-        </script>
-
-        <script src="../js/authHeaderFooter.js"></script>
+        <script src="../js/auth.js"></script>
         <script>
             initPage({
                 headerPath: "headerAccount.html",

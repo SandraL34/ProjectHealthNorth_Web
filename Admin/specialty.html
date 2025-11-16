@@ -10,8 +10,7 @@
     </head>
 
     <body>
-        <header id="headerAdmin">
-        </header>
+        <header id="header"></header>
 
         <div class="container">
             <h1>Espace administrateur</h1>
@@ -42,23 +41,22 @@
         <footer id="siteFooter">
         </footer>
 
-                <!-- Header de ma page -->
+        <!-- Appel des scripts -->
+        
+        <script src="../js/header.js"></script>
         <script>
-            fetch("headerAdmin.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("headerAdmin").innerHTML = data;
-            })
-            .catch(error => console.error("Erreur lors du chargement du header :", error));
+            initHeader("headerAdmin.html", "../style/Admin/style_headerAdmin.css");
         </script>
         
-                <!-- Footer de ma page -->
+        <script src="../js/footer.js"></script>
+
+        <script src="../js/auth.js"></script>
         <script>
-            fetch("../Company/footer.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("siteFooter").innerHTML = data;
-            })
+            initPage({
+                headerPath: "headerAdmin.html",
+                footerPath: "../Company/footer.html",
+                allowedRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
+            });
         </script>
 
     </body>

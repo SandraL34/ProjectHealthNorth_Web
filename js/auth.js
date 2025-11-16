@@ -1,7 +1,6 @@
-function initPage({ headerPath, footerPath, allowedRoles }) {
+function initPage({ headerPath, footerPath, allowedRoles, cssPath = null }) {
     const token = localStorage.getItem('jwt');
 
-    // Vérification JWT
     if (!token) {
         alert("Vous devez être connecté pour accéder à cette page.");
         window.location.href = "../Company/connexion.html";
@@ -26,34 +25,13 @@ function initPage({ headerPath, footerPath, allowedRoles }) {
         return;
     }
 
-    // Chargement du header
-    fetch(headerPath)
-        .then(response => response.text())
-        .then(data => {
-            const headerEl = document.getElementById('headerAdmin') || document.getElementById('headerAccount');
-            if (headerEl) {
-                headerEl.innerHTML = data;
+    initHeader(headerPath, cssPath);
 
-                // Attache logout après insertion
-                const logoutBtn = document.getElementById('logoutButton');
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', () => {
-                        localStorage.removeItem('jwt');
-                        window.location.href = "../Company/connexion.html";
-                    });
-                }
-            }
-        })
-        .catch(err => console.error("Erreur lors du chargement du header :", err));
-
-    // Chargement du footer
     fetch(footerPath)
-        .then(response => response.text())
+        .then(res => res.text())
         .then(data => {
             const footerEl = document.getElementById('siteFooter');
-            if (footerEl) {
-                footerEl.innerHTML = data;
-            }
+            if (footerEl) footerEl.innerHTML = data;
         })
         .catch(err => console.error("Erreur lors du chargement du footer :", err));
 }
