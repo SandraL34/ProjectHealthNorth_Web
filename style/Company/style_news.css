@@ -1,0 +1,70 @@
+h1 {
+    text-align: center;
+}
+
+.articles {
+    display: flex;
+    gap: 50px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.articles div {
+    border: solid 2px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.articles img {
+    margin: 40px;
+}
+
+.articles a {
+    display: inline-block; 
+    margin: 30px;
+    border: solid 0.5px;
+    border-radius: 10px;
+    width: 50%;
+    padding: 20px;
+    color: black;
+    transition: 0.3s; 
+}
+
+.articles a:hover {
+    font-weight: 600;
+    background-color: #f0f0f0;
+}
+
+.legendArticle {
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.part1, .part2 {
+    display:flex;
+    gap: 30px;
+    margin-top: 30px;
+    align-items: center;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+.back {
+    display: block;
+    margin: 30px;
+    border: solid 0.5px;
+    border-radius: 10px;
+    width: 30%;
+    padding: 20px;
+    color: black;
+    transition: 0.3s; 
+    text-align: center;
+    margin: 50px auto;
+}
+
+.back:hover {
+    font-weight: 600;
+    background-color: #f0f0f0;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Account/style_medicalRecord.css">
+        <title>HealthNorth - Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="headerAccount">
+        </header>
+
+        <div class="container confirmation">
+            <h1>Votre compte a bien été supprimé.</h1>
+            <a href="../Company/index.html" class="bouton">Retour à l'accueil</a>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+        
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerAccount.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerAccount").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("../Company/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+        
+    </body>
+</html>

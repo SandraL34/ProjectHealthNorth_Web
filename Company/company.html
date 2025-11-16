@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+                <link rel="stylesheet" href="../style/Company/style_company.css">
+        <title>HealthNorth - A propos de nous</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Apprenez en plus sur le leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="headerCompany">
+        </header>
+
+        <div class="container">
+            <div class="history">
+                <h1>Qui sommes-nous ?</h1>
+                <h2>Health North : 30 ans d'expertise au service de votre santé</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
+                    amet nibh. Nulla vitae est ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut condimentum nisi vel 
+                    dui semper luctus. Vivamus ac sagittis tellus. Donec rutrum id dolor ac euismod. 
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
+                    amet nibh. Nulla vitae est ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut condimentum nisi vel 
+                    dui semper luctus. Vivamus ac sagittis tellus. Donec rutrum id dolor ac euismod. 
+                </p>
+            </div>
+
+            <div class="figures">
+                <h1>Health North en quelques chiffres</h1>
+                <div class="figuresExamples">
+                    <div class="example1">
+                        <p class="bold">Lorem ipsum<p>
+                        <img src="../images/Placeholder.png" alt="Illustration chiffres">
+                    </div>
+                    <div class="example2">
+                        <img src="../images/Placeholder.png" alt="Illustration chiffres">
+                        <p class="bold">Lorem ipsum<p>
+                    </div>
+                    <div class="example3">
+                        <p class="bold">Lorem ipsum<p>
+                        <img src="../images/Placeholder.png" alt="Illustration chiffres">
+                    </div>
+                    <div class="example4">
+                        <img src="../images/Placeholder.png" alt="Illustration chiffres">
+                        <p class="bold">Lorem ipsum<p>
+                    </div>
+                    <div class="example5">
+                        <p class="bold">Lorem ipsum<p>
+                        <img src="../images/Placeholder.png" alt="Illustration chiffres">
+                    </div>
+                </div>
+            </div>
+
+            <div class="clientsPartners">
+                <div class="clients">
+                    <h2>Ce sont nos clients qui parlent le mieux de nous</h2>
+                    <video src="../video/Cover.mp4" controls type="video/mp4" alt="Nos clients parlent de nous"></video>
+                </div>
+
+                <div class="partners">
+                    <h2>Et nos nombreux partenaires</h2>
+                    <div class="logos">
+                        <img class="logo1" src="../images/Placeholder.png" alt="Logo partenaire">
+                        <img class="logo2" src="../images/Placeholder.png" alt="Logo partenaire">
+                        <img class="logo3" src="../images/Placeholder.png" alt="Logo partenaire">
+                        <img class="logo4" src="../images/Placeholder.png" alt="Logo partenaire">
+                        <img class="logo5" src="../images/Placeholder.png" alt="Logo partenaire">
+                        <img class="logo6" src="../images/Placeholder.png" alt="Logo partenaire">
+                        <img class="logo7" src="../images/Placeholder.png" alt="Logo partenaire">
+                        <img class="logo8" src="../images/Placeholder.png" alt="Logo partenaire">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+        
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerCompany.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerCompany").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+
+                <!-- Footer de ma page -->
+        <script>
+            fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+
+    </body>
+</html>

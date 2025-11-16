@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Company/style_news.css">
+        <title>HealthNorth - News</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Découvrez nos dernières actualités ">
+    </head>
+
+    <body>
+        <header id="headerCompany">
+        </header>
+
+        <div class="container">
+            <h1>Nos actualités</h1>
+            <div class="articles">
+                <div class="article1">
+                    <h2> Lorem Ipsum</h2>
+                    <img src="../images/Placeholder.png" alt="Image article">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
+                        amet nibh. Nulla vitae est ex.
+                    </p>
+                    <a href="newsDetails.html">Lire l'article</a>
+                </div>
+
+                <div class="article2">
+                    <h2> Lorem Ipsum</h2>
+                    <img src="../images/Placeholder.png" alt="Image article">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
+                        amet nibh. Nulla vitae est ex.
+                    </p>
+                    <a href="newsDetails.html">Lire l'article</a>
+                </div>
+
+                <div class="article3">
+                    <h2> Lorem Ipsum</h2>
+                    <img src="../images/Placeholder.png" alt="Image article">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
+                        amet nibh. Nulla vitae est ex.
+                    </p>
+                    <a href="newsDetails.html">Lire l'article</a>
+                </div>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+        
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerCompany.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerCompany").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+
+    </body>
+</html>

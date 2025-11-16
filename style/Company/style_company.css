@@ -1,0 +1,93 @@
+.history {
+    text-align: center;
+}
+
+.history p {
+    margin-top: 20px;
+}
+
+.figures {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.figuresExamples {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.figuresExamples img {
+    max-width: 100px;
+    margin: 10px;
+}
+
+.clientsPartners {
+    margin-top: 50px;
+    display: flex;
+    text-align: center;
+    gap: 30px;
+}
+
+.clients {
+    flex: 2;
+}
+
+.clients video {
+    margin-top: 30px;
+    max-width: 70%;
+}
+.partners {
+    flex: 1;
+}
+
+.logos {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.logo1 {
+    grid-column: 1 / 2;
+    grid-row: 1;
+}
+
+.logo2 {
+    grid-column: 3 / 4;
+    grid-row: 1;
+}
+
+.logo3 {
+    grid-column: 5 / 6;
+    grid-row: 1;
+}
+
+.logo4 {
+    grid-column: 2 / 3;
+    grid-row: 2;
+}
+
+.logo5 {
+    grid-column: 4 / 5;
+    grid-row: 2;
+}
+
+.logo6 {
+    grid-column: 1 / 2;
+    grid-row: 3;
+}
+
+.logo7 {
+    grid-column: 3 / 4;
+    grid-row: 3;
+}
+
+.logo8 {
+    grid-column: 5 / 6;
+    grid-row: 3;
+}
+
+.logos img {
+    max-width: 100px;
+}

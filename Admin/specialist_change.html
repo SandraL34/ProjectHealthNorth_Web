@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Admin/style_specialist.css">
+        <title>HealthNorth - Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="headerAdmin">
+        </header>
+
+        <div class="container">
+            <h1>Espace administrateur</h1>
+            <div class="module">
+                <h2>Ajouter un spécialiste</h2>
+                <div class="grid">
+                    <label for="nom">Nom du spécialiste</label>
+                    <input id="nom" type="text" placeholder="Prénom Nom">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" placeholder="email@example.fr">
+                    <label for="phone">Téléphone</label>
+                    <input id="phone" type="phone" placeholder="0600000000">
+                    <label for="center">Etablissement</label>
+                    <input type="text" id="center" placeholder="Nom de l'établissement">
+                    <label for="specialty">Spécialité</label>
+                    <input id="specialty" type="text" placeholder="Nom de la spécialité">
+                    <label for="actes">Actes pratiqués</label>
+                    <input id="actes" type="text" placeholder="Nom de l'acte">
+                </div>
+                <p class="bold">Actes déjà ajoutés</p>
+
+                <div class="dispo">
+                    <p class="bold">Disponibilités</p>
+                    <label for="dispoIdentiques">Mêmes disponibilités tous les jours</label>
+                    <input id="dispoIdentiques" type="checkbox">
+                </div>
+
+                <div class="grid2">
+                    <p class="legend gridSpec1">Matin</p>
+                    <p class="legend gridSpec2">Après-midi</p>
+                </div>
+
+                <div class="grid2">
+                    <input id="lundi" type="checkbox">
+                    <label for="lundi">Lundi</label>
+                    <input type="time" id="lundiMatinDebut" name="lundiMatinDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="lundiMatinFin" name="lundiMatinFin" min="00:00" max="24:00"/>
+                    <input type="time" id="lundiApremDebut" name="lundiApremDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="lundiApremFin" name="lundiApremFin" min="00:00" max="24:00"/>
+                    <input id="mardi" type="checkbox">
+                    <label for="mardi">Mardi</label>
+                    <input type="time" id="mardiMatinDebut" name="mardiMatinDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="mardiMatinFin" name="mardiMatinFin" min="00:00" max="24:00"/>
+                    <input type="time" id="mardiApremDebut" name="mardiApremDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="mardiApremFin" name="mardiApremFin" min="00:00" max="24:00"/>
+                    <input id="mercredi" type="checkbox">
+                    <label for="mercredi">Mercredi</label>
+                    <input type="time" id="mercrediMatinDebut" name="mercrediMatinDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="mercrediMatinFin" name="mercrediMatinFin" min="00:00" max="24:00"/>
+                    <input type="time" id="mercrediApremDebut" name="mercrediApremDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="mercrediApremFin" name="mercrediApremFin" min="00:00" max="24:00"/>
+                    <input id="jeudi" type="checkbox">
+                    <label for="jeudi">Jeudi</label>
+                    <input type="time" id="jeudiMatinDebut" name="jeudiMatinDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="jeudiMatinFin" name="jeudiMatinFin" min="00:00" max="24:00"/>
+                    <input type="time" id="jeudiApremDebut" name="jeudiApremDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="jeudiApremFin" name="jeudiApremFin" min="00:00" max="24:00"/>
+                    <input id="vendredi" type="checkbox">
+                    <label for="vendredi">Vendredi</label>
+                    <input type="time" id="vendrediMatinDebut" name="vendrediMatinDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="vendrediMatinFin" name="vendrediMatinFin" min="00:00" max="24:00"/>
+                    <input type="time" id="vendrediApremDebut" name="vendrediApremDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="vendrediApremFin" name="vendrediApremFin" min="00:00" max="24:00"/>
+                    <input id="samedi" type="checkbox">
+                    <label for="samedi">Samedi</label>
+                    <input type="time" id="samediMatinDebut" name="samediMatinDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="samediMatinFin" name="samediMatinFin" min="00:00" max="24:00"/>
+                    <input type="time" id="samediApremDebut" name="samediApremDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="samediApremFin" name="samediApremFin" min="00:00" max="24:00"/>
+                    <input id="dimanche" type="checkbox">
+                    <label for="dimanche">Dimanche</label>
+                    <input type="time" id="dimancheMatinDebut" name="dimancheMatinDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="dimancheMatinFin" name="dimancheMatinFin" min="00:00" max="24:00"/>
+                    <input type="time" id="dimancheApremDebut" name="dimancheApremDebut" min="00:00" max="24:00"/>
+                    <input type="time" id="dimancheApremFin" name="dimancheApremFin" min="00:00" max="24:00"/>
+                </div>
+                <div class="boutonContainer">
+                    <a href="specialist_change_confirmation.html" class="bouton">Modifier</a>
+                </div>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerAdmin.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerAdmin").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("../Company/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+
+    </body>
+</html>

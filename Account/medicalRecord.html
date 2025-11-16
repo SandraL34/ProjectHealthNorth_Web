@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Account/style_medicalRecord.css">
+        <title>HealthNorth - Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="headerAccount">
+        </header>
+
+        <div class="container">
+            <h1>Mon dossier médical</h1>
+            <div class= "flexParts">
+                <div class="infosPerso">
+                    <h2>Mes informations personnelles</h2>
+                    <div class="grid">
+                        <label for="prenom">Prénom</label>
+                        <input id="prenom" type="text" placeholder="Prénom">
+                        <label for="nom">Nom</label>
+                        <input id="nom" type="text" placeholder="Nom">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" placeholder="email@example.fr">
+                        <label for="password">Mot de passe</label>
+                        <input id="password" type="password" placeholder="********">
+                        <label for="phone">Téléphone</label>
+                        <input id="phone" type="text" placeholder="0600000000">
+                        <label for="adresse">Adresse</label>
+                        <textarea id="adresse" name="adresse" placeholder="5 rue du Champ 34000 Montpellier" rows="4"></textarea>
+                        <label for="photo">Photo</label>
+                        <input type="file" id="photo" name="photo">
+                    </div>
+                        <p class="bold">Contact d'urgence</p>
+                    <div class="grid">
+                        <label for="prenomContact">Prénom</label>
+                        <input id="prenomContact" type="text" placeholder="Prénom">
+                        <label for="nomContact">Nom</label>
+                        <input id="nomContact" type="text" placeholder="Nom">
+                        <label for="phoneContact">Téléphone</label>
+                        <input id="phoneContact" type="text" placeholder="0600000000">
+                    </div>
+                </div>
+
+                <div class="suivi">
+                    <h2>Mon suivi médical</h2>
+                    <div class="grid">
+                        <label for="numeroSecu">Numéro de sécurité sociale</label>
+                        <input id="numeroSecu" type="text" placeholder="0200000000000000">
+                        <label for="doctor">Médecin traitant</label>
+                        <input id="doctor" type="text" placeholder="Prénom Nom">
+                        <label for="regimeSecu">Régime de sécurité sociale</label>
+                        <input id="regimeSecu" type="text" placeholder="Général">
+                        <label for="mutuelle">Organisme complémentaire</label>
+                        <input id="mutuelle" type="text" placeholder="Nom mutuelle">
+                        <label for="allergies">Allergies connues</label>
+                        <input id="allergies" type="text" placeholder="Liste allergies">
+                        <label for="maladies">Maladies connues - traitements réguliers</label>
+                        <textarea id="maladies" name="maladies" placeholder="Liste de vos maladies chroniques, traitements associés (médicaments...)" rows="5"></textarea>
+                        <label for="history">Antécédents médicaux</label>
+                        <textarea id="history" name="history" placeholder="Opérations passées, causes d'hospitalisation, maladies connues chez vos parents..." rows="8"></textarea>
+                    </div>
+                </div>
+
+                <div class="optionsPaiement">
+                    <div class="options">
+                        <h2>Mes options préférées</h2>
+                        <p class="bold">Modes de communication</p>
+                        <label for="mail">Mail</label>
+                        <input id="mail" type="checkbox">
+                        <label for="courrier">Courrier</label>
+                        <input id="courrier" type="checkbox">
+                        <label for="tel">Téléphone</label>
+                        <input id="tel" type="checkbox">
+                        <p class="bold">Préférences en cas d'hospitalisation</p>
+                        <div class="grid3">
+                            <p class="privateRoom">Chambre privée</p>
+                            <label for="ouiRoom">Oui</label>
+                            <input id="ouiRoom" type="checkbox">
+                            <label for="nonRoom">Non</label>
+                            <input id="nonRoom" type="checkbox">
+                            <p class="wifi">Wifi</p>
+                            <label for="ouiWifi">Oui</label>
+                            <input id="ouiWifi" type="checkbox">
+                            <label for="nonWifi">Non</label>
+                            <input id="nonWifi" type="checkbox">
+                            <p class="TV">Télévision</p>
+                            <label for="ouiTV">Oui</label>
+                            <input id="ouiTV" type="checkbox">
+                            <label for="nonTV">Non</label>
+                            <input id="nonTV" type="checkbox">
+                            <p class="regime1">Régime alimentaire</p>
+                            <label for="vegetarien">Végétarien</label>
+                            <input id="vegetarien" type="checkbox">
+                            <label for="vegan">Vegan</label>
+                            <input id="vegan" type="checkbox">
+                            <p class="regime2">spécifique</p>
+                            <label for="sansSel">Sans sel</label>
+                            <input id="sansSel" type="checkbox">
+                            <label for="halal">Halal</label>
+                            <input id="halal" type="checkbox">
+                            <label for="regimeAutre" class="regimeAutre">Autre régime</label>
+                            <input id="regimeAutre" class="regimeChoice" type="text" placeholder="Préciser">
+                        </div>
+                    </div>
+                    <div class="paiement">
+                        <h2>Moyens de paiement enregistrés</h2>
+                        <p class="bold">Carte bancaire préférée</p>
+                        <div class="grid">
+                        <label for="cardOwner">Propriétaire</label>
+                        <input id="cardOwner" type="text" placeholder="Prénom Nom">
+                        <label for="cardNumber">Numéro de carte</label>
+                        <input id="cardNumber" type="text" placeholder="5120000000000000">
+                        <label for="expiration">Date d'expiration</label>
+                        <input id="expiration" type="text" placeholder="mm/aa">
+                        <label for="code">Code secret</label>
+                        <input id="code" type="text" placeholder="000">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="boutons">
+                <a href="medicalRecord_change_password.html" class="bouton">Modifier les informations</a>
+                <a href="medicalRecord_delete_password.html" class="bouton">Supprimer mon compte</a>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+        
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerAccount.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerAccount").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("../Company/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+        
+    </body>
+</html>

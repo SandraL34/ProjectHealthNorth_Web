@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Company/style_index.css">
+        <title>HealthNorth - Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="headerCompany">
+        </header>
+
+        <div class="carousel">
+            <div class="carouselImages">
+                <img src="../images/Carousel_1.jpeg" alt="Image carroussel 1">
+                <img src="../images/Carousel_2.jpeg" alt="Image carroussel 2">
+                <img src="../images/Carousel_3.jpeg" alt="Image carroussel 3">
+            </div>
+
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+
+            <div class="dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="companyPresentation">
+                <h1>Health North : votre partenaire santé</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
+                    amet nibh. Nulla vitae est ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut condimentum nisi vel 
+                    dui semper luctus. Vivamus ac sagittis tellus. Donec rutrum id dolor ac euismod. Nulla aliquam venenatis viverra. 
+                    Donec consequat convallis dolor, finibus viverra arcu venenatis et. Nulla fermentum tincidunt nisi, id euismod nibh 
+                    convallis vitae. Nullam congue, lacus sed rutrum aliquam, metus mauris viverra dui, et consequat magna ex in eros. 
+                    Aliquam urna sem, cursus sit amet eleifend id, faucibus et leo. 
+                </p>
+            </div>
+
+            <div class="becomeMember">
+                <h1>Rejoignez-nous pour profiter d'un suivi complet</h1>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
+                    amet nibh. Nulla vitae est ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut condimentum nisi vel 
+                    dui semper luctus. Vivamus ac sagittis tellus. Donec rutrum id dolor ac euismod. Nulla aliquam venenatis viverra. 
+                    Donec consequat convallis dolor, finibus viverra arcu venenatis et. Nulla fermentum tincidunt nisi, id euismod nibh 
+                    convallis vitae. Nullam congue, lacus sed rutrum aliquam, metus mauris viverra dui, et consequat magna ex in eros. 
+                    Aliquam urna sem, cursus sit amet eleifend id, faucibus et leo. 
+                </p>
+            </div>
+
+            
+            <div class="memberPrivileges">
+                <div class="privilege1">
+                    <h2>Prenez rendez-vous facilement en ligne</h2>
+                    <img src="../images/Privilege_1.jpeg">
+                </div>
+
+                <div class="privilege2">
+                    <h2>Complétez votre dossier pour gagner du temps</h2>
+                    <img src="../images/Privilege_2.jpeg">
+                </div>
+
+                <div class="privilege3">
+                    <h2>Consulter vos prescriptions et ordonnances</h2>
+                    <img src="../images/Privilege_3.jpeg">
+                </div>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+        
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerCompany.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerCompany").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+
+                <!-- Carroussel -->
+        <script>
+            const images = document.querySelector('.carouselImages');
+            const dots = document.querySelectorAll('.dot');
+            const totalSlides = dots.length;
+            let index = 0;
+
+            function updateCarousel() {
+                images.style.transform = `translateX(-${index * 100}%)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            document.querySelector('.next').addEventListener('click', () => {
+                index = (index + 1) % totalSlides;
+                updateCarousel();
+            });
+
+            document.querySelector('.prev').addEventListener('click', () => {
+                index = (index - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            });
+
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    index = i;
+                    updateCarousel();
+                });
+            });
+        </script>
+    </body>
+</html>

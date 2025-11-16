@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Account/style_appointment.css">
+        <title>HealthNorth - Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="headerAccount">
+        </header>
+
+        <h1>Rendez-vous</h1>
+        <div class="container">
+            <div class="recap">
+                <div>
+                    <h2>Mes rendez-vous programmés</h2>
+                    <p>RDV à Date et Lieu avec Nom Docteur</p>
+                    <a href="appointment_change.html" class="bouton">Modifier le rendez-vous</a>
+                    <p>RDV à Date et Lieu avec Nom Docteur</p>
+                    <a href="appointment_change.html" class="bouton">Modifier le rendez-vous</a>
+                </div>
+
+                <div class="trait"></div>
+
+                <div>
+                    <h2>Mes derniers rendez-vous</h2>
+                    <p>RDV à Date et Lieu avec Nom Docteur</p>
+                    <a href="prescription.html" class="bouton">Accéder à la prescription</a>
+                    <p>RDV à Date et Lieu avec Nom Docteur</p>
+                    <a href="prescription.html" class="bouton">Accéder à la prescription</a>
+                </div>
+            </div>
+
+            <div class="recherche">
+                <h1>Prendre rendez-vous</h1>
+                <div>
+                    <h2>Recherche rapide</h2>
+                    <div class="champsRecherche">
+                        <label class="bold legend" for="qui">Qui ?</label>
+                        <label class="bold legend" for="specialty">Quelle spécialité ?</label>
+                        <label class="bold legend" for="ou">Où ?</label>
+                        <input id="qui" type="text" name="qui" class="field" placeholder="Nom établissement, nom spécialiste..." required>
+                        <select name="specialty" id="specialty">
+                            <option value="tous">Tous</option>
+                        </select>
+                        <input id="ou" type="text" name="ou" class="field" placeholder="Code postal, région, ville..." required>
+                        <a href="appointment_results.html" class="bouton">Rechercher</a>
+                    </div>
+                </div>
+
+                <h2>Recherche par établissement</h2>
+                <div class="rechercheEtablissement">
+                    <div class="carte">
+                        <p>Sélectionner un établissement directement sur la carte</p>
+                        <img src="../images/Placeholder.png">
+                    </div>
+                
+                    <div class="infosEtablissement">
+                        <h2>Informations sur l'établissement</h2>
+                        <p>
+                            Nom : <br>
+                            Lieu:<br>
+                            Spécialités: <br>
+                            Spécialistes :
+                        </p>
+                        <a href="appointment_results.html" class="bouton">Rechercher</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+        
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerAccount.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerAccount").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("../Company/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+        
+    </body>
+</html>

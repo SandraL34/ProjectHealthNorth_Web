@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Company/style_contact.css">
+        <title>HealthNorth - Contact</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - N'hésitez-pas à nous contacter ">
+    </head>
+
+    <body>
+        <header id="headerCompany">
+        </header>
+
+        <div class="container">
+            <div class="image">
+                <img src="../images/Privilege_3.jpeg" alt="Image contact">
+            </div>
+
+            <div class="form">
+                <h2> N'hésitez-pas à nous écrire via ce formulaire pour toute question.</h3>
+                        <form action="https://formsubmit.co/s.lorbois@gmail.com" method="post" name="formContact">
+                            <fieldset>
+                                <legend class="bold">Contact</legend>
+                                <div class="contactName">
+                                    <label class="bold" for="lastname">Nom</label>
+                                    <label class="bold" for="firstname">Prénom</label>
+                                </div>
+
+                                <div class="contactField">
+                                    <input id="lastname" type="text" name="lastname" class="shortField" placeholder="NOM" required>
+                                    <input id="firstname"  type="text" name="firstname" class="shortField" placeholder="Prénom" required>
+                                </div>
+
+                                <br>
+                                <label class="bold" for="email">Email</label>
+                                <input id="email" type="email" name="email" class="longField" placeholder="email@gmail.com" required>
+                                <br>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend class="bold">Message</legend>
+                                <label class="bold" for="comment">Votre message</label>
+                                <textarea id="comment" name="comment" placeholder="Dites-nous pourquoi vous nous contactez" rows="8" required></textarea>
+                            </fieldset>
+                            <input type="submit" value="Envoyer" class="submitButton">
+                        </form>
+                    </div>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+        
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerCompany.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerCompany").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+
+    </body>
+</html>

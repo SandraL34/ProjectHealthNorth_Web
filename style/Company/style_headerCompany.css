@@ -1,0 +1,45 @@
+/* Header company */
+.headerCompany {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 0.5px;
+}
+
+.companyLogo img {
+  max-width: 300px;
+  margin: 20px 20px 20px 50px;
+}
+
+.headerCompanyLinks {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  gap: 40px;
+  font-size: 1.1rem;
+  margin: 20px 50px 20px 20px;
+  align-items: center;
+}
+
+.headerCompanyLinks a {
+  color: black;
+}
+
+.headerCompanyLinks a:hover {
+  text-shadow: rgba(0, 0, 0, 0.5) 1px 0 10px;
+}
+
+.headerCompanyLinks a:last-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  border-top: solid 0.5px;
+}

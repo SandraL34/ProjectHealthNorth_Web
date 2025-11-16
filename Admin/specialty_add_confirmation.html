@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Admin/style_specialty.css">
+        <title>HealthNorth - Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="headerAdmin">
+        </header>
+
+        <div class="container">
+            <h1>Espace administrateur</h1>
+            <div class="module">
+                <h2>La spécialité a bien été créée.</h2>
+                <div class="boutonContainer">
+                    <a href="accountAdmin.html" class="bouton">Retour à l'accueil</a>
+                </div>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerAdmin.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerAdmin").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("../Company/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+
+    </body>
+</html>

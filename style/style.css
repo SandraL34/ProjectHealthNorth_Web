@@ -1,0 +1,46 @@
+/* Reset */
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+/* Paramètres globaux */
+#headerCompany {
+    width: 100%;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    text-align: justify;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+p {
+    margin-top: 5px;
+}
+
+.bold {
+    font-weight: 600;
+}

@@ -1,0 +1,49 @@
+/* Header account */
+.headerAccount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 0.5px;
+}
+
+.companyLogo img {
+  max-width: 300px;
+  margin: 20px 20px 20px 50px;
+}
+
+.headerAccountLinks {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: flex;
+  gap: 40px;
+  font-size: 1.1rem;
+  margin: 20px 50px 20px 20px;
+  align-items: center;
+}
+
+.headerAccountLinks a {
+  color: black;
+}
+
+.headerAccountLinks a:hover {
+  text-shadow: rgba(0, 0, 0, 0.5) 1px 0 10px;
+}
+
+.headerAccountLinks a:last-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+    max-width: 30px;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  border-top: solid 0.5px;
+}

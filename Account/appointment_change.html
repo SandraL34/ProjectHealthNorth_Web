@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Account/style_appointment.css">
+        <title>HealthNorth - Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="headerAccount">
+        </header>
+
+        <h1>Rendez-vous</h1>
+        <div class="container">
+            <div class="rdv">
+                <h2>Votre rendez-vous</h2>
+                <p class="bold">Dr prénom Nom</p>
+                <img src="../images/icons/Icon_calendar.png" class="icon">
+                <p>Le date</p>
+                <img src="../images/icons/Icon_specialty.png" class="icon">
+                <p>Specialité</p>
+                <img src="../images/icons/Icon_localization.png" class="icon">
+                <p>
+                    Nom établissement <br>
+                    Adresse
+                </p>
+            </div>
+
+            <div class="modif">
+                <h2>Modifier la date</h2>
+                <p class="legend">Prochaines disponibilités</p>
+                <img src="../images/Placeholder.png"><br>
+                <a href="appointment_change_confirmation.html" class="bouton">Modifier le RDV</a>
+            </div>
+
+            <div class="cancel">
+                <h2>Autres changements</h2>
+                <p class="justify">Il est impossible de changer de spécialiste ou d'établissement en ligne. 
+                    Vous pouvez nous contacter par téléphone au Numéro si vous souhaitez de l'aide pour modifier votre rendez-vous.
+                    Sinon, il est également possible d'annuler votre rendez-vous et d'en réserver un nouveau en ligne.</p>
+                <a href="appointment_cancel_confirmation.html" class="bouton">Annuler le RDV</a>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+        
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerAccount.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerAccount").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("../Company/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+        
+    </body>
+</html>

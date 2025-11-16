@@ -1,0 +1,51 @@
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.module {
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.bouton {
+    width: 300px;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: black 1px;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 12px 32px;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+}
+
+.bouton:hover {
+    font-weight: 600;
+    background-color: #f0f0f0;
+}
+
+h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+.ligneFlex {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}

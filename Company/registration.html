@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Company/style_connexion.css">
+        <title>HealthNorth - Inscription</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Inscrivez-vous pour bénéficier de tous les avantages de nos membres ">
+    </head>
+
+    <body>
+        <header id="headerCompany">
+        </header>
+
+        <div class="container registration">
+            <h1>Nouveau parmi nous ?</h1>
+            <p>Créez votre compte en seulement 30 secondes ! Vous pourrez compléter votre dossier médical par la suite sur votre espace personnel.</p>
+            <label class="bold" for="email">Votre email</label>
+            <input id="email" type="text" name="email" class="field" placeholder="email@example.com" required>
+            <label class="bold" for="password">Votre mot de passe</label>
+            <input id="password" type="password" name="password" class="field" placeholder="******" required>
+            <label class="bold" for="password">Confirmez votre mot de passe</label>
+            <input id="password" type="password" name="password" class="field" placeholder="******" required>
+            <label class="bold" for="phone">Votre numéro de téléphone</label>
+            <input id="phone" type="text" name="phone" class="field" placeholder="0600000000" required>
+            <p class="legend">Nous utilisons la double authentification pour garantir la sécurité de vos données. Seuls des sms de connexion pourront vous être adressés.</p>
+            <a href="registration_confirmation.html" class="button">S'inscrire</a>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerCompany.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerCompany").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+
+    </body>
+</html>

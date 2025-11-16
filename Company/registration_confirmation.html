@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Company/style_connexion.css">
+        <title>HealthNorth - Inscription</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Votre inscription est confirmée">
+    </head>
+
+    <body>
+        <header id="headerCompany">
+        </header>
+        
+        <div class="container confirmation">
+            <h1>Votre compte a bien été créé !</h1>
+            <p>Confirmez votre adresse email en cliquant sur le lien envoyé à l'adresse mail que vous avez renseignée.</p>
+             <a href="connexion.html" class="button">Se connecter</a>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerCompany.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerCompany").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+        <link rel="stylesheet" href="../style/Admin/style_center.css">
+        <title>HealthNorth - Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="headerAdmin">
+        </header>
+
+        <div class="container">
+            <h1>Espace administrateur</h1>
+            <div class="module">
+                <h2>Ajouter un centre</h2>
+                <div class="grid">
+                    <label for="nom">Nom du centre</label>
+                    <input id="nom" type="text" placeholder="Nom du centre">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" placeholder="email@example.fr">
+                    <label for="phone">Téléphone</label>
+                    <input id="phone" type="phone" placeholder="0600000000">
+                </div>
+                <fieldset>
+                    <legend class="bold">Adresse du centre</legend>
+                    <div class="grid">
+                        <label for="rue">N° et rue</label>
+                        <input type="rue" id="rue" placeholder="5 rue de la Santé">
+                        <label for="complement">Complément</label>
+                        <input id="complement" type="text" placeholder="Appartement 105">
+                        <label for="codePostal">Code postal</label>
+                        <input id="codePostal" type="text" placeholder="34000">
+                        <label for="ville">Ville</label>
+                        <input id="ville" type="text" placeholder="Montpellier">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend class="bold">Actes pratiqués</legend>
+                    <div class="grid">
+                        <label for="specialty">Spécialité</label>
+                        <input type="specialty" id="specialty" placeholder="Nom de la spécialité">
+                        <label for="actes">Actes pratiqués</label>
+                        <input id="actes" type="text" placeholder="Nom de l'acte">
+                    </div>
+                    <p class="bold">Actes déjà ajoutés</p>
+                </fieldset>
+
+                <fieldset>
+                    <legend class="bold">Spécialistes</legend>
+                    <div class="grid">
+                        <label for="specialist">Nom du spécialiste</label>
+                        <input type="specialist" id="specialist" placeholder="Nom du spécialiste">
+                    </div>
+                    <p class="bold">Spécialistes déjà ajoutés</p>
+                </fieldset>
+
+                <div class="boutonContainer">
+                    <a href="center_add_confirmation.html" class="bouton">Ajouter à la base de données</a>
+                </div>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+
+                <!-- Header de ma page -->
+        <script>
+            fetch("headerAdmin.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("headerAdmin").innerHTML = data;
+            })
+            .catch(error => console.error("Erreur lors du chargement du header :", error));
+        </script>
+        
+                <!-- Footer de ma page -->
+        <script>
+            fetch("../Company/footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("siteFooter").innerHTML = data;
+            })
+        </script>
+
+    </body>
+</html>

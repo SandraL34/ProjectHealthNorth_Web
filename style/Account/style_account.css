@@ -1,0 +1,70 @@
+h1 {
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+.rdv, .dossier, .prescriptions, .appliMobile {
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;;
+}
+
+.prescription, .rdvModif {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    align-items: center;
+}
+
+.bouton {
+    width: 300px;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: black 1px;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 12px 32px;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+}
+
+.bouton:hover {
+    font-weight: 600;
+    background-color: #f0f0f0;
+}
+
+.progres {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}  
+
+.appliMobile {
+    display: flex;
+}
+
+.left {
+    text-align: left;
+}
+
+.QR {
+    max-width: 200px;
+    margin-left: 40px;
+}
+
+.legend {
+    font-size: 0.8rem;
+}
