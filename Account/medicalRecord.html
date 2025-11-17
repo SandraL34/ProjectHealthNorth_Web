@@ -18,18 +18,18 @@
                 <div class="infosPerso">
                     <h2>Mes informations personnelles</h2>
                     <div class="grid">
-                        <label for="prenom">Prénom</label>
-                        <input id="prenom" type="text" placeholder="Prénom">
-                        <label for="nom">Nom</label>
-                        <input id="nom" type="text" placeholder="Nom">
+                        <label for="firstname">Prénom</label>
+                        <input id="firstname" type="text" placeholder="Prénom">
+                        <label for="lastname">Nom</label>
+                        <input id="lastname" type="text" placeholder="Nom">
                         <label for="email">Email</label>
                         <input id="email" type="email" placeholder="email@example.fr">
                         <label for="password">Mot de passe</label>
                         <input id="password" type="password" placeholder="********">
-                        <label for="phone">Téléphone</label>
-                        <input id="phone" type="text" placeholder="0600000000">
-                        <label for="adresse">Adresse</label>
-                        <textarea id="adresse" name="adresse" placeholder="5 rue du Champ 34000 Montpellier" rows="4"></textarea>
+                        <label for="phoneNumber">Téléphone</label>
+                        <input id="phoneNumber" type="text" placeholder="0600000000">
+                        <label for="postalAddress">Adresse</label>
+                        <textarea id="postalAddress" name="postalAddress" placeholder="5 rue du Champ 34000 Montpellier" rows="4"></textarea>
                         <label for="photo">Photo</label>
                         <input type="file" id="photo" name="photo">
                     </div>
@@ -47,20 +47,20 @@
                 <div class="suivi">
                     <h2>Mon suivi médical</h2>
                     <div class="grid">
-                        <label for="numeroSecu">Numéro de sécurité sociale</label>
-                        <input id="numeroSecu" type="text" placeholder="0200000000000000">
-                        <label for="doctor">Médecin traitant</label>
-                        <input id="doctor" type="text" placeholder="Prénom Nom">
-                        <label for="regimeSecu">Régime de sécurité sociale</label>
-                        <input id="regimeSecu" type="text" placeholder="Général">
-                        <label for="mutuelle">Organisme complémentaire</label>
-                        <input id="mutuelle" type="text" placeholder="Nom mutuelle">
-                        <label for="allergies">Allergies connues</label>
-                        <input id="allergies" type="text" placeholder="Liste allergies">
-                        <label for="maladies">Maladies connues - traitements réguliers</label>
-                        <textarea id="maladies" name="maladies" placeholder="Liste de vos maladies chroniques, traitements associés (médicaments...)" rows="5"></textarea>
-                        <label for="history">Antécédents médicaux</label>
-                        <textarea id="history" name="history" placeholder="Opérations passées, causes d'hospitalisation, maladies connues chez vos parents..." rows="8"></textarea>
+                        <label for="socialsecurityNumber">Numéro de sécurité sociale</label>
+                        <input id="socialsecurityNumber" type="text" placeholder="0200000000000000">
+                        <label for="doctor">Nom du médecin traitant</label>
+                        <input id="doctor" type="text" placeholder="Prénom et Nom du médecin traitant">
+                        <label for="socialsecurityRegime">Régime de sécurité sociale</label>
+                        <input id="socialsecurityRegime" type="text" placeholder="Général">
+                        <label for="healthcareInsurance">Organisme complémentaire</label>
+                        <input id="healthcareInsurance" type="text" placeholder="Nom mutuelle">
+                        <label for="allergy">Allergies connues</label>
+                        <input id="allergy" type="text" placeholder="Liste allergies">
+                        <label for="medicalTraitmentDisease">Maladies connues - traitements réguliers</label>
+                        <textarea id="medicalTraitmentDisease" name="medicalTraitmentDisease" placeholder="Liste de vos maladies chroniques, traitements associés (médicaments...)" rows="5"></textarea>
+                        <label for="medicalHistory">Antécédents médicaux</label>
+                        <textarea id="medicalHistory" name="medicalHistory" placeholder="Opérations passées, causes d'hospitalisation, maladies connues chez vos parents..." rows="8"></textarea>
                     </div>
                 </div>
 
@@ -147,6 +147,11 @@
                 allowedRoles: ['ROLE_PATIENT']
             });
         </script>
+
+        <script src="../js/patient.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', getPatientData);
+            </script>
         
     </body>
 </html>
