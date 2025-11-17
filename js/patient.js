@@ -30,6 +30,7 @@ function fillPatientForm(patient) {
     document.getElementById('firstname').value = patient.firstname || '';
     document.getElementById('lastname').value = patient.lastname || '';
     document.getElementById('email').value = patient.email || '';
+    document.getElementById('password').value = patient.password || '';
     document.getElementById('phoneNumber').value = patient.phoneNumber || '';
     document.getElementById('postalAddress').value = patient.postalAddress || '';
     document.getElementById('socialsecurityNumber').value = patient.socialsecurityNumber || '';
@@ -43,6 +44,15 @@ function fillPatientForm(patient) {
         const doctor = patient.attendingPhysician;
         if (doctor.firstname && doctor.lastname) {
             document.getElementById('doctor').value = doctor.firstname + " " + doctor.lastname;
+        }
+    }
+
+    if (patient.emergencyContact) {
+        const emergencyContact = patient.emergencyContact;
+        if (emergencyContact.firstname && emergencyContact.lastname && emergencyContact.phoneNumber) {
+            document.getElementById('emergencyContactFirstname').value = emergencyContact.firstname || '';
+            document.getElementById('emergencyContactLastname').value = emergencyContact.lastname || '';
+            document.getElementById('emergencyContactPhoneNumber').value = emergencyContact.phoneNumber || '';
         }
     }
 }
