@@ -65,6 +65,17 @@ h2 {
     margin-bottom: 10px;
 }
 
+.grid2 {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 5px;
+    margin: 5px 0px;
+}
+
+.shortField {
+    width: 100%;
+}
+
 .grid3 {
     display: grid;
     grid-template-columns: repeat(7, 1fr);

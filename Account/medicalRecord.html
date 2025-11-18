@@ -68,12 +68,12 @@
                     <div class="options">
                         <h2>Mes options préférées</h2>
                         <p class="bold">Modes de communication</p>
-                        <label for="mail">Mail</label>
-                        <input id="mail" type="checkbox">
-                        <label for="courrier">Courrier</label>
-                        <input id="courrier" type="checkbox">
-                        <label for="tel">Téléphone</label>
-                        <input id="tel" type="checkbox">
+                        <label for="choiceEmail">Mail</label>
+                        <input id="choiceEmail" type="checkbox">
+                        <label for="choiceCourrier">Courrier</label>
+                        <input id="choiceCourrier" type="checkbox">
+                        <label for="choiceTel">Téléphone</label>
+                        <input id="choiceTel" type="checkbox">
                         <p class="bold">Préférences en cas d'hospitalisation</p>
                         <div class="grid3">
                             <p class="privateRoom">Chambre privée</p>
@@ -109,14 +109,19 @@
                         <h2>Moyens de paiement enregistrés</h2>
                         <p class="bold">Carte bancaire préférée</p>
                         <div class="grid">
-                        <label for="cardOwner">Propriétaire</label>
-                        <input id="cardOwner" type="text" placeholder="Prénom Nom">
-                        <label for="cardNumber">Numéro de carte</label>
-                        <input id="cardNumber" type="text" placeholder="5120000000000000">
-                        <label for="expiration">Date d'expiration</label>
-                        <input id="expiration" type="text" placeholder="mm/aa">
-                        <label for="code">Code secret</label>
-                        <input id="code" type="text" placeholder="000">
+                            <label for="ownerName">Propriétaire</label>
+                            <input id="ownerName" type="text" placeholder="Prénom Nom">
+                            <label for="cardNumber">Numéro de carte</label>
+                            <input id="cardNumber" type="text" placeholder="5120000000000000">
+                        </div>
+                        <div class="grid2">
+                            <label for="expiration">Date d'expiration</label>
+                            <input id="expirationDateMonth" type="text" placeholder="mm" class="shortField">
+                            <input id="expirationDateYear" type="text" placeholder="aaaa" class="shortField">
+                        </div>
+                        <div class="grid">
+                            <label for="secretCode">Code secret</label>
+                            <input id="secretCode" type="text" placeholder="000">
                         </div>
                     </div>
                 </div>

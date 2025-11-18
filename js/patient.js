@@ -7,7 +7,7 @@ async function getPatientData() {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/patient/me', {
+        const response = await fetch('http://localhost:8000/api/patient/medicalRecord', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -49,12 +49,67 @@ function fillPatientForm(patient) {
 
     if (patient.emergencyContact) {
         const emergencyContact = patient.emergencyContact;
-        if (emergencyContact.firstname && emergencyContact.lastname && emergencyContact.phoneNumber) {
-            document.getElementById('emergencyContactFirstname').value = emergencyContact.firstname || '';
-            document.getElementById('emergencyContactLastname').value = emergencyContact.lastname || '';
-            document.getElementById('emergencyContactPhoneNumber').value = emergencyContact.phoneNumber || '';
+        document.getElementById('emergencyContactFirstname').value = emergencyContact.firstname || '';
+        document.getElementById('emergencyContactLastname').value = emergencyContact.lastname || '';
+        document.getElementById('emergencyContactPhoneNumber').value = emergencyContact.phoneNumber || '';
+    }
+
+    if (patient.option) {
+        const option = patient.option;
+
+        if (option.communicationForm == "Email") {
+            document.getElementById('choiceEmail').checked = true;
+        } else if (option.communicationForm == "Courrier") {
+            document.getElementById('choiceCourrier').checked = true;
+        } else if (option.communicationForm == "Téléphone") {
+            document.getElementById('choiceTel').checked = true;
+        }
+
+        if (option.privateRoom == true) {
+            document.getElementById('ouiRoom').checked = true;
+            document.getElementById('nonRoom').checked = false;
+        } else if (option.privateRoom == false) {
+            document.getElementById('ouiRoom').checked = false;
+            document.getElementById('nonRoom').checked = true;
+        }
+
+        if (option.wifi == true) {
+            document.getElementById('ouiWifi').checked = true;
+            document.getElementById('nonWifi').checked = false;
+        } else if (option.wifi == false) {
+            document.getElementById('ouiWifi').checked = false;
+            document.getElementById('nonWifi').checked = true;
+        }
+
+        if (option.television == true) {
+            document.getElementById('ouiTV').checked = true;
+            document.getElementById('nonTV').checked = false;
+        } else if (option.television == false) {
+            document.getElementById('ouiTV').checked = false;
+            document.getElementById('nonTV').checked = true;
+        }
+
+        if (option.diet == "Végétarien") {
+            document.getElementById('vegetarien').checked = true;
+        } else if (option.communicationForm == "Vegan") {
+            document.getElementById('vegan').checked = true;
+        } else if (option.communicationForm == "Sans sel") {
+            document.getElementById('sansSel').checked = true;
+        } else if (option.communicationForm == "Halal") {
+            document.getElementById('halal').checked = true;
         }
     }
+    
+    if (patient.payment) {
+        const payment = patient.payment;
+
+        document.getElementById('ownerName').value = payment.ownerName || '';
+        document.getElementById('cardNumber').value = payment.cardNumber || '';
+        document.getElementById('expirationDateMonth').value = payment.expirationDateMonth || '';
+        document.getElementById('expirationDateYear').value = payment.expirationDateYear || '';
+        document.getElementById('secretCode').value = payment.secretCode || '';
+    }
+
 }
 
 async function updatePatientData() {
