@@ -17,10 +17,7 @@
         <div class="container">
             <div class="rdv">
                 <h2>Vos rendez-vous à venir</h2>
-                <div class="rdvModif">
-                    <p>Prochain rendez-vous à Date et Lieu avec le Nom Docteur</p>
-                    <a class="bouton" href="appointment_change.html"> Modifier le rendez-vous</a>
-                </div>
+                <div id="rdvModif"></div>
             </div>
 
             <div class="dossier">
@@ -72,5 +69,9 @@
             });
         </script>
 
+        <script src="../js/appointment.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', getAppointmentData);
+        </script>
     </body>
 </html>

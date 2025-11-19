@@ -1,0 +1,53 @@
+async function getAppointmentData() {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+        alert("Vous devez être connecté pour accéder à votre dossier médical.");
+        window.location.href = "../Company/connexion.html";
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:8000/api/appointment/coming', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Impossible de récupérer les RDV');
+        }
+
+        const appointments = await response.json();
+        displayAppointments(appointments);
+    } catch (error) {
+        console.error(error);
+        alert("Erreur lors du chargement des RDV.");
+    }
+}
+
+function displayAppointments(appointments) {
+    const container = document.getElementById('rdvModif');
+    container.innerHTML = "";
+
+    if (appointments.length === 0) {
+        container.innerHTML = "<p>Aucun rendez-vous à venir.</p>";
+        return;
+    }
+
+    appointments.forEach(app => {
+        const div = document.createElement("div");
+        div.classList.add("rdvModif");
+
+        div.innerHTML = `
+            <p>
+                "<strong>${app.title}</strong>" le ${app.dateTime} à ${app.institutionType} avec <strong>${app.attendingPhysician ? 
+                    "dr " + app.attendingPhysician.lastname : "N/A"}</strong> pour ${app.specialtyType}
+            </p>
+
+            <a class="bouton" href="appointment_change.html?id=${app.id}">Modifier le rendez-vous</a>
+        `;
+
+        container.appendChild(div);
+    });
+}
