@@ -20,6 +20,19 @@ h2 {
     padding: 20px;
 }
 
+.recap {
+    max-width: 30%;
+}
+
+.rdvComing, .rdvPast {
+    margin-top: 10px;
+}
+
+.rdvComing .bouton, .rdvPast .bouton {
+    display: block;
+    margin: 10px auto 0;
+}
+
 .bouton {
     width: 300px;
     text-decoration: none;

@@ -19,15 +19,15 @@ async function getAppointmentData() {
         }
 
         const appointments = await response.json();
-        displayAppointments(appointments);
+        displayComingAppointments(appointments);
     } catch (error) {
         console.error(error);
         alert("Erreur lors du chargement des RDV.");
     }
 }
 
-function displayAppointments(appointments) {
-    const container = document.getElementById('rdvModif');
+function displayComingAppointments(appointments) {
+    const container = document.getElementById('rdvComing');
     container.innerHTML = "";
 
     if (appointments.length === 0) {
@@ -37,7 +37,7 @@ function displayAppointments(appointments) {
 
     appointments.forEach(app => {
         const div = document.createElement("div");
-        div.classList.add("rdvModif");
+        div.classList.add("rdvComing");
 
         div.innerHTML = `
             <p>

@@ -17,7 +17,7 @@
         <div class="container">
             <div class="rdv">
                 <h2>Vos rendez-vous à venir</h2>
-                <div id="rdvModif"></div>
+                <div id="rdvComing"></div>
             </div>
 
             <div class="dossier">
@@ -26,15 +26,12 @@
                     <p class="legend">Complété à X%</p>
                     <progress id="progresDossier" max="100" value="50"></progress>
                 </div>
-                <p>Continuez à compléter votre profil pour gagner du temps lors de vos prochains rendez-vous et nous aider à mieux vous prendre en charge</p>
+                <p>Conseil : continuez à compléter votre profil pour gagner du temps lors de vos prochains rendez-vous et nous aider à mieux vous prendre en charge.</p>
             </div>
 
             <div class="prescriptions">
                 <h2>Vos prescriptions</h2>
-                <div class="prescription">
-                    <p>Prescription du Date par le Nom Docteur</p>
-                    <a class="bouton" href="prescription.html"> Accéder à la prescription</a>
-                </div>
+                <div id="rdvPast"></div>
             </div>
 
             <div class="appliMobile">
@@ -69,9 +66,19 @@
             });
         </script>
 
-        <script src="../js/appointment.js"></script>
+        <script src="../js/appointmentComing.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', getAppointmentData);
+        </script>
+
+        <script src="../js/medicalRecordProgress.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', updateProfileProgress);
+        </script>
+
+        <script src="../js/appointmentPast.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', getPastAppointmentData);
         </script>
     </body>
 </html>

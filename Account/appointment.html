@@ -17,20 +17,14 @@
             <div class="recap">
                 <div>
                     <h2>Mes rendez-vous programmés</h2>
-                    <p>RDV à Date et Lieu avec Nom Docteur</p>
-                    <a href="appointment_change.html" class="bouton">Modifier le rendez-vous</a>
-                    <p>RDV à Date et Lieu avec Nom Docteur</p>
-                    <a href="appointment_change.html" class="bouton">Modifier le rendez-vous</a>
+                    <div id="rdvComing"></div>
                 </div>
 
                 <div class="trait"></div>
 
                 <div>
                     <h2>Mes derniers rendez-vous</h2>
-                    <p>RDV à Date et Lieu avec Nom Docteur</p>
-                    <a href="prescription.html" class="bouton">Accéder à la prescription</a>
-                    <p>RDV à Date et Lieu avec Nom Docteur</p>
-                    <a href="prescription.html" class="bouton">Accéder à la prescription</a>
+                    <div id="rdvPast"></div>
                 </div>
             </div>
 
@@ -91,6 +85,16 @@
                 footerPath: "../Company/footer.html",
                 allowedRoles: ['ROLE_PATIENT']
             });
+        </script>
+
+        <script src="../js/appointmentComing.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', getAppointmentData);
+        </script>
+
+        <script src="../js/appointmentPast.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', getPastAppointmentData);
         </script>
         
     </body>
