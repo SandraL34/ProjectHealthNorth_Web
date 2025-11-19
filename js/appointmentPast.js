@@ -1,7 +1,7 @@
 async function getPastAppointmentData() {
     const token = localStorage.getItem('jwt');
     if (!token) {
-        alert("Vous devez être connecté pour accéder à votre dossier médical.");
+        alert("Vous devez être connecté pour accéder à vos rendez-vous passés.");
         window.location.href = "../Company/connexion.html";
         return;
     }
@@ -15,14 +15,14 @@ async function getPastAppointmentData() {
         });
 
         if (!response.ok) {
-            throw new Error('Impossible de récupérer les RDV');
+            throw new Error('Impossible de récupérer les rendez-vous.');
         }
 
         const appointments = await response.json();
         displayPastAppointments(appointments);
     } catch (error) {
         console.error(error);
-        alert("Erreur lors du chargement des RDV.");
+        alert("Erreur lors du chargement des rendez-vous.");
     }
 }
 

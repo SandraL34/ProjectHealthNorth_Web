@@ -14,39 +14,7 @@
 
         <div class="container">
             <h1>Mes prescriptions et ordonnances</h1>
-            <div class="prescription">
-                <h2>Rendez-vous du Date avec Spécialiste à Etablissement</h2>
-                <h3>Compte-rendu du RDV</h3>
-                <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
-                    amet nibh. Nulla vitae est ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut condimentum nisi vel 
-                    dui semper luctus. Vivamus ac sagittis tellus. Donec rutrum id dolor ac euismod. 
-                </p>
-                <h3>Prescription</h3>
-                <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
-                    amet nibh. Nulla vitae est ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut condimentum nisi vel 
-                    dui semper luctus. Vivamus ac sagittis tellus. Donec rutrum id dolor ac euismod. 
-                </p>
-                <a href="" class="bouton">Télécharger la prescription en PDF</a>
-            </div>
-
-            <div class="prescription">
-                <h2>Rendez-vous du Date avec Spécialiste à Etablissement</h2>
-                <h3>Compte-rendu du RDV</h3>
-                <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
-                    amet nibh. Nulla vitae est ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut condimentum nisi vel 
-                    dui semper luctus. Vivamus ac sagittis tellus. Donec rutrum id dolor ac euismod. 
-                </p>
-                <h3>Prescription</h3>
-                <p>
-                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa ligula, hendrerit a commodo non, viverra sit 
-                    amet nibh. Nulla vitae est ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut condimentum nisi vel 
-                    dui semper luctus. Vivamus ac sagittis tellus. Donec rutrum id dolor ac euismod. 
-                </p>
-                <a href="" class="bouton">Télécharger la prescription en PDF</a>
-            </div>
+            <div id="prescription"></div>
         </div>
 
         <footer id="siteFooter">
@@ -68,6 +36,11 @@
                 footerPath: "../Company/footer.html",
                 allowedRoles: ['ROLE_PATIENT']
             });
+        </script>
+
+        <script src="../js/prescription.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', getPrescriptionData)
         </script>
         
     </body>
