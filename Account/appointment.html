@@ -42,6 +42,7 @@
                         </select>
                         <input id="ou" type="text" name="ou" class="field" placeholder="Code postal, région, ville..." required>
                         <a href="appointment_results.html" class="bouton">Rechercher</a>
+                        <ul id="suggestions" class="suggestionsList"></ul>
                     </div>
                 </div>
 
@@ -95,6 +96,13 @@
         <script src="../js/appointmentPast.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', getPastAppointmentData);
+        </script>
+
+        <script src="../js/appointment_search.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                initAutocomplete();
+            });
         </script>
         
     </body>
