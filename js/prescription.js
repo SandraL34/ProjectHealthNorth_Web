@@ -40,7 +40,7 @@ function displayPrescriptions(prescriptions) {
         div.classList.add("prescription");
 
         div.innerHTML = `
-                <h2>Rendez-vous du ${app.treatment.dateTime} avec ${app.attendingPhysician ? "dr " + app.attendingPhysician.lastname : "N/A"}</h2>
+                <h2>Rendez-vous du ${app.treatment.dateTime} avec ${app.doctor ? "dr " + app.doctor.lastname : "N/A"}</h2>
                 <h3>Compte-rendu du RDV</h3>
                 <p>${app.report}</p>
                 <h3>Prescription</h3>

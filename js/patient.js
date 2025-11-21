@@ -40,8 +40,8 @@ function fillPatientForm(patient) {
     document.getElementById('medicalTraitmentDisease').value = patient.medicalTraitmentDisease || '';
     document.getElementById('medicalHistory').value = patient.medicalHistory || '';
 
-    if (patient.attendingPhysician) {
-        const doctor = patient.attendingPhysician;
+    if (patient.doctor) {
+        const doctor = patient.doctor;
         if (doctor.firstname && doctor.lastname) {
             document.getElementById('doctor').value = doctor.firstname + " " + doctor.lastname;
         }

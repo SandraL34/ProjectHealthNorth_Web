@@ -41,8 +41,8 @@ function displayComingAppointments(appointments) {
 
         div.innerHTML = `
             <p>
-                "<strong>${app.title}</strong>" le ${app.dateTime} à ${app.institutionType} avec <strong>${app.attendingPhysician ? 
-                    "dr " + app.attendingPhysician.lastname : "N/A"}</strong> pour ${app.specialtyType}
+                "<strong>${app.title}</strong>" le ${app.dateTime} à ${app.institutionType} avec <strong>${app.doctor ? 
+                    "dr " + app.doctor.lastname : "N/A"}</strong>
             </p>
 
             <a class="bouton" href="appointment_change.html?id=${app.id}">Modifier le rendez-vous</a>
