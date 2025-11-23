@@ -186,7 +186,11 @@ img {
 
 /* Autocomplétion recherche */
 
-#suggestions {
+.autocomplete {
+    position: relative;
+}
+
+#suggestionsQui, #suggestionsOu {
     list-style: none;
     border: 1px solid #ccc;
     max-height: 150px;
@@ -199,16 +203,20 @@ img {
     z-index: 1000;
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
-#suggestions li {
+#suggestionsQui li, #suggestionsOu li {
     padding: 8px;
     cursor: pointer;
 }
-#suggestions li:hover {
+#suggestionsQui li:hover, #suggestionsOu li:hover {
     background-color: #f0f0f0;
 }
 
-#suggestions:empty {
+#suggestionsQui:empty, #suggestionsOu:empty {
     display: none;
+}
+
+.autocomplete input {
+    width: 100%;
+    height: 100%;
 }

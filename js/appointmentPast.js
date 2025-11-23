@@ -41,7 +41,7 @@ function displayPastAppointments(appointments) {
 
         div.innerHTML = `
             <p>
-                "<strong>${app.title}</strong>" le ${app.dateTime} à ${app.center.name} avec <strong>${app.doctor ? 
+                "<strong>${app.title}</strong>" le ${app.dateTime} à ${app.doctor.name} avec <strong>${app.doctor ? 
                     "dr " + app.doctor.lastname : "N/A"}</strong>
             </p>
 

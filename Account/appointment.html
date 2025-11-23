@@ -36,13 +36,18 @@
                         <label class="bold legend" for="qui">Qui ?</label>
                         <label class="bold legend" for="specialty">Quelle spécialité ?</label>
                         <label class="bold legend" for="ou">Où ?</label>
-                        <input id="qui" type="text" name="qui" class="field" placeholder="Nom établissement, nom spécialiste..." required>
-                        <select name="specialty" id="specialty">
+                        <div class="autocomplete">
+                            <input id="qui" type="text" name="qui" class="field" placeholder="Nom du spécialiste" required>
+                            <ul id="suggestionsQui"></ul>
+                        </div>
+                        <select name="treatment" id="treatment">
                             <option value="tous">Tous</option>
                         </select>
-                        <input id="ou" type="text" name="ou" class="field" placeholder="Code postal, région, ville..." required>
+                        <div class="autocomplete">
+                            <input id="ou" type="text" name="ou" class="field" placeholder="Nom de l'établissement, ville, code postal..." required>
+                            <ul id="suggestionsOu"></ul>
+                        </div>
                         <a href="appointment_results.html" class="bouton">Rechercher</a>
-                        <ul id="suggestions" class="suggestionsList"></ul>
                     </div>
                 </div>
 
@@ -98,11 +103,23 @@
             document.addEventListener('DOMContentLoaded', getPastAppointmentData);
         </script>
 
-        <script src="../js/appointment_search.js"></script>
+        <script src="../js/appointment_search_what.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                initAutocomplete();
+                initAutocompleteWhat();
             });
+        </script>
+
+        <script src="../js/appointment_search_where.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                initAutocompleteWhere();
+            });
+        </script>
+
+        <script src="../js/treatment_list.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', getTreatmentList);
         </script>
         
     </body>
