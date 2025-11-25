@@ -12,102 +12,28 @@
     <body>
         <header id="header"></header>
 
-        <h1> Résultat de votre recherche</h1>
+        <h1>Résultat de votre recherche</h1>
+
         <div class="filtres">
-            <a href="" class="bouton">Filtres</a>
             <a href="appointment.html" class="bouton">Modifier ma recherche</a>
         </div>
 
-        <div class="container">
-            <div class="result">
-                <p class="bold">Dr prénom Nom</p>
-                <div class="grid">
-                    <div class="grid1">
-                        <img src="../images/icons/Icon_specialty.png" class="icon">
-                    </div>
-                    <div class="grid2">
-                        <p>Specialité</p>
-                    </div>
-                    <div class="grid3">
-                        <img src="../images/icons/Icon_localization.png" class="icon">
-                    </div>
-                    <div class="grid4">
-                        <p>
-                            Nom établissement <br>
-                            Adresse
-                        </p>
-                    </div>
-                </div>
-                <img src="../images/Placeholder.png">
-                <p class="legend">Prochaines disponibilités</p>
-                <img src="../images/Placeholder.png">
-                <a href="appointment_confirmation.html" class="bouton">Réserver</a>
-            </div>
-
-            <div class="result">
-                <p class="bold">Dr prénom Nom</p>
-                <div class="grid">
-                    <div class="grid1">
-                        <img src="../images/icons/Icon_specialty.png" class="icon">
-                    </div>
-                    <div class="grid2">
-                        <p>Specialité</p>
-                    </div>
-                    <div class="grid3">
-                        <img src="../images/icons/Icon_localization.png" class="icon">
-                    </div>
-                    <div class="grid4">
-                        <p>
-                            Nom établissement <br>
-                            Adresse
-                        </p>
-                    </div>
-                </div>
-                <img src="../images/Placeholder.png">
-                <p class="legend">Prochaines disponibilités</p>
-                <img src="../images/Placeholder.png">
-                <a href="appointment_confirmation.html" class="bouton">Réserver</a>
-            </div>
-
-            <div class="result">
-                <p class="bold">Dr prénom Nom</p>
-                <div class="grid">
-                    <div class="grid1">
-                        <img src="../images/icons/Icon_specialty.png" class="icon">
-                    </div>
-                    <div class="grid2">
-                        <p>Specialité</p>
-                    </div>
-                    <div class="grid3">
-                        <img src="../images/icons/Icon_localization.png" class="icon">
-                    </div>
-                    <div class="grid4">
-                        <p>
-                            Nom établissement <br>
-                            Adresse
-                        </p>
-                    </div>
-                </div>
-                <img src="../images/Placeholder.png">
-                <p class="legend">Prochaines disponibilités</p>
-                <img src="../images/Placeholder.png">
-                <a href="appointment_confirmation.html" class="bouton">Réserver</a>
-            </div>
+        <div class="container" id="container">
         </div>
 
-        <footer id="siteFooter">
-        </footer>
-        
+        <footer id="siteFooter"></footer>
+
         <!-- Appel des scripts -->
-        
+
         <script src="../js/header.js"></script>
-        <script>
-            initHeader("headerAccount.html", "../style/Account/style_HeaderAccount.css");
+        <script> 
+            initHeader("headerAccount.html", "../style/Account/style_HeaderAccount.css"); 
         </script>
         
         <script src="../js/footer.js"></script>
-
+        
         <script src="../js/auth.js"></script>
+
         <script>
             initPage({
                 headerPath: "headerAccount.html",
@@ -115,6 +41,10 @@
                 allowedRoles: ['ROLE_PATIENT']
             });
         </script>
-        
+
+        <script src="../js/appointment_results.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', getAppointmentResults);
+        </script>
     </body>
 </html>

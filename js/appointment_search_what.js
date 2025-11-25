@@ -29,8 +29,6 @@ window.initAutocompleteWhat = function() {
 
             const doctors = doctorsRes.ok ? await doctorsRes.json() : [];
 
-            console.log('doctors:', doctors);
-
             const added = new Set();
 
             doctors.forEach(d => {
