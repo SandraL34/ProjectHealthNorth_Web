@@ -59,7 +59,9 @@
                         <p>Sélectionner un établissement directement sur la carte</p>
                         <div id="map"></div>
                     </div>
-                    <div id="infosCenter"></div>
+                    <div id="infosCenter">
+                        <input type="hidden" id="center" name="center" value="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,41 +87,7 @@
             });
         </script>
 
-        <script src="../js/appointmentComing.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', getAppointmentData);
-        </script>
-
-        <script src="../js/appointmentPast.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', getPastAppointmentData);
-        </script>
-
-        <script src="../js/appointment_search_what.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                initAutocompleteWhat();
-            });
-        </script>
-
-        <script src="../js/appointment_search_where.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                initAutocompleteWhere();
-            });
-        </script>
-
-        <script src="../js/treatment_list.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', getTreatmentList);
-        </script>
-
-        <script src="../js/centers_map.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', loadCentersMap);
-        </script>
-
-        <script src="../js/appointment_search.js"></script>
+        <script src="../js/appointment_loader.js"></script>
         
     </body>
 </html>

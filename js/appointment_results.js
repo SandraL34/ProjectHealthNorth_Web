@@ -365,11 +365,6 @@ function filterResults(results) {
     const ou = urlParams.get('ou');
     const center = urlParams.get('center');
 
-    console.log("Nom médecin :", qui);
-    console.log("Spécialité :", treatment);
-    console.log("Lieu :", ou);
-    console.log("Lieu :", center);
-
     const filteredResults = results.filter(item => {
         let match = true;
         if (qui) {
@@ -391,7 +386,7 @@ function filterResults(results) {
         }
 
         if (center) match = match && item.doctor?.center?.id == center;
-        
+
         return match;
     });
 

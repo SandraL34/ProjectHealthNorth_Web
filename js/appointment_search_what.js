@@ -53,4 +53,5 @@ window.initAutocompleteWhat = function() {
             console.error('Erreur autocomplete:', error);
         }
     }
+    window.initAutocompleteWhat.__executed = true;
 };

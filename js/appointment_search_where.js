@@ -54,4 +54,5 @@ window.initAutocompleteWhere = function() {
             console.error('Erreur autocomplete:', error);
         }
     }
+    window.initAutocompleteWhere.__executed = true;
 };

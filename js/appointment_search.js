@@ -1,5 +1,5 @@
 document.getElementById('rechercher').addEventListener('click', function(e) {
-    e.preventDefault(); // empêche le lien de naviguer directement
+    e.preventDefault();
 
     const qui = document.getElementById('qui').value.trim();
     const treatment = document.getElementById('treatment').value;

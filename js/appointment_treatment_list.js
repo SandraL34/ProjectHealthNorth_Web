@@ -24,6 +24,8 @@ async function getTreatmentList() {
         console.error(error);
         alert("Erreur lors du chargement des actes proposés.");
     }
+
+    window.getTreatmentList.__executed = true;
 }
 
 
