@@ -20,12 +20,23 @@ async function getAppointmentResults() {
         }
 
         const results = await response.json();
-        renderResults(results);
+        filterResults(results);
 
     } catch (error) {
         console.error(error);
         alert("Erreur lors du chargement des résultats.");
     }
+}
+
+function parseDateAndTime(dateStr, timeStr) {
+    const [y, m, d] = (dateStr || '').split('-').map(Number);
+    const [hh, mm] = (timeStr || '00:00').split(':').map(Number);
+
+    const dayAtMidnight = new Date(y, m - 1, d, 0, 0, 0, 0);
+
+    const fullDateTime = new Date(y, m - 1, d, hh || 0, mm || 0, 0, 0);
+
+    return { dayAtMidnight, fullDateTime };
 }
 
 function getWeekDates(offset = 0) {
@@ -183,7 +194,7 @@ function getDoctorResult(key, data) {
                 slots.forEach(slot => {
                     const t = document.createElement('button');
                     t.className = 'slotButton';
-                    const time = (slot.startTime || '').slice(0,5);
+                    const time = (slot.startTime || slot.time || slot.start_time || '').slice(0,5);
                     t.textContent = time || '—';
                     t.disabled = select.value === '';
                     t.dataset.date = date;
@@ -205,6 +216,18 @@ function getDoctorResult(key, data) {
                         });
                         window.location.href = `appointment_confirmation.html?${params.toString()}`;
                     });
+
+                    const { dayAtMidnight: slotDay, fullDateTime: slotDateTime } = parseDateAndTime(date, time);
+                    const now = new Date();
+                    const todayDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0,0,0,0);
+
+                    if (slotDay.getTime() < todayDay.getTime()) {
+                        t.classList.add("pastSlot");
+                        t.disabled = true;
+                    } else if (slotDay.getTime() === todayDay.getTime() && slotDateTime.getTime() <= now.getTime()) {
+                        t.classList.add("pastSlot");
+                        t.disabled = true;
+                    }
 
                     col.appendChild(t);
                 });
@@ -230,7 +253,14 @@ function getDoctorResult(key, data) {
     function updateSlotButtonsState() {
         const enabled = select.value !== '';
         const buttons = container.querySelectorAll('.slotButton');
-        buttons.forEach(b => b.disabled = !enabled);
+
+        buttons.forEach(button => {
+            if (!button) return;
+
+            if (button.classList.contains("pastSlot")) return;
+            
+            button.disabled = !enabled;
+        });
     }
 
     select.addEventListener('change', updateSlotButtonsState);
@@ -310,20 +340,62 @@ function escapeHtml(string) {
         .replace(/'/g, "&#039;");
 }
 
-    function renderResults(results) {
-        const container = document.getElementById('container');
-        container.innerHTML = '';
+function renderResults(results) {
+    const container = document.getElementById('container');
+    container.innerHTML = '';
 
-        if (!Array.isArray(results) || results.length === 0) {
-            container.innerHTML = '<p>Aucun résultat correspondant à votre recherche.</p>';
-            return;
+    if (!Array.isArray(results) || results.length === 0) {
+        container.innerHTML = '<p>Aucun résultat correspondant à votre recherche.</p>';
+        return;
+    }
+
+    const weekDates = getWeekDates();
+    const grouped = groupByDoctor(results);
+
+    Object.entries(grouped).forEach(([key, data]) => {
+        const result = getDoctorResult(key, data, weekDates);
+        container.appendChild(result);
+    });
+}
+
+function filterResults(results) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const qui = urlParams.get('qui');
+    const treatment = urlParams.get('treatment');
+    const ou = urlParams.get('ou');
+    const center = urlParams.get('center');
+
+    console.log("Nom médecin :", qui);
+    console.log("Spécialité :", treatment);
+    console.log("Lieu :", ou);
+    console.log("Lieu :", center);
+
+    const filteredResults = results.filter(item => {
+        let match = true;
+        if (qui) {
+            const mots = qui.toLowerCase().split(' ');
+            match = match && mots.every(m => 
+                (item.doctor?.firstname?.toLowerCase().includes(m) || 
+                item.doctor?.lastname?.toLowerCase().includes(m))
+            );
         }
 
-        const weekDates = getWeekDates();
-        const grouped = groupByDoctor(results);
+        if (treatment && treatment !== "tous") match = match && item.doctor?.treatments?.some(t => t.id == treatment);
 
-        Object.entries(grouped).forEach(([key, data]) => {
-            const result = getDoctorResult(key, data, weekDates);
-            container.appendChild(result);
-        });
-    }
+        if (ou) {
+            const lieux = ou.toLowerCase().split(' ');
+            match = match && lieux.every(l => 
+                (item.doctor?.center?.name?.toLowerCase().includes(l) || 
+                item.doctor?.center?.address?.toLowerCase().includes(l))
+            );
+        }
+
+        if (center) match = match && item.doctor?.center?.id == center;
+        
+        return match;
+    });
+
+    console.log(filteredResults)
+    renderResults(filteredResults);
+
+}
