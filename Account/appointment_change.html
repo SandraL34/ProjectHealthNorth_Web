@@ -14,25 +14,13 @@
 
         <h1>Rendez-vous</h1>
         <div class="container">
-            <div class="rdv">
-                <h2>Votre rendez-vous</h2>
-                <p class="bold">Dr prénom Nom</p>
-                <img src="../images/icons/Icon_calendar.png" class="icon">
-                <p>Le date</p>
-                <img src="../images/icons/Icon_specialty.png" class="icon">
-                <p>Specialité</p>
-                <img src="../images/icons/Icon_localization.png" class="icon">
-                <p>
-                    Nom établissement <br>
-                    Adresse
-                </p>
+            <div class="rdvChange" id="rdv">
             </div>
 
             <div class="modif">
                 <h2>Modifier la date</h2>
                 <p class="legend">Prochaines disponibilités</p>
-                <img src="../images/Placeholder.png"><br>
-                <a href="appointment_change_confirmation.html" class="bouton">Modifier le RDV</a>
+                <div id="calendarGrid"></div>
             </div>
 
             <div class="cancel">
@@ -63,6 +51,11 @@
                 footerPath: "../Company/footer.html",
                 allowedRoles: ['ROLE_PATIENT']
             });
+        </script>
+
+        <script src="../js/appointment_change.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', getAppointmentChange);
         </script>
         
     </body>
