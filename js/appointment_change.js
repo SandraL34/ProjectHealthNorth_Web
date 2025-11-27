@@ -15,9 +15,7 @@ async function getAppointmentChange() {
             }
         });
 
-        if (!response.ok) {
-            throw new Error('Impossible de récupérer le rendez-vous à modifier.');
-        }
+        if (!response.ok) throw new Error('Impossible de récupérer le rendez-vous à modifier.');
 
         const results = await response.json();
         filterResults(results);
@@ -28,16 +26,6 @@ async function getAppointmentChange() {
     }
 }
 
-function parseDateAndTime(dateStr, timeStr) {
-    const [y, m, d] = (dateStr || '').split('-').map(Number);
-    const [hh, mm] = (timeStr || '00:00').split(':').map(Number);
-
-    const dayAtMidnight = new Date(y, m - 1, d, 0, 0, 0, 0);
-    const fullDateTime = new Date(y, m - 1, d, hh || 0, mm || 0, 0, 0);
-
-    return { dayAtMidnight, fullDateTime };
-}
-
 function getWeekDates(offset = 0) {
     const today = new Date();
     const day = today.getDay();
@@ -45,139 +33,102 @@ function getWeekDates(offset = 0) {
     const monday = new Date(today);
     monday.setDate(today.getDate() + mondayOffset + offset * 7);
 
-    const week = [];
-    for (let i = 0; i < 7; i++) {
+    return Array.from({ length: 7 }, (_, i) => {
         const d = new Date(monday);
         d.setDate(monday.getDate() + i);
-        week.push(d.toISOString().split('T')[0]);
-    }
-    return week;
+        return d.toISOString().split('T')[0];
+    });
 }
 
-function escapeHtml(string) {
-    if (!string) return '';
-    return String(string)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;")
+              .replace(/'/g, "&#039;");
 }
 
-function getDoctorResult(item) {
-    const container = document.createElement('div');
-
+function renderDoctorInfo(item) {
     const doctor = item.doctor || {};
     const center = doctor.center || {};
-    const appointment = item.appointment || {};
     const slot = item.slot || {};
-    const key = `${doctor.firstname ?? ''}-${doctor.lastname ?? ''}-${center.name ?? ''}`;
+    const key = `${doctor.firstname}-${doctor.lastname}-${center.name}`;
 
-    if (!window.doctorWeekOffsets) window.doctorWeekOffsets = new Map();
-    if (!window.doctorWeekOffsets.has(key)) window.doctorWeekOffsets.set(key, 0);
+    const container = document.createElement('div');
+    container.className = 'doctorInfo';
 
-    const doctorInfo = document.createElement('div');
-    doctorInfo.className = 'doctorInfo';
-    
-    let formattedDate = '—';
-    if (slot.startDate) {
-        const dateObj = new Date(slot.startDate);
-        formattedDate = dateObj.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    }
+    const dateStr = slot.startDate ? new Date(slot.startDate).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '—';
+    const timeStr = slot.startTime ? slot.startTime.slice(0,5).replace(":", "h") : '—';
 
-    let formattedTime = slot.startTime ?? '—';
-    if (slot.startTime) {
-        const [hh, mm] = slot.startTime.split(':');
-        formattedTime = `${hh}h${mm}`;
-    }
-
-    doctorInfo.innerHTML = `
-        <h2>Dr ${escapeHtml(doctor.firstname || '')} ${escapeHtml(doctor.lastname || '')}</h2>
-        <h3>Le ${formattedDate ?? '—'} à ${formattedTime ?? '—'}</h3>
+    container.innerHTML = `
+        <h2>Dr ${escapeHtml(doctor.firstname)} ${escapeHtml(doctor.lastname)}</h2>
+        <h3>Le ${dateStr} à ${timeStr}</h3>
         <div class="gridResults">
             <img class="grid1 icon" src="../images/icons/Icon_localization.png" alt="Icon localization">
-            <p class="grid2">${escapeHtml(center.name || '—')}<br>${escapeHtml(center.address || '')}</p>
+            <p class="grid2">${escapeHtml(center.name)}<br>${escapeHtml(center.address)}</p>
             <img class="grid3 icon" src="../images/icons/Icon_specialty.png" alt="Icon treatments">
-            <div class="grid4" id="listTreatment-${key.replace(/\s+/g,'-')}"></div>
+            <div class="grid4" id="listTreatment-${key.replace(/\s+/g,'-')}">
+                <ul><li>Aucun traitement associé</li></ul>
+            </div>
         </div>
     `;
-
-    const treatments = Array.isArray(appointment.treatments) ? appointment.treatments : [];
-    const params = new URLSearchParams(window.location.search);
-    const requestedId = params.get('id') ? parseInt(params.get('id'), 10) : null;
-
-    const listContainer = doctorInfo.querySelector(`#listTreatment-${key.replace(/\s+/g,'-')}`);
-    const ul = document.createElement('ul');
-    if (appointment && requestedId !== null && requestedId === appointment.id) {
-        if (treatments.length > 0) {
-            treatments.forEach((treatment) => {
-                const li = document.createElement('li');
-                li.textContent = `${treatment.name} (${treatment.duration ?? '—'} min)`;
-                ul.appendChild(li);
-            });
-        } else {
-            const li = document.createElement('li');
-            li.textContent = 'Aucun traitement associé';
-            ul.appendChild(li);
-        }
-    } else {
-        const li = document.createElement('li');
-        li.textContent = 'Traitements non affichés pour ce rendez-vous';
-        ul.appendChild(li);
-    }
-    listContainer.appendChild(ul);
-    container.appendChild(doctorInfo);
-
     return container;
 }
 
-function getDoctorCalendar(item) {
+function initDoctorCalendar(firstItem, allResults) {
     const calendarGrid = document.getElementById('calendarGrid');
+    if (!calendarGrid) return;
 
-    if (!calendarGrid) {
-        console.error("Element '#calendarGrid' introuvable");
-        return null;
-    }
-
-    const doctor = item.doctor || {};
+    const doctor = firstItem.doctor || {};
     const center = doctor.center || {};
-    const slot = item.slot || {};
-    const key = `${doctor.firstname ?? ''}-${doctor.lastname ?? ''}-${center.name ?? ''}`;
-    const treatments = Array.isArray(item.appointment?.treatments) ? item.appointment.treatments : [];
+    const key = `${doctor.firstname}-${doctor.lastname}-${center.name}`;
 
     if (!window.doctorWeekOffsets) window.doctorWeekOffsets = new Map();
-    if (!window.doctorWeekOffsets.has(key)) window.doctorWeekOffsets.set(key, 0);
+    if (!window.doctorSlots) window.doctorSlots = new Map();
 
+    window.doctorWeekOffsets.set(key, 0);
+    window.doctorSlots.set(key, {});
+
+    // regrouper tous les slots du même médecin
+    allResults.forEach(item => {
+        if (!item.doctor) return;
+        const d = item.doctor;
+        const c = d.center;
+        const k = `${d.firstname}-${d.lastname}-${c.name}`;
+        if (k !== key) return; // on ne garde que le médecin du rendez-vous filtré
+
+        if (!window.doctorSlots.get(key)[item.slot.startDate]) 
+            window.doctorSlots.get(key)[item.slot.startDate] = [];
+
+        window.doctorSlots.get(key)[item.slot.startDate].push(item.slot);
+    });
+
+    // création du calendrier
     const calendar = document.createElement('div');
     calendar.className = 'calendar';
-    const buttonPrevious = document.createElement('button');
-    buttonPrevious.className = 'button prev';
-    const imgPrev = document.createElement('img');
-    imgPrev.className = 'icon';
-    imgPrev.src = "../images/icons/Icon_LeftArrow.png";
-    buttonPrevious.appendChild(imgPrev);
+
+    const buttonPrev = document.createElement('button');
+    buttonPrev.className = 'button prev';
+    buttonPrev.innerHTML = `<img class="icon" src="../images/icons/Icon_LeftArrow.png">`;
 
     const buttonNext = document.createElement('button');
     buttonNext.className = 'button next';
-    const imgNext = document.createElement('img');
-    imgNext.className = 'icon';
-    imgNext.src = "../images/icons/Icon_RightArrow.png";
-    buttonNext.appendChild(imgNext);
+    buttonNext.innerHTML = `<img class="icon" src="../images/icons/Icon_RightArrow.png">`;
 
     const grid = document.createElement('div');
     grid.className = 'gridCalendar';
-    calendar.appendChild(buttonPrevious);
+    grid.id = `gridCalendar-${key}`;
+
+    calendar.appendChild(buttonPrev);
     calendar.appendChild(grid);
     calendar.appendChild(buttonNext);
-
-    const slotsByDate = {};
-    if (slot && slot.startDate) {
-        slotsByDate[slot.startDate] = [slot];
-    }
+    calendarGrid.appendChild(calendar);
 
     function updateWeekGrid() {
-        const offset = window.doctorWeekOffsets.get(key) || 0;
+        const offset = window.doctorWeekOffsets.get(key);
         const weekDates = getWeekDates(offset);
+        const slotsByDate = window.doctorSlots.get(key);
         grid.innerHTML = '';
 
         weekDates.forEach(date => {
@@ -194,7 +145,6 @@ function getDoctorCalendar(item) {
             col.appendChild(title);
 
             const slots = slotsByDate[date] || [];
-
             if (slots.length === 0) {
                 const no = document.createElement('div');
                 no.className = 'no-slot';
@@ -202,40 +152,10 @@ function getDoctorCalendar(item) {
                 col.appendChild(no);
             } else {
                 slots.forEach(s => {
-                    const t = document.createElement('button');
-                    t.className = 'slotButton';
-                    const time = (s.startTime || '').slice(0, 5);
-                    t.textContent = time || '—';
-                    t.dataset.date = date;
-                    t.dataset.time = time;
-                    t.dataset.doctorName = `${doctor.firstname ?? ''} ${doctor.lastname ?? ''}`;
-                    t.dataset.centerName = center.name ?? '';
-                    if (s.id) t.dataset.slotId = s.id;
-
-                    const { dayAtMidnight, fullDateTime } = parseDateAndTime(date, time);
-                    const now = new Date();
-                    const todayDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0,0,0,0);
-
-                    if (dayAtMidnight.getTime() < todayDay.getTime() || 
-                        (dayAtMidnight.getTime() === todayDay.getTime() && fullDateTime.getTime() <= now.getTime())) {
-                        t.classList.add("pastSlot");
-                        t.disabled = true;
-                    }
-
-                    t.addEventListener('click', () => {
-                        if (t.disabled) return;
-                        const chosenTreatment = treatments.length > 0 ? treatments[0].name : '';
-                        const params = new URLSearchParams({
-                            doctor: t.dataset.doctorName,
-                            center: t.dataset.centerName,
-                            date: t.dataset.date,
-                            time: t.dataset.time,
-                            treatment: chosenTreatment
-                        });
-                        window.location.href = `appointment_confirmation.html?${params.toString()}`;
-                    });
-
-                    col.appendChild(t);
+                    const btn = document.createElement('button');
+                    btn.className = 'slotButton';
+                    btn.textContent = s.startTime.slice(0,5);
+                    col.appendChild(btn);
                 });
             }
 
@@ -243,59 +163,39 @@ function getDoctorCalendar(item) {
         });
     }
 
-    buttonPrevious.addEventListener('click', () => {
-        const offset = window.doctorWeekOffsets.get(key) || 0;
-        window.doctorWeekOffsets.set(key, offset - 1);
+    buttonPrev.addEventListener('click', () => {
+        window.doctorWeekOffsets.set(key, window.doctorWeekOffsets.get(key)-1);
         updateWeekGrid();
     });
 
     buttonNext.addEventListener('click', () => {
-        const offset = window.doctorWeekOffsets.get(key) || 0;
-        window.doctorWeekOffsets.set(key, offset + 1);
+        window.doctorWeekOffsets.set(key, window.doctorWeekOffsets.get(key)+1);
         updateWeekGrid();
     });
 
+    // première mise à jour
     updateWeekGrid();
-
-    return calendar;
 }
 
-function renderResults(results, allResults) {
+function renderResults(filteredResults, allResults) {
     const container = document.getElementById('rdv');
-    if (!container) {
-        console.error("Element '#rdv' introuvable dans le DOM.");
-        return;
-    }
+    if (!container) return;
 
     container.innerHTML = '<h2>Votre rendez-vous</h2>';
+    filteredResults.forEach(item => {
+        const node = renderDoctorInfo(item);
+        container.appendChild(node);
+    });
 
-    if (!Array.isArray(results) || results.length === 0) {
-        container.innerHTML = '<h2>Votre rendez-vous</h2><p>Aucun résultat correspondant à votre rendez-vous.</p>';
-        return;
+    if (filteredResults.length > 0) {
+        initDoctorCalendar(filteredResults[0], allResults);
     }
-
-    results.forEach(item => {
-        const resultNode = getDoctorResult(item);
-        container.appendChild(resultNode);
-    });
-
-    allResults.forEach (item => {
-        const allResultNode = getDoctorCalendar(item);
-        calendarGrid.appendChild(allResultNode);
-    });
 }
 
 function filterResults(results) {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
 
-    const filteredResultsAppointment = results.filter(item => {
-        let match = true;
-        if (id) match = match && item.appointment?.id == id;
-        return match;
-    });
-
-    const allResults = results;
-
-    renderResults(filteredResultsAppointment, allResults);
+    const filteredResults = results.filter(item => item.appointment?.id == id);
+    renderResults(filteredResults, results);
 }
