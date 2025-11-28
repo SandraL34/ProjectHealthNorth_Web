@@ -38,14 +38,13 @@ function displayPastAppointments(appointments) {
     appointments.forEach(app => {
         const div = document.createElement("div");
         div.classList.add("rdvPast");
-
         div.innerHTML = `
             <p>
                 "<strong>${app.title}</strong>" le ${app.dateTime} à ${app.doctor.name} avec <strong>${app.doctor ? 
                     "dr " + app.doctor.lastname : "N/A"}</strong>
             </p>
 
-            <a class="bouton" href="prescription.html?id=${app.id}">Accéder à la prescription</a>
+            <a class="bouton" href="prescription.html#p${app.prescriptions[0]["id"]}">Accéder à la prescription</a>
         `;
 
         container.appendChild(div);

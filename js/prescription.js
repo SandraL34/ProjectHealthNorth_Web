@@ -20,6 +20,8 @@ async function getPrescriptionData() {
 
         const prescriptions = await response.json();
         displayPrescriptions(prescriptions);
+        scrollToHash();
+
     } catch (error) {
         console.error(error);
         alert("Erreur lors du chargement des prescriptions.");
@@ -38,6 +40,7 @@ function displayPrescriptions(prescriptions) {
     prescriptions.forEach(app => {
         const div = document.createElement("div");
         div.classList.add("prescription");
+        div.setAttribute("id", "p" + app.id);
 
         div.innerHTML = `
                 <h2>Rendez-vous du ${app.appointment.dateTime} avec ${app.appointment ? "dr " + app.appointment.lastname : "N/A"}</h2>
@@ -51,4 +54,17 @@ function displayPrescriptions(prescriptions) {
 
         container.appendChild(div);
     });
+}
+
+function scrollToHash() {
+    const hash = window.location.hash;
+
+    if (!hash) return;
+
+    setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+        }
+    }, 50);
 }

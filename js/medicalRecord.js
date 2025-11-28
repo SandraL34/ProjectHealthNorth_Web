@@ -1,4 +1,4 @@
-async function getPatientData() {
+async function getMedicalRecord() {
     const token = localStorage.getItem('jwt');
     if (!token) {
         alert("Vous devez être connecté pour accéder à votre dossier médical.");
