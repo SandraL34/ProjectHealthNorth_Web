@@ -20,7 +20,12 @@ async function getAppointmentResults() {
         }
 
         const results = await response.json();
-        filterResults(results);
+        const normalized = results.map(r => {
+            r.slot = normalizeSlotFormat(r.slot);
+            return r;
+        });
+
+    filterResults(normalized);
 
     } catch (error) {
         console.error(error);
@@ -28,12 +33,58 @@ async function getAppointmentResults() {
     }
 }
 
+function normalizeSlotFormat(slot) {
+    if (!slot) return slot;
+
+    if (slot.startDate && slot.startDate.includes('/')) {
+        const [d, m, y] = slot.startDate.split('/');
+        slot.startDate = `${y.padStart(4,'0')}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`;
+    }
+    if (slot.endDate && slot.endDate.includes('/')) {
+        const [d, m, y] = slot.endDate.split('/');
+        slot.endDate = `${y.padStart(4,'0')}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`;
+    }
+
+    if (slot.startTime) slot.startTime = slot.startTime.replace('h', ':');
+    if (slot.endTime) slot.endTime = slot.endTime.replace('h', ':');
+
+    return slot;
+}
+
+function formatIsoToFr(isoDate) {
+    const [y, m, d] = isoDate.split('-');
+    return `${d}/${m}/${y}`;
+}
+
+function formatTimeDisplay(time) {
+    if (!time) return "";
+    return time.replace("h", ":").slice(0,5);
+}
+
 function parseDateAndTime(dateStr, timeStr) {
-    const [y, m, d] = (dateStr || '').split('-').map(Number);
-    const [hh, mm] = (timeStr || '00:00').split(':').map(Number);
+    if (!dateStr) return { dayAtMidnight: null, fullDateTime: null };
+
+    let y, m, d;
+
+    if (dateStr.includes('-')) {
+        [y, m, d] = dateStr.split('-').map(Number);
+    }
+    else if (dateStr.includes('/')) {
+        [d, m, y] = dateStr.split('/').map(Number);
+    } else {
+        return { dayAtMidnight: null, fullDateTime: null };
+    }
+
+    let hh = 0, mm = 0;
+    if (timeStr) {
+        if (timeStr.includes(':')) {
+            [hh, mm] = timeStr.split(':').map(Number);
+        } else if (timeStr.includes('h')) {
+            [hh, mm] = timeStr.split('h').map(Number);
+        }
+    }
 
     const dayAtMidnight = new Date(y, m - 1, d, 0, 0, 0, 0);
-
     const fullDateTime = new Date(y, m - 1, d, hh || 0, mm || 0, 0, 0);
 
     return { dayAtMidnight, fullDateTime };
@@ -207,25 +258,35 @@ function getDoctorResult(key, data) {
                         if (t.disabled) return;
                         const chosenIndex = select.value;
                         const chosen = treatments[chosenIndex];
+
+                        const dateFr = formatIsoToFr(t.dataset.date);
+                        const timeFr = formatTimeDisplay(t.dataset.time);
+
                         const params = new URLSearchParams({
-                            doctor: t.dataset.doctorName,
+                            doctorId: doctor.id,
+                            doctorName: t.dataset.doctorName,
                             center: t.dataset.centerName,
-                            date: t.dataset.date,
-                            time: t.dataset.time,
-                            treatment: chosen ? chosen.name : ''
+                            date: dateFr,
+                            time: timeFr,
+                            treatmentId: (chosen ? chosen.id : ''),
+                            treatmentName: (chosen ? chosen.name : '')
                         });
-                        window.location.href = `appointment_confirmation.html?${params.toString()}`;
+                        window.location.href = `appointment_book.html?${params.toString()}`;
                     });
 
                     const { dayAtMidnight: slotDay, fullDateTime: slotDateTime } = parseDateAndTime(date, time);
                     const now = new Date();
-                    const todayDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0,0,0,0);
+                    const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
 
-                    if (slotDay.getTime() < todayDay.getTime()) {
-                        t.classList.add("pastSlot");
+                    if (!slotDay || !slotDateTime) {
+                        // si parsing failed, on préfère désactiver par sécurité
+                        t.classList.add('pastSlot');
                         t.disabled = true;
-                    } else if (slotDay.getTime() === todayDay.getTime() && slotDateTime.getTime() <= now.getTime()) {
-                        t.classList.add("pastSlot");
+                    } else if (slotDay.getTime() < todayMidnight.getTime()) {
+                        t.classList.add('pastSlot');
+                        t.disabled = true;
+                    } else if (slotDay.getTime() === todayMidnight.getTime() && slotDateTime.getTime() <= now.getTime()) {
+                        t.classList.add('pastSlot');
                         t.disabled = true;
                     }
 
@@ -313,13 +374,15 @@ function updateCalendar(offset) {
                     const chosenIndex = select.value;
                     const chosen = treatments[chosenIndex];
                     const params = new URLSearchParams({
-                        doctor: t.dataset.doctorName,
+                        doctorId: doctor.id,
+                        doctorName: t.dataset.doctorName,
                         center: t.dataset.centerName,
-                        date: t.dataset.date,
-                        time: t.dataset.time,
-                        treatment: (chosen ? chosen.name : '')
+                        date: dateFr,
+                        time: timeFr,
+                        treatmentId: (chosen ? chosen.id : ''),
+                        treatmentName: (chosen ? chosen.name : '')
                     });
-                    window.location.href = `appointment_confirmation.html?${params.toString()}`;
+                    window.location.href = `appointment_book.html?${params.toString()}`;
                 });
 
                 col.appendChild(t);

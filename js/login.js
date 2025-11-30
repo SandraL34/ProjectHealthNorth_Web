@@ -42,6 +42,13 @@ loginButton.addEventListener('click', async () => {
         const payload = JSON.parse(atob(token.split('.')[1]));
         const roles = payload.roles || [];
 
+        const patientId = payload.id; 
+        if (patientId) {
+            localStorage.setItem('patientId', patientId);
+        } else {
+            console.warn("Patient ID non trouvé dans le token !");
+        }
+        
         if (roles.includes('ROLE_ADMIN')) {
             window.location.href = '../Admin/accountAdmin.html';
         } else if (roles.includes('ROLE_DOCTOR')) {

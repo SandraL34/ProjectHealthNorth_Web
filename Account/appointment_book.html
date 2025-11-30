@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -13,8 +16,9 @@
         <header id="header"></header>
 
         <div class="container confirmation">
-            <h1>Votre rendez-vous est validé !</h1>
-            <a href="appointment.html" class="bouton">Retour aux rendez-vous</a>
+            <h1>Récapitulatif de rendez-vous</h1>
+                <div id="recapBooking"></div>
+            <a href="appointment_confirmation.html" class="bouton" id="buttonCreateAppointment">Confirmer la réservation</a>
         </div>
 
         <footer id="siteFooter">
@@ -37,6 +41,9 @@
                 allowedRoles: ['ROLE_PATIENT']
             });
         </script>
+
+        <script src="../js/appointment_book.js"></script>
+        <script src="../js/appointment_create.js"></script>
         
     </body>
 </html>
