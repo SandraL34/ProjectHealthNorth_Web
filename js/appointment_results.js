@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", getAppointmentResults);
 
+const NOW = new Date();
+NOW.setSeconds(0, 0);
+
 async function getAppointmentResults() {
+
     const token = localStorage.getItem('jwt');
 
     if (!token) {
@@ -21,7 +25,7 @@ async function getAppointmentResults() {
 
         const results = await response.json();
 
-        renderResults(results);
+        filterResults(results);
 
     } catch (error) {
         console.error(error);
@@ -204,7 +208,11 @@ function getDoctorInfo(data) {
                     });
 
                     const { fullDateTime } = parseDateAndTime(slot.startDate, slot.startTime);
-                    if (fullDateTime < new Date()) btn.disabled = true;
+
+                    if (fullDateTime <= NOW) {
+                        btn.disabled = true;
+                        btn.classList.add("pastSlot");
+                    }
 
                     col.appendChild(btn);
                 });
@@ -215,6 +223,7 @@ function getDoctorInfo(data) {
     }
 
     renderCalendar();
+    select.dispatchEvent(new Event('change'));
 
     previousButton.addEventListener('click', () => {
         weekOffset--;
@@ -233,4 +242,43 @@ function getDoctorInfo(data) {
     });
 
     return container;
+}
+
+function filterResults(results) {
+    const params = new URLSearchParams(window.location.search);
+
+    const doctorParam = params.get('qui')?.toLowerCase() || "";
+    const treatmentParam = params.get('treatment') || "";
+    const ouParam = params.get('ou')?.toLowerCase() || "";
+    const centerParam = params.get('center') || "";
+
+    const filtered = results.filter(item => {
+
+        const doctor = item.doctor || {};
+        const center = doctor.center || {};
+        const treatments = doctor.treatments || [];
+
+        if (doctorParam) {
+            const fullName = `${doctor.firstname ?? ""} ${doctor.lastname ?? ""}`.toLowerCase();
+            if (!fullName.includes(doctorParam)) return false;
+        }
+
+        if (treatmentParam && treatmentParam !== "tous") {
+            const hasTreatment = treatments.some(t => t.id == treatmentParam);
+            if (!hasTreatment) return false;
+        }
+
+        if (ouParam) {
+            const centerString = `${center.name ?? ""} ${center.address ?? ""}`.toLowerCase();
+            if (!centerString.includes(ouParam)) return false;
+        }
+
+        if (centerParam) {
+            if (center.id != centerParam) return false;
+        }
+
+        return true;
+    });
+
+    renderResults(filtered);
 }
