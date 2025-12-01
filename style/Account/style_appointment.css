@@ -24,13 +24,9 @@ h2 {
     max-width: 30%;
 }
 
-.rdvComing, .rdvPast {
-    margin-top: 10px;
-}
-
 .rdvComing .bouton, .rdvPast .bouton {
     display: block;
-    margin: 10px auto 0;
+    margin: 10px 10px 0;
 }
 
 .bouton {
@@ -208,6 +204,14 @@ h2 {
 .grid4 li {
     margin: 0px;
     margin-left: 15px;
+}
+
+.left {
+    text-align: justify;
+}
+
+ul {
+    margin-left: 20px;
 }
 
 /* Autocomplétion recherche */

@@ -38,9 +38,14 @@ function displayPastAppointments(appointments) {
     appointments.forEach(app => {
         const div = document.createElement("div");
         div.classList.add("rdvPast");
+
+        const dateTime = parseDateToLocal(app.date);
+
+        const dateFr = dateTime ? dateTime.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'Date non disponible';
+
         div.innerHTML = `
             <p>
-                "<strong>${app.title}</strong>" le ${app.dateTime} à ${app.doctor.name} avec <strong>${app.doctor ? 
+                "<strong>${app.title}</strong>" le ${dateFr} à ${app.doctor.name} avec <strong>${app.doctor ? 
                     "dr " + app.doctor.lastname : "N/A"}</strong>
             </p>
 
@@ -49,4 +54,12 @@ function displayPastAppointments(appointments) {
 
         container.appendChild(div);
     });
+}
+
+function parseDateToLocal(dateStr) {
+    if (!dateStr) return null;
+
+    const [y, m, d] = dateStr.split('-').map(Number);
+
+    return new Date(y, (m - 1), d);
 }
