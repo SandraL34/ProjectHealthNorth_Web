@@ -1,14 +1,16 @@
 document.addEventListener("DOMContentLoaded", getAppointmentChanges);
 
+const NOW = new Date();
+NOW.setSeconds(0, 0);
+
+const token = localStorage.getItem("jwt");
+
 async function getAppointmentChanges() {
     try {
-        const token = localStorage.getItem("jwt");
-
         if (!token) {
             alert("Utilisateur non connecté");
             return;
         }
-
         const response = await fetch("http://localhost:8000/api/appointment/change", {
             method: "GET",
             headers: {
@@ -47,6 +49,7 @@ function filterResults(results) {
     renderResults(filtered, results);
 }
 
+let currentSlot = null;
 
 function renderResults(list, allResults) {
     const container = document.getElementById("rdv");
@@ -77,6 +80,7 @@ function renderResults(list, allResults) {
     list.forEach(item => {
         const doctor = item.doctor || {};
         const slot = item.slot || {};
+        if (slot.appointment) currentSlot = slot;
         const center = doctor.center || {};
         const treatments = doctor.treatments  || {};
 
@@ -119,11 +123,6 @@ function renderResults(list, allResults) {
 
         container.appendChild(doctorInfo);
     });
-}
-
-function selectSlot(date, time, doctorId, appointmentId) {
-    const url = `/appointment_create.html?date=${date}&time=${time}&doctor=${doctorId}&appointment=${appointmentId}`;
-    window.location.href = url;
 }
 
 function parseDateAndTimeToLocal(dateStr, timeStr) {
@@ -253,10 +252,75 @@ function getDoctorInfo(data) {
                     const btn = document.createElement('button');
                     btn.className = 'slotButton';
                     btn.textContent = formatTimeDisplay(slot.startTime);
-                    btn.disabled = slot.isBooked;
+                    const doctor = data.doctor || {};
+                    const treatments = doctor.treatments || [];
+                    const totalDuration = treatments.reduce((sum, t) => sum + (Number(t.duration) || 0), 0);
+
+                    const bookedSlotsForDay = (data.slots[date] || []).filter(s => s.isBooked);
+                    const overlaps = bookedSlotsForDay.some(bookedSlot =>
+                        isOverlapping(slot, bookedSlot, totalDuration)
+                    );
+
+                    btn.disabled = slot.isBooked || overlaps;
 
                     const { fullDateTime } = parseDateAndTime(slot.startDate, slot.startTime);
-                    if (fullDateTime < new Date()) btn.disabled = true;
+                    if (fullDateTime <= NOW) btn.disabled = true;
+
+                btn.addEventListener('click', async () => {
+                    try {
+                        if (!currentSlot || !currentSlot.appointment || !currentSlot.appointment.id) {
+                        alert("Impossible de récupérer l'identifiant du rendez-vous actuel.");
+                        return;
+                        }
+
+                        const appointmentId = currentSlot.appointment.id;
+
+                        const selectedDate = slot.startDate;
+                        const selectedTime = slot.startTime;
+                        const doctorId = doctor.id;
+
+                        const slotsForDate = data.slots[selectedDate] || [];
+                        const selectedSlot = slotsForDate.find(s =>
+                            s.startDate === selectedDate &&
+                            s.startTime === selectedTime &&
+                            s.doctorId === doctorId
+                        );
+
+                        if (!selectedSlot) {
+                            alert("Impossible de trouver le slot sélectionné.");
+                            return;
+                        }
+
+                        console.log("Slot sélectionné pour changement :", selectedSlot);
+
+                        const totalDuration = doctor.treatments?.reduce((sum, t) => sum + (Number(t.duration) || 0), 0) || 0;
+                        const startDateTime = new Date(`${selectedDate}T${selectedTime}`);
+                        const endDateTime = new Date(startDateTime.getTime() + totalDuration * 60000);
+
+                        const endDate = endDateTime.toISOString().split('T')[0];
+                        const endTime = endDateTime.toTimeString().slice(0, 8);
+
+                        const payload = {
+                            appointmentId,
+                            date: selectedDate,
+                            time: selectedTime,
+                            endDate,
+                            endTime
+                        };
+
+                        console.log("Payload envoyé à l'API :", payload);
+
+                        await updateAppointment(payload, token);
+
+                        alert("Rendez-vous modifié avec succès !");
+                        window.location.href = 'appointment_change_confirmation.html';
+
+                    } catch (error) {
+                        console.error("Erreur lors de la modification du rendez-vous :", error);
+                        alert("Erreur lors de la modification du rendez-vous.");
+                    }
+
+                });
 
                     col.appendChild(btn);
                 });
@@ -278,4 +342,87 @@ function getDoctorInfo(data) {
     });
 
     return container;
+}
+
+function parseDateTimeStrict(dateStr, timeStr) {
+    if (!dateStr || !timeStr) return null;
+
+    const tParts = timeStr.split(':').map(Number);
+    if (tParts.length < 2) return null;
+    const hh = Number.isFinite(tParts[0]) ? tParts[0] : NaN;
+    const mm = Number.isFinite(tParts[1]) ? tParts[1] : 0;
+    const ss = tParts.length >= 3 && Number.isFinite(tParts[2]) ? tParts[2] : 0;
+
+    let y, m, d;
+    if (dateStr.includes('-')) {
+        const parts = dateStr.split('-').map(Number);
+        if (parts.length !== 3) return null;
+        [y, m, d] = parts;
+    } else if (dateStr.includes('/')) {
+        const parts = dateStr.split('/').map(Number);
+        if (parts.length !== 3) return null;
+        [d, m, y] = parts;
+    } else {
+        return null;
+    }
+
+    if (![y,m,d,hh,mm,ss].every(Number.isFinite)) return null;
+
+    const dt = new Date(y, m - 1, d, hh, mm, ss, 0);
+    if (isNaN(dt.getTime())) return null;
+    return dt;
+}
+
+function isOverlapping(slot, booked, durationMinutes) {
+    const slotStart = parseDateTimeStrict(slot.startDate, slot.startTime);
+    if (!slotStart) {
+        console.warn("isOverlapping: invalid slot start", slot);
+        return false;
+    }
+    const slotEnd = new Date(slotStart.getTime() + (durationMinutes || 0) * 60000);
+
+    const bookedStart = parseDateTimeStrict(booked.startDate, booked.startTime);
+    const bookedEnd = parseDateTimeStrict(booked.endDate, booked.endTime);
+
+    if (!bookedStart || !bookedEnd) {
+        console.warn("isOverlapping: invalid booked slot", booked);
+        return false;
+    }
+
+    let bs = bookedStart.getTime();
+    let be = bookedEnd.getTime();
+
+    if (be < bs) {
+        console.warn("isOverlapping: booked end < start — swapping", { booked });
+        [bs, be] = [be, bs];
+    }
+
+    const s = slotStart.getTime();
+    const e = slotEnd.getTime();
+
+    return s < be && e > bs;
+}
+
+async function updateAppointment(data, token) {
+    try {
+        const response = await fetch(`http://localhost:8000/api/appointment/change/${data.appointmentId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("SERVER RESPONSE:", errorText);
+            throw new Error("Erreur lors de la modification du rendez-vous");
+        }
+
+        return await response.json();
+    } catch (err) {
+        console.error("Erreur updateAppointment:", err);
+        throw err;
+    }
 }

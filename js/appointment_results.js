@@ -72,21 +72,23 @@ function groupByDoctor(results) {
     const doctors = {};
     results.forEach(item => {
         const doctor = item.doctor || {};
-        const key = `${item.doctorId ?? doctor.id}`;
+        const doctorId = item.doctorId;
 
-        if (!doctors[key]) {
-            doctors[key] = { doctor, slots: {} };
+        if (!doctors[doctorId]) {
+                    doctors[doctorId] = { doctorId, doctor, slots: {} };
+                }
+
+                const slot = item.slot;
+                if (slot && slot.startDate) {
+                    if (!doctors[doctorId].slots[slot.startDate]) {
+                        doctors[doctorId].slots[slot.startDate] = [];
+                    }
+                    doctors[doctorId].slots[slot.startDate].push(slot);
+                }
+            });
+
+            return doctors;
         }
-
-        const slot = item.slot;
-        if (slot && slot.startDate) {
-            if (!doctors[key].slots[slot.startDate]) doctors[key].slots[slot.startDate] = [];
-            doctors[key].slots[slot.startDate].push(slot);
-        }
-    });
-
-    return doctors;
-}
 
 function renderResults(results) {
     const container = document.getElementById('container');
@@ -194,15 +196,32 @@ function getDoctorInfo(data) {
                     const btn = document.createElement('button');
                     btn.className = 'slotButton';
                     btn.textContent = formatTimeDisplay(slot.startTime);
-                    btn.disabled = select.value === '' || slot.isBooked;
+                    const treatmentId = select.value;
+                    const treatment = treatments.find(t => t.id == treatmentId);
+                    const duration = treatment ? Number(treatment.duration) : 0;
+
+                    const bookedSlotsForDay = (data.slots[date] || []).filter(s => s.isBooked);
+
+                    const overlaps = bookedSlotsForDay.some(bookedSlot =>
+                        isOverlapping(slot, bookedSlot, duration)
+                    );
+
+                    btn.disabled =
+                        !treatmentId ||
+                        slot.isBooked ||
+                        overlaps;
 
                     btn.addEventListener('click', () => {
                         if (!select.value) return;
                         const params = new URLSearchParams({
-                            doctorId: doctor.id,
+                            doctorId: data.doctorId,
                             date: formatIsoToFr(slot.startDate),
                             time: formatTimeDisplay(slot.startTime),
-                            treatmentId: select.value
+                            treatmentId: select.value,
+                            centerId: doctor.center.id,
+                            doctorName: doctor.firstname + " " + doctor.lastname,
+                            centerName: doctor.center.name,
+                            treatmentName: treatments[0].name
                         });
                         window.location.href = `appointment_book.html?${params.toString()}`;
                     });
@@ -235,10 +254,7 @@ function getDoctorInfo(data) {
     });
 
     select.addEventListener('change', () => {
-        const enabled = select.value !== '';
-        gridCalendar.querySelectorAll('.slotButton').forEach(btn => {
-            btn.disabled = !enabled || btn.classList.contains('pastSlot') || btn.dataset.booked === 'true';
-        });
+        renderCalendar();
     });
 
     return container;
@@ -281,4 +297,71 @@ function filterResults(results) {
     });
 
     renderResults(filtered);
+}
+
+function parseDateTimeStrict(dateStr, timeStr) {
+    if (!dateStr || !timeStr) return null;
+
+    const tParts = timeStr.split(':').map(Number);
+    if (tParts.length < 2) return null;
+    const hh = Number.isFinite(tParts[0]) ? tParts[0] : NaN;
+    const mm = Number.isFinite(tParts[1]) ? tParts[1] : 0;
+    const ss = tParts.length >= 3 && Number.isFinite(tParts[2]) ? tParts[2] : 0;
+
+    let y, m, d;
+    if (dateStr.includes('-')) {
+        const parts = dateStr.split('-').map(Number);
+        if (parts.length !== 3) return null;
+        [y, m, d] = parts;
+    } else if (dateStr.includes('/')) {
+        const parts = dateStr.split('/').map(Number);
+        if (parts.length !== 3) return null;
+        [d, m, y] = parts;
+    } else {
+        return null;
+    }
+
+    if (![y,m,d,hh,mm,ss].every(Number.isFinite)) return null;
+
+    const dt = new Date(y, m - 1, d, hh, mm, ss, 0);
+    if (isNaN(dt.getTime())) return null;
+    return dt;
+}
+
+function isOverlapping(slot, booked, durationMinutes) {
+    const slotStart = parseDateTimeStrict(slot.startDate, slot.startTime);
+    if (!slotStart) {
+        console.warn("isOverlapping: invalid slot start", slot);
+        return false;
+    }
+    const slotEnd = new Date(slotStart.getTime() + (durationMinutes || 0) * 60000);
+
+    const bookedStart = parseDateTimeStrict(booked.startDate, booked.startTime);
+    const bookedEnd = parseDateTimeStrict(booked.endDate, booked.endTime);
+
+    if (!bookedStart || !bookedEnd) {
+        console.warn("isOverlapping: invalid booked slot", booked);
+        return false;
+    }
+
+    let bs = bookedStart.getTime();
+    let be = bookedEnd.getTime();
+
+    if (be < bs) {
+        console.warn("isOverlapping: booked end < start — swapping", { booked });
+        [bs, be] = [be, bs];
+    }
+
+    const s = slotStart.getTime();
+    const e = slotEnd.getTime();
+
+    console.log("DEBUG overlap check",
+    {
+        slot: { date: slot.startDate, time: slot.startTime },
+        booked: { date: booked.startDate, start: booked.startTime, end: booked.endTime },
+        parsed: { slotStart: s, slotEnd: e, bookedStart: bs, bookedEnd: be }
+    }
+    );
+
+    return s < be && e > bs;
 }

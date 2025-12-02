@@ -1,7 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 
 const doctorParam = params.get('doctorName') || '';
-const centerParam = params.get('center') || '';
+const centerParam = params.get('centerName') || '';
 const dateParam = params.get('date') || '';
 const timeParam = params.get('time') || '';
 const treatmentParam = params.get('treatmentName') || '';

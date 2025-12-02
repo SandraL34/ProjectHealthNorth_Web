@@ -1,5 +1,4 @@
 document.getElementById("buttonCreateAppointment").addEventListener("click", async (e) => {
-    e.preventDefault();
 
     const params = new URLSearchParams(window.location.search);
 
@@ -27,26 +26,21 @@ document.getElementById("buttonCreateAppointment").addEventListener("click", asy
         return;
     }
 
-    const dateTimeIso = convertFrToIso(dateFr, timeFr);
-    if (!dateTimeIso) {
-        alert("Impossible de convertir la date et l'heure en format ISO.");
-        return;
-    }
+    const [day, month, year] = dateFr.split('/');
+    const dateIso = `${year}-${month}-${day}`;
+    const timeIso = `${timeFr}:00`;  
 
     const data = {
         patient: `/api/patients/${patientId}`,
         doctor: `/api/doctors/${doctorId}`,
         treatments: [`/api/treatments/${treatmentId}`],
-        title: title,
-        dateTime: dateTimeIso
+        title,
+        date: dateIso,
+        time: timeIso
     };
-
-    console.log("Payload envoyé :", data);
 
     try {
         const appointment = await createAppointment(data, token);
-        console.log("Rendez-vous créé :", appointment);
-        alert("Rendez-vous ajouté avec succès !");
     } catch (error) {
         console.error(error);
         alert("Erreur lors de la création du rendez-vous.");
