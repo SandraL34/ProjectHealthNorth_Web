@@ -1,9 +1,9 @@
+const token = localStorage.getItem("jwt");
+
 document.addEventListener("DOMContentLoaded", getAppointmentChanges);
 
 const NOW = new Date();
 NOW.setSeconds(0, 0);
-
-const token = localStorage.getItem("jwt");
 
 async function getAppointmentChanges() {
     try {
@@ -123,6 +123,8 @@ function renderResults(list, allResults) {
 
         container.appendChild(doctorInfo);
     });
+
+    cancelAppointment();
 }
 
 function parseDateAndTimeToLocal(dateStr, timeStr) {
@@ -291,8 +293,6 @@ function getDoctorInfo(data) {
                             return;
                         }
 
-                        console.log("Slot sélectionné pour changement :", selectedSlot);
-
                         const totalDuration = doctor.treatments?.reduce((sum, t) => sum + (Number(t.duration) || 0), 0) || 0;
                         const startDateTime = new Date(`${selectedDate}T${selectedTime}`);
                         const endDateTime = new Date(startDateTime.getTime() + totalDuration * 60000);
@@ -308,12 +308,17 @@ function getDoctorInfo(data) {
                             endTime
                         };
 
-                        console.log("Payload envoyé à l'API :", payload);
-
                         await updateAppointment(payload, token);
 
-                        alert("Rendez-vous modifié avec succès !");
-                        window.location.href = 'appointment_change_confirmation.html';
+                        const params = new URLSearchParams({
+                            date: formatIsoToFr(selectedDate),
+                            time: formatTimeDisplay(selectedTime),
+                            doctorName: doctor.firstname + " " + doctor.lastname,
+                            centerName: doctor.center.name,
+                            treatmentName: treatments[0].name
+                        });
+
+                        window.location.href = `appointment_change_confirmation.html?${params.toString()}`;
 
                     } catch (error) {
                         console.error("Erreur lors de la modification du rendez-vous :", error);
@@ -401,6 +406,45 @@ function isOverlapping(slot, booked, durationMinutes) {
     const e = slotEnd.getTime();
 
     return s < be && e > bs;
+}
+
+function cancelAppointment() {
+    const divCancelButton = document.querySelector("#cancelButton");
+    const cancelButton = document.createElement('button');
+    cancelButton.className = "bouton";
+    cancelButton.textContent = "Annuler le RDV";
+    divCancelButton.appendChild(cancelButton);
+
+    cancelButton.addEventListener('click', async () => {
+
+        let appointmentId = currentSlot?.appointment?.id 
+            ?? new URLSearchParams(window.location.search).get('id');
+
+        if (!appointmentId) {
+            alert("Impossible de récupérer l'ID du rendez-vous.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8000/api/appointment/cancel/${appointmentId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (response.status === 204 || response.ok) {
+                window.location.href = "appointment_cancel_confirmation.html";
+            } else {
+                const txt = await response.text();
+                console.error("Erreur serveur :", txt);
+                alert("Erreur lors de l'annulation : " + txt);
+            }
+        } catch (err) {
+            console.error("Erreur DELETE :", err);
+            alert("Erreur réseau lors de l'annulation.");
+        }
+    });
 }
 
 async function updateAppointment(data, token) {

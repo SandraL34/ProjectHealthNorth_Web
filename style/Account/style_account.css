@@ -25,6 +25,10 @@ h2 {
     align-items: center;
 }
 
+.rdvComing {
+    margin-top: 10px;
+}
+
 .bouton {
     width: 300px;
     text-decoration: none;
