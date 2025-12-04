@@ -50,7 +50,7 @@
                         <label for="socialsecurityNumber">Numéro de sécurité sociale</label>
                         <input id="socialsecurityNumber" type="text" placeholder="0200000000000000">
                         <label for="doctor">Nom du médecin traitant</label>
-                        <input id="doctor" type="text" placeholder="Prénom et Nom du médecin traitant">
+                        <select name="doctor" id="doctor"></select>
                         <label for="socialsecurityRegime">Régime de sécurité sociale</label>
                         <input id="socialsecurityRegime" type="text" placeholder="Général">
                         <label for="healthcareInsurance">Organisme complémentaire</label>
@@ -126,10 +126,9 @@
                     </div>
                 </div>
             </div>
-            <div class="boutons">
-                <a href="medicalRecord_change_password.html" class="bouton">Modifier les informations</a>
-                <a href="medicalRecord_delete_password.html" class="bouton">Supprimer mon compte</a>
-            </div>
+
+            <div class="boutons" id="ChangeDeletebuttons"></div>
+
         </div>
 
         <footer id="siteFooter">
@@ -157,6 +156,13 @@
         <script>
             document.addEventListener('DOMContentLoaded', getMedicalRecord);
         </script>
+
+        <script src="../js/medicalRecord_doctorList.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', getDoctorsList);
+        </script>
+        
+        <script src="../js/medicalRecord_change.js"></script>
         
     </body>
 </html>
