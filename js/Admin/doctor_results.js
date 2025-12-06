@@ -55,7 +55,7 @@ function renderResults(results) {
 
         divResults.innerHTML = `
             <h2>Dr ${item.firstname ?? ''} ${item.lastname ?? ''}</h2>
-            <div class="grid">
+            <div class="gridAddress">
                 <img src="../images/icons/Icon_localization.png" alt="Icon localization" class="icon grid1">
                 <p>Centre : ${center.name ?? '—'}, ${center.address ?? ''}</p>
             </div>

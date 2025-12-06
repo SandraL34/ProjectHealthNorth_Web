@@ -16,9 +16,11 @@
             <h1>Espace administrateur</h1>
             <div class="module">
                 <h2>Ajouter un spécialiste</h2>
-                <div class="grid">
-                    <label for="nom">Nom du spécialiste</label>
-                    <input id="nom" type="text" placeholder="Prénom Nom">
+                <div class="gridForm">
+                    <label for="firstname">Prénom du spécialiste</label>
+                    <input id="firstname" type="text" placeholder="Prénom">
+                    <label for="lastname">Nom du spécialiste</label>
+                    <input id="lastname" type="text" placeholder="Nom">
                     <label for="email">Email</label>
                     <input id="email" type="email" placeholder="email@example.fr">
                     <label for="phone">Téléphone</label>
@@ -30,20 +32,18 @@
                     <label for="actes">Actes pratiqués</label>
                     <input id="actes" type="text" placeholder="Nom de l'acte">
                 </div>
-                <p class="bold">Actes déjà ajoutés</p>
+                <h3>Actes déjà ajoutés</h3>
 
                 <div class="dispo">
-                    <p class="bold">Disponibilités</p>
+                    <h3>Disponibilités</h3>
                     <label for="dispoIdentiques">Mêmes disponibilités tous les jours</label>
                     <input id="dispoIdentiques" type="checkbox">
                 </div>
 
-                <div class="grid2">
-                    <p class="legend gridSpec1">Matin</p>
-                    <p class="legend gridSpec2">Après-midi</p>
-                </div>
+                <div class="gridDispo">
+                    <p class="legend gridAM">Matin</p>
+                    <p class="legend gridPM">Après-midi</p>
 
-                <div class="grid2">
                     <input id="lundi" type="checkbox">
                     <label for="lundi">Lundi</label>
                     <input type="time" id="lundiMatinDebut" name="lundiMatinDebut" min="00:00" max="24:00"/>
@@ -88,7 +88,7 @@
                     <input type="time" id="dimancheApremFin" name="dimancheApremFin" min="00:00" max="24:00"/>
                 </div>
                 <div class="boutonContainer">
-                    <a href="specialist_add_confirmation.html" class="bouton">Ajouter à la base de données</a>
+                    <a href="doctor_add_confirmation.html" class="bouton">Ajouter à la base de données</a>
                 </div>
             </div>
         </div>
