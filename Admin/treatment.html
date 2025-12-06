@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../style/style.css">
-        <link rel="stylesheet" href="../style/Admin/style_center.css">
+        <link rel="stylesheet" href="../style/Admin/style_treatment.css">
         <title>HealthNorth - Accueil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
@@ -16,23 +16,23 @@
             <h1>Espace administrateur</h1>
             <div class="module">
                 <div>
-                    <h2>Rechercher un centre</h2>
+                    <h2>Rechercher une spécialité</h2>
                     <div class="form">
-                        <label for="specialist">Nom du centre</label>
-                        <input id="specialist" type="text" class="shortField" placeholder="Nom du centre">
+                        <label for="treatment">Nom de la spécialité</label>
+                        <input id="treatment" type="text" class="shortField" placeholder="Nom de la spécialité">
                     </div>
                 </div>
 
                 <div class="sousModule">
                     <div>
-                        <h3>Il n'existe pas ? Créez-le !</h3>
-                        <a href="center_add.html" class="bouton">Ajouter un centre</a>
+                        <h3>Elle n'existe pas ? Créez-la !</h3>
+                        <a href="treatment_add.html" class="bouton">Ajouter une spécialité</a>
                     </div>
                     <div class="traitHorizontal">
                     </div>
                     <div>
-                        <h3>Il existe ? Consultez les détails.</h3>
-                        <a href="center_change.html" class="bouton">Modifier le centre</a>
+                        <h3>Elle existe ? Consultez les détails.</h3>
+                        <a href="treatment_change.html" class="bouton">Modifier la spécialité</a>
                     </div>
                 </div>
             </div>
@@ -43,14 +43,14 @@
 
         <!-- Appel des scripts -->
         
-        <script src="../js/Company/header.js"></script>
+        <script src="../js/header.js"></script>
         <script>
             initHeader("headerAdmin.html", "../style/Admin/style_headerAdmin.css");
         </script>
         
-        <script src="../js/Company/footer.js"></script>
+        <script src="../js/footer.js"></script>
 
-        <script src="../js/Company/auth.js"></script>
+        <script src="../js/auth.js"></script>
         <script>
             initPage({
                 headerPath: "headerAdmin.html",

@@ -35,12 +35,12 @@ function wrapExecution(name) {
 
 document.addEventListener("DOMContentLoaded", async () => {
     const group1 = [
-        "../js/appointmentComing.js",
-        "../js/appointmentPast.js",
-        "../js/appointment_centers_map.js",
-        "../js/appointment_treatment_list.js",
-        "../js/appointment_search_what.js",
-        "../js/appointment_search_where.js"
+        "../js/Account/appointmentComing.js",
+        "../js/Account/appointmentPast.js",
+        "../js/Account/appointment_centers_map.js",
+        "../js/Account/appointment_treatment_list.js",
+        "../js/Account/appointment_search_what.js",
+        "../js/Account/appointment_search_where.js"
     ];
 
     await Promise.all(group1.map(loadAppointments));
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         waitForFunction("initAutocompleteWhere"),
     ]);
 
-    await loadAppointments("../js/appointment_search.js");
-    await loadAppointments("../js/appointment_getLastSearch.js");
+    await loadAppointments("../js/Account/appointment_search.js");
+    await loadAppointments("../js/Account/appointment_getLastSearch.js");
 
 });

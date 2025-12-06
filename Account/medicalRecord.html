@@ -78,22 +78,22 @@
                         <div class="grid3">
                             <p class="privateRoom">Chambre privée</p>
                             <label for="ouiRoom">Oui</label>
-                            <input id="ouiRoom" type="checkbox">
+                            <input id="ouiRoom" type="radio" name="room">
                             <label for="nonRoom">Non</label>
-                            <input id="nonRoom" type="checkbox">
+                            <input id="nonRoom" type="radio" name="room">
                             <p class="wifi">Wifi</p>
                             <label for="ouiWifi">Oui</label>
-                            <input id="ouiWifi" type="checkbox">
+                            <input id="ouiWifi" type="radio" name="wifi">
                             <label for="nonWifi">Non</label>
-                            <input id="nonWifi" type="checkbox">
+                            <input id="nonWifi" type="radio" name="wifi">
                             <p class="TV">Télévision</p>
                             <label for="ouiTV">Oui</label>
-                            <input id="ouiTV" type="checkbox">
+                            <input id="ouiTV" type="radio" name="TV">
                             <label for="nonTV">Non</label>
-                            <input id="nonTV" type="checkbox">
+                            <input id="nonTV" type="radio" name="TV">
                             <p class="regime1">Régime alimentaire</p>
-                            <label for="vegan">Classique</label>
-                            <input id="vegan" type="checkbox">
+                            <label for="classique">Classique</label>
+                            <input id="classique" type="checkbox">
                             <label for="vegetarien">Végétarien</label>
                             <input id="vegetarien" type="checkbox">
                             <p class="regime2">spécifique</p>
@@ -136,14 +136,14 @@
         
         <!-- Appel des scripts -->
         
-        <script src="../js/header.js"></script>
+        <script src="../js/Company/header.js"></script>
         <script>
             initHeader("headerAccount.html", "../style/Account/style_HeaderAccount.css");
         </script>
         
-        <script src="../js/footer.js"></script>
+        <script src="../js/Company/footer.js"></script>
 
-        <script src="../js/auth.js"></script>
+        <script src="../js/Company/auth.js"></script>
         <script>
             initPage({
                 headerPath: "headerAccount.html",
@@ -152,17 +152,17 @@
             });
         </script>
 
-        <script src="../js/medicalRecord.js"></script>
+        <script src="../js/Account/medicalRecord.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', getMedicalRecord);
         </script>
 
-        <script src="../js/medicalRecord_doctorList.js"></script>
+        <script src="../js/Account/medicalRecord_doctorList.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', getDoctorsList);
         </script>
         
-        <script src="../js/medicalRecord_change.js"></script>
+        <script src="../js/Account/medicalRecord_change.js"></script>
         
     </body>
 </html>

@@ -16,6 +16,7 @@ window.initAutocompleteWhat = function() {
             suggestionsListQui.innerHTML = '';
             return;
         }
+        console.log("input:", input.value);
 
         suggestionsListQui.innerHTML = '';
 

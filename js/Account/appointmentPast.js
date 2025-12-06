@@ -40,16 +40,22 @@ function displayPastAppointments(appointments) {
         div.classList.add("rdvPast");
 
         const dateTime = parseDateToLocal(app.date);
+        const dateFr = dateTime
+            ? dateTime.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })
+            : 'Date non disponible';
 
-        const dateFr = dateTime ? dateTime.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'Date non disponible';
+        const hasPrescription = app.prescriptions && app.prescriptions.length > 0;
+        const prescriptionLink = hasPrescription
+            ? `<a class="bouton" href="prescription.html#p${app.prescriptions[0].id}">Accéder à la prescription</a>`
+            : `<p class="no-prescription">Aucune prescription disponible</p>`;
 
         div.innerHTML = `
             <p>
-                "<strong>${app.title}</strong>" le ${dateFr} à ${app.doctor.name} avec <strong>${app.doctor ? 
-                    "dr " + app.doctor.lastname : "N/A"}</strong>
+                "<strong>${app.title}</strong>" le ${dateFr} à ${app.doctor.name} 
+                avec <strong>${app.doctor ? "dr " + app.doctor.lastname : "N/A"}</strong>
             </p>
 
-            <a class="bouton" href="prescription.html#p${app.prescriptions[0]["id"]}">Accéder à la prescription</a>
+            ${prescriptionLink}
         `;
 
         container.appendChild(div);

@@ -4,7 +4,7 @@ changeButton.className = "bouton";
 changeButton.textContent = "Mettre à jour mon dossier";
 const deleteButton = document.createElement('button');
 deleteButton.className = "bouton";
-deleteButton.textContent = "Supprimer mon dossier";
+deleteButton.textContent = "Supprimer mon compte";
 divChangeDeleteButton.appendChild(changeButton);
 divChangeDeleteButton.appendChild(deleteButton);
 
@@ -26,7 +26,7 @@ changeButton.addEventListener("click", async (e) => {
     const emergencyContactLastname = document.getElementById('emergencyContactLastname').value || '';
     const emergencyContactPhoneNumber = document.getElementById('emergencyContactPhoneNumber').value || '';
     const socialsecurityNumber = document.getElementById('socialsecurityNumber').value || '';
-    const doctor = document.getElementById('doctor').value || '';
+    const doctorId = document.getElementById('doctor').value || '';
     const socialsecurityRegime = document.getElementById('socialsecurityRegime').value || '';
     const healthcareInsurance = document.getElementById('healthcareInsurance').value || '';
     const allergy = document.getElementById('allergy').value || '';
@@ -38,7 +38,7 @@ changeButton.addEventListener("click", async (e) => {
     const expirationDateYear = document.getElementById('expirationDateYear').value || '';
     const secretCode = document.getElementById('secretCode').value || '';
     
-    
+
     let communicationForm = '';
 
     const choiceEmail = document.getElementById('choiceEmail');
@@ -100,14 +100,14 @@ changeButton.addEventListener("click", async (e) => {
 
     let diet = '';
 
-    const vegan = document.getElementById('vegan');
+    const classique = document.getElementById('classique');
     const vegetarien = document.getElementById('vegetarien');
     const sansSel = document.getElementById('sansSel');
     const halal =  document.getElementById('halal');
     const regimeAutre = document.getElementById('regimeAutre');
 
-    if (vegan.checked) {
-        diet = 'vegan';
+    if (classique.checked) {
+        diet = 'classique';
     } else if (vegetarien.checked) {
         diet = 'vegetarien';
     } else if (sansSel.checked) {
@@ -122,7 +122,9 @@ changeButton.addEventListener("click", async (e) => {
 
     const data = {firstname, lastname, email, phoneNumber, postalAddress, 
         emergencyContact: {firstname: emergencyContactFirstname, lastname: emergencyContactLastname, phoneNumber: emergencyContactPhoneNumber},
-        socialsecurityNumber, doctor, socialsecurityRegime,
+        socialsecurityNumber, 
+        doctor: {id: doctorId}, 
+        socialsecurityRegime,
         healthcareInsurance, allergy, medicalTraitmentDisease, medicalHistory, 
         payment: {ownerName: ownerName, cardNumber: cardNumber, expirationDateMonth: expirationDateMonth, expirationDateYear: expirationDateYear, secretCode: secretCode},
         option: {communicationForm: communicationForm, privateRoom: privateRoom, television: television, wifi: wifi, diet: diet}
@@ -137,12 +139,26 @@ changeButton.addEventListener("click", async (e) => {
     try {
         const patient = await updateMedicalRecord(data);
         console.log("SUCCESS:");
-        /*window.location.href = "medicalRecord_change_password.html";*/
+        window.location.href = "medicalRecord_change_confirmation.html";
     } catch (error) {
         console.error(error);
         alert("Erreur lors de la modification du dossier médical.");
     }
 });
+
+deleteButton.addEventListener("click", async (e) => { 
+    if (!confirm("Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible.")) return;
+
+        try {
+            await deleteMedicalRecord();
+            console.log("SUCCESS:");
+            localStorage.removeItem('jwt');
+            window.location.href = "medicalRecord_delete_confirmation.html";
+        } catch (error) {
+            console.error(error);
+            alert("Erreur lors de la suppression du compte.");
+        }
+    });
 
 async function updateMedicalRecord(data) {
 
@@ -165,6 +181,28 @@ async function updateMedicalRecord(data) {
         return await response.json();
     } catch (err) {
         console.error("Erreur updateMedicalRecord:", err);
+        throw err;
+    }
+}
+
+async function deleteMedicalRecord() {
+    try {
+        const response = await fetch('http://localhost:8000/api/medicalrecord/delete', {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("SERVER RESPONSE:", errorText);
+            throw new Error("Erreur lors de la suppression du compte");
+        }
+
+        return true;
+    } catch (err) {
+        console.error("Erreur deleteMedicalRecord:", err);
         throw err;
     }
 }

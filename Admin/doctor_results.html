@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../style/style.css">
-        <link rel="stylesheet" href="../style/Admin/style_specialist.css">
+        <link rel="stylesheet" href="../style/Admin/style_doctor.css">
         <title>HealthNorth - Accueil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
@@ -12,29 +12,23 @@
     <body>
         <header id="header"></header>
 
-        <div class="container">
-            <h1>Espace administrateur</h1>
-            <div class="module">
-                <h2>Le spécialiste a bien été modifié.</h2>
-                <div class="boutonContainer">
-                    <a href="accountAdmin.html" class="bouton">Retour à l'accueil</a>
-                </div>
-            </div>
+        <div class="container" id="container">
+            <h1>Résultats de votre recherche</h1>
         </div>
 
         <footer id="siteFooter">
         </footer>
-
+        
         <!-- Appel des scripts -->
         
-        <script src="../js/header.js"></script>
+        <script src="../js/Company/header.js"></script>
         <script>
             initHeader("headerAdmin.html", "../style/Admin/style_headerAdmin.css");
         </script>
         
-        <script src="../js/footer.js"></script>
+        <script src="../js/Company/footer.js"></script>
 
-        <script src="../js/auth.js"></script>
+        <script src="../js/Company/auth.js"></script>
         <script>
             initPage({
                 headerPath: "headerAdmin.html",
@@ -42,6 +36,8 @@
                 allowedRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
             });
         </script>
+
+        <script src="../js/Admin/doctor_results.js"></script>
 
     </body>
 </html>

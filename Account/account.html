@@ -50,14 +50,14 @@
         
         <!-- Appel des scripts -->
         
-        <script src="../js/header.js"></script>
+        <script src="../js/Company/header.js"></script>
         <script>
             initHeader("headerAccount.html", "../style/Account/style_HeaderAccount.css");
         </script>
         
-        <script src="../js/footer.js"></script>
+        <script src="../js/Company/footer.js"></script>
 
-        <script src="../js/auth.js"></script>
+        <script src="../js/Company/auth.js"></script>
         <script>
             initPage({
                 headerPath: "headerAccount.html",
@@ -66,17 +66,17 @@
             });
         </script>
 
-        <script src="../js/appointmentComing.js"></script>
+        <script src="../js/Account/appointmentComing.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', getAppointmentData);
         </script>
 
-        <script src="../js/medicalRecordProgress.js"></script>
+        <script src="../js/Account/medicalRecordProgress.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', updateProfileProgress);
         </script>
 
-        <script src="../js/appointmentPast.js"></script>
+        <script src="../js/Account/appointmentPast.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', getPastAppointmentData);
         </script>

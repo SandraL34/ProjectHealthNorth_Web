@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../style/style.css">
-        <link rel="stylesheet" href="../style/Admin/style_specialty.css">
+        <link rel="stylesheet" href="../style/Admin/style_doctor.css">
         <title>HealthNorth - Accueil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
@@ -15,18 +15,11 @@
         <div class="container">
             <h1>Espace administrateur</h1>
             <div class="module">
-                <h2>Ajouter une spécialité</h2>
-                <div class="grid">
-                    <label for="nom">Nom de la spécialité</label>
-                    <input id="nom" type="text" placeholder="Nom de la spécialité">
-                    <label for="category">Catégorie</label>
-                    <input id="category" type="text" placeholder="Nom de la catégorie">
-                    <label for="duration">Durée approximative</label>
-                    <input id="duration" type="time">
-                </div>
+                <h2>Le spécialiste a bien été modifié.</h2>
                 <div class="boutonContainer">
-                    <a href="specialty_add_confirmation.html" class="bouton">Ajouter à la base de données</a>
+                    <a href="accountAdmin.html" class="bouton">Retour à l'accueil</a>
                 </div>
+            </div>
         </div>
 
         <footer id="siteFooter">
@@ -34,14 +27,14 @@
 
         <!-- Appel des scripts -->
         
-        <script src="../js/header.js"></script>
+        <script src="../js/Company/header.js"></script>
         <script>
             initHeader("headerAdmin.html", "../style/Admin/style_headerAdmin.css");
         </script>
         
-        <script src="../js/footer.js"></script>
+        <script src="../js/Company/footer.js"></script>
 
-        <script src="../js/auth.js"></script>
+        <script src="../js/Company/auth.js"></script>
         <script>
             initPage({
                 headerPath: "headerAdmin.html",

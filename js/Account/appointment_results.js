@@ -75,20 +75,20 @@ function groupByDoctor(results) {
         const doctorId = item.doctorId;
 
         if (!doctors[doctorId]) {
-                    doctors[doctorId] = { doctorId, doctor, slots: {} };
-                }
-
-                const slot = item.slot;
-                if (slot && slot.startDate) {
-                    if (!doctors[doctorId].slots[slot.startDate]) {
-                        doctors[doctorId].slots[slot.startDate] = [];
-                    }
-                    doctors[doctorId].slots[slot.startDate].push(slot);
-                }
-            });
-
-            return doctors;
+            doctors[doctorId] = { doctorId, doctor, slots: {} };
         }
+
+        const slot = item.slot;
+        if (slot && slot.startDate) {
+            if (!doctors[doctorId].slots[slot.startDate]) {
+                doctors[doctorId].slots[slot.startDate] = [];
+            }
+            doctors[doctorId].slots[slot.startDate].push(slot);
+        }
+    });
+
+    return doctors;
+}
 
 function renderResults(results) {
     const container = document.getElementById('container');

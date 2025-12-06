@@ -40,11 +40,15 @@ function fillPatientForm(patient) {
     document.getElementById('medicalTraitmentDisease').value = patient.medicalTraitmentDisease || '';
     document.getElementById('medicalHistory').value = patient.medicalHistory || '';
 
+    const doctorSelect = document.getElementById('doctor');
+
     if (patient.doctor) {
-        const doctor = patient.doctor;
-        if (doctor.firstname && doctor.lastname) {
-            document.getElementById('doctor').value = doctor.firstname + " " + doctor.lastname;
-        }
+        const doctorId = String(patient.doctor.id);
+        Array.from(doctorSelect.options).forEach(option => {
+            if (option.value === doctorId) {
+                option.selected = true;
+            }
+        });
     }
 
     if (patient.emergencyContact) {
