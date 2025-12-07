@@ -145,3 +145,24 @@ ul {
     display: flex;
     align-items: center;
 }
+
+#treatments li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.deleteButton {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+}
+
+.deleteButton img {
+    height: 100%;
+    width: 100%;
+}

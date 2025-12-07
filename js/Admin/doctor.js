@@ -37,6 +37,8 @@ function fillDoctorInfo(doctors) {
     const params = new URLSearchParams(window.location.search);
     const doctorId = params.get('id') || '';
 
+    let removedTreatments = [];
+
     doctors.forEach(item => {
         if (item.id == doctorId) {
             document.getElementById('firstname').value = item.firstname || '';
@@ -53,12 +55,17 @@ function fillDoctorInfo(doctors) {
                 const treatmentLi = document.createElement('li');
                 listTreatments.appendChild(treatmentLi);
                 const deleteButton = document.createElement('button');
-                deleteButton.classList.add("icon");
+                deleteButton.classList.add("deleteButton");
 
-                treatmentLi.innerHTML = `${treatment.name} : ${treatment.duration} mn`;
+                treatmentLi.innerHTML = `• ${treatment.name} : ${treatment.duration} mn`;
                 deleteButton.innerHTML = `<img src="../images/icons/Icon_delete.png" alt ="Delete button">`
                 
                 treatmentLi.appendChild(deleteButton);
+
+                deleteButton.addEventListener('click', () => {
+                    removedTreatments.push(treatment.id);
+                    treatmentLi.remove();
+                });
             })
 
             item.availabilities.forEach(availability => {
