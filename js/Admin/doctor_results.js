@@ -42,6 +42,10 @@ function renderResults(results) {
         backButton.classList.add('bouton');
         backButton.textContent = 'Retour à la recherche';
         divResults.appendChild(backButton);
+        
+        backButton.addEventListener('click', () => {
+            window.location.href = `doctor.html`;
+        });
     }
 
     results.forEach(item => {

@@ -16,7 +16,6 @@ window.initAutocompleteWhat = function() {
             suggestionsListQui.innerHTML = '';
             return;
         }
-        console.log("input:", input.value);
 
         suggestionsListQui.innerHTML = '';
 
@@ -44,11 +43,8 @@ window.initAutocompleteWhat = function() {
                         suggestionsListQui.innerHTML = '';
                     });
                     suggestionsListQui.appendChild(li);
-                    console.log('Added doctor suggestion:', li.textContent);
                 }
             });
-
-            suggestionsListQui.style.width = `${input.offsetWidth}px`;
 
         } catch (error) {
             console.error('Erreur autocomplete:', error);

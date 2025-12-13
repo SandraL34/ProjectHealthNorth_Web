@@ -1,11 +1,11 @@
-async function getDoctorInfo() {
-    const token = localStorage.getItem('jwt');
-    if (!token) {
-        alert("Vous devez être connecté pour accéder à la modification du spécialiste.");
-        window.location.href = "../Company/connexion.html";
-        return;
-    }
+const token = localStorage.getItem('jwt');
 
+if (!token) {
+    alert("Vous devez être connecté pour accéder à la modification du spécialiste.");
+    window.location.href = "../Company/connexion.html";
+}
+
+async function getDoctorInfo() {
     try {
         const response = await fetch('http://localhost:8000/api/doctors/results', {
             headers: {
@@ -33,11 +33,27 @@ function formatTime(isoString) {
     return `${h}:${m}`;
 }
 
-function fillDoctorInfo(doctors) {
+let allTreatments = [];
+
+async function loadTreatments() {
+    const response = await fetch('http://localhost:8000/api/treatments/list',
+        {
+            headers: { 'Authorization': `Bearer ${token}` }
+        }
+    );
+    const grouped = await response.json();
+
+    allTreatments = Object.values(grouped).flat();
+}
+
+async function fillDoctorInfo(doctors) {
+    await loadTreatments();
+
     const params = new URLSearchParams(window.location.search);
     const doctorId = params.get('id') || '';
 
-    let removedTreatments = [];
+    window.removedTreatments = [];
+    window.newTreatments = [];
 
     doctors.forEach(item => {
         if (item.id == doctorId) {
@@ -51,6 +67,9 @@ function fillDoctorInfo(doctors) {
             const listTreatments = document.createElement('ul');
             treatmentsDiv.appendChild(listTreatments);
 
+            const treatmentInput = document.getElementById('treatment');
+            const addButton = document.getElementById('addButton');
+
             item.treatments.forEach(treatment => {
                 const treatmentLi = document.createElement('li');
                 listTreatments.appendChild(treatmentLi);
@@ -63,10 +82,37 @@ function fillDoctorInfo(doctors) {
                 treatmentLi.appendChild(deleteButton);
 
                 deleteButton.addEventListener('click', () => {
-                    removedTreatments.push(treatment.id);
+                    window.removedTreatments.push(treatment.id);
                     treatmentLi.remove();
                 });
-            })
+
+            });
+
+            addButton.addEventListener('click', () => {
+                const name = treatmentInput.value;
+                if (name === "") return;
+
+                allTreatments.forEach(treatment => {
+                    if (treatment.name == name) {
+                        window.newTreatments.push(treatment.id);
+                        const li = document.createElement('li');
+                        li.innerHTML = `• ${treatment.name} : ${treatment.duration} mn`;
+
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.classList.add("deleteButton");
+                        deleteBtn.innerHTML = `<img src="../images/icons/Icon_delete.png" alt="Delete">`;
+
+                        deleteBtn.addEventListener('click', () => {
+                            window.newTreatments = window.newTreatments.filter((id => id !== treatment.id));
+                            li.remove();
+                        });
+
+                        li.appendChild(deleteBtn);
+                        listTreatments.appendChild(li);
+                        treatmentInput.value = "";
+                    }
+                });
+            });
 
             item.availabilities.forEach(availability => {
                 if (availability.dayOfWeek == 1) {

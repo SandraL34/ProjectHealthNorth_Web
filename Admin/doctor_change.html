@@ -15,7 +15,7 @@
         <div class="container">
             <h1>Espace administrateur</h1>
             <div class="module">
-                <h2>Ajouter un spécialiste</h2>
+                <h2>Modifier un spécialiste</h2>
                 <div class="gridForm">
                     <label for="firstname">Prénom du spécialiste</label>
                     <input id="firstname" type="text" placeholder="Prénom">
@@ -26,9 +26,16 @@
                     <label for="phoneNumber">Téléphone</label>
                     <input id="phoneNumber" type="phone" placeholder="0600000000">
                     <label for="center">Etablissement</label>
-                    <input id="center" type="text" placeholder="Nom de l'établissement">
+                    <div class="wrapperCenter">
+                        <input id="center" type="text" placeholder="Nom de l'établissement">
+                        <ul id="suggestionsCenter"></ul>
+                    </div>
                     <label for="treatment">Actes pratiqués</label>
-                    <input id="treatment" type="text" placeholder="Nom de l'acte">
+                    <div class="wrapperTreatment">
+                        <input id="treatment" type="text" placeholder="Nom de l'acte">
+                        <button class="addButton" id="addButton"><img src='../images/icons/Icon_add.png'></button>
+                        <ul id="suggestionsTreatment"></ul>
+                    </div>
                 </div>
                 <h3>Actes déjà ajoutés</h3>
                 <div id="treatments"></div>
@@ -87,7 +94,7 @@
                     <input type="time" id="sundayEndPM" name="sundayEndPM" min="00:00" max="24:00"/>
                 </div>
                 <div class="boutonContainer">
-                    <a href="doctor_change_confirmation.html" class="bouton">Modifier dans la base de données</a>
+                    <a href="doctor_change_confirmation.html" class="bouton" id="modifyDoctor">Modifier dans la base de données</a>
                 </div>
             </div>
         </div>
@@ -117,6 +124,18 @@
         <script>
             getDoctorInfo();
         </script>
+
+        <script src="../js/Admin/doctor_results_centers.js"></script>
+        <script>
+            initAutocompleteCenter();
+        </script>
+
+        <script src="../js/Admin/doctor_results_treatments.js"></script>
+        <script>
+            initAutocompleteTreatment();
+        </script>
+
+        <script src="../js/Admin/doctor_change.js"></script>
 
     </body>
 </html>
