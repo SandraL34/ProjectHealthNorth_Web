@@ -57,7 +57,6 @@
     });
 
     document.getElementById("buttonAddDoctor").addEventListener("click", async (e) => {
-        e.preventDefault();
 
         const password= document.getElementById('password').value || '';
 

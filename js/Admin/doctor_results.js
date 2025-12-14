@@ -72,6 +72,15 @@ function renderResults(results) {
         modifyButton.addEventListener('click', () => {
             window.location.href = `doctor_change.html?id=${doctorId}`;
         })
+
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('bouton');
+        deleteButton.textContent = 'Supprimer le spécialiste';
+        divResults.appendChild(deleteButton);
+        deleteButton.addEventListener('click', () => {
+            if (!confirm("Voulez-vous vraiment supprimer ce docteur ? Cette action est irréversible.")) return;
+            window.location.href = `doctor_delete_confirmation.html?id=${doctorId}`;
+        })
     })
 
     const createDoctor = document.createElement('div'); 
