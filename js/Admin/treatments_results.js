@@ -1,28 +1,33 @@
-document.addEventListener("DOMContentLoaded", getSpecialistResults);
+document.addEventListener("DOMContentLoaded", getTreatmentsResults);
 
-async function getSpecialistResults() {
+async function getTreatmentsResults() {
 
     const token = localStorage.getItem('jwt');
 
     if (!token) {
-        alert("Vous devez être connecté pour accéder à vos résultats.");
+        alert("Vous devez être connecté pour accéder aux actes proposés.");
         window.location.href = "../Company/connexion.html";
         return;
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/doctors/results', {
+        const response = await fetch('http://localhost:8000/api/treatments/list', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         });
 
-        if (!response.ok) throw new Error("Impossible de récupérer les résultats.");
+        if (!response.ok) throw new Error("Impossible de récupérer les actes proposés.");
 
         const results = await response.json();
 
-        filterResults(results);
+        const flatResults = Object.entries(results).flatMap(
+            ([category, treatments]) =>
+                treatments.map(t => ({ ...t, category }))
+        );
+
+        filterResults(flatResults);
 
     } catch (error) {
         console.error(error);
@@ -44,7 +49,7 @@ function renderResults(results) {
         divResults.appendChild(backButton);
         
         backButton.addEventListener('click', () => {
-            window.location.href = `doctor.html`;
+            window.location.href = `treatment.html`;
         });
     }
 
@@ -53,15 +58,15 @@ function renderResults(results) {
         divResults.classList.add('module');
         container.appendChild(divResults);
             
-        const center = item.center || {};
-
-        const doctorId = item.id || {};
-
         divResults.innerHTML = `
-            <h2>Dr ${item.firstname ?? ''} ${item.lastname ?? ''}</h2>
-            <div class="gridAddress">
-                <img src="../images/icons/Icon_localization.png" alt="Icon localization" class="icon grid1">
-                <p>Centre : ${center.name ?? '—'}, ${center.address ?? ''}</p>
+            <h2>${item.name ?? ''}</h2>
+            <div class="gridDisplayTreatment">
+                <p class="bold">Catégorie</p>
+                <p>${item.category ?? '—'}</p>
+                <p class="bold">Durée</p>
+                <p>${item.duration ?? '—'} min</p>
+                <p class="bold">Prix</p>
+                <p>${item.price ?? '—'} €</p>
             </div>
         `;
 
@@ -71,44 +76,43 @@ function renderResults(results) {
 
         const modifyButton = document.createElement('button');
         modifyButton.classList.add('bouton');
-        modifyButton.textContent = 'Modifier le spécialiste';
+        modifyButton.textContent = `Modifier l'acte`;
         divButtons.appendChild(modifyButton);
         modifyButton.addEventListener('click', () => {
-            window.location.href = `doctor_change.html?id=${doctorId}`;
+            window.location.href = `treatment_change.html?id=${item.id}`;
         })
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('bouton');
-        deleteButton.textContent = 'Supprimer le spécialiste';
+        deleteButton.textContent = `Supprimer l'acte`;
         divButtons.appendChild(deleteButton);
         deleteButton.addEventListener('click', () => {
-            if (!confirm("Voulez-vous vraiment supprimer ce docteur ? Cette action est irréversible.")) return;
-            window.location.href = `doctor_delete_confirmation.html?id=${doctorId}`;
+            if (!confirm("Voulez-vous vraiment supprimer cet acte ? Cette action est irréversible.")) return;
+            window.location.href = `treatment_delete_confirmation.html?id=${doctorId}`;
         })
     })
 
-    const createDoctor = document.createElement('div'); 
-    container.appendChild(createDoctor);
-    createDoctor.innerHTML=`
-        <h2>Vous n'avez pas trouvé votre spécialiste ? Créez le !</h2>
-        <button class="bouton" id='createButton'>Créer un spécialiste</button>
+    const createTreatment = document.createElement('div'); 
+    container.appendChild(createTreatment);
+    createTreatment.innerHTML=`
+        <h2>Vous n'avez pas trouvé l'acte proposé ? Créez le !</h2>
+        <button class="bouton" id='createButton'>Créer un acte</button>
         `;
 
     const createButton = document.getElementById('createButton');
     createButton.addEventListener('click', () => {
-        window.location.href = `doctor_add.html`;
+        window.location.href = `treatment_add.html`;
     });
 }
 
 function filterResults(results) {
     const params = new URLSearchParams(window.location.search);
-    const doctorParam = params.get('doctor')?.toLowerCase() || "";
+    const treatmentParam = params.get('treatment')?.toLowerCase() || "";
 
     const filtered = results.filter(item => {
 
-        if (doctorParam) {
-            const fullName = `${item.firstname ?? ""} ${item.lastname ?? ""}`.toLowerCase();
-            if (!fullName.includes(doctorParam)) return false;
+        if (treatmentParam) {
+            if (!item.name?.toLowerCase().includes(treatmentParam)) return false;
         }
 
         return true;

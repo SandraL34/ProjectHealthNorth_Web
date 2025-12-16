@@ -17,23 +17,14 @@
             <div class="module">
                 <div>
                     <h2>Rechercher une spécialité</h2>
-                    <div class="form">
+                    <div class="autocomplete">
                         <label for="treatment">Nom de la spécialité</label>
-                        <input id="treatment" type="text" class="shortField" placeholder="Nom de la spécialité">
+                        <div class="wrapper">
+                            <input id="treatment" type="text" class="shortField" placeholder="Nom">
+                            <ul id="suggestionsTreatment"></ul>
+                        </div>
                     </div>
-                </div>
-
-                <div class="sousModule">
-                    <div>
-                        <h3>Elle n'existe pas ? Créez-la !</h3>
-                        <a href="treatment_add.html" class="bouton">Ajouter une spécialité</a>
-                    </div>
-                    <div class="traitHorizontal">
-                    </div>
-                    <div>
-                        <h3>Elle existe ? Consultez les détails.</h3>
-                        <a href="treatment_change.html" class="bouton">Modifier la spécialité</a>
-                    </div>
+                    <a href="treatment_results.html" class="bouton" id="rechercher">Rechercher</a>
                 </div>
             </div>
         </div>
@@ -58,6 +49,13 @@
                 allowedRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
             });
         </script>
+
+        <script src="../js/Admin/doctor_results_treatments.js"></script>
+        <script>
+            initAutocompleteTreatment();
+        </script>
+
+        <script src="../js/Admin/treatment_search.js"></script>
 
     </body>
 </html>

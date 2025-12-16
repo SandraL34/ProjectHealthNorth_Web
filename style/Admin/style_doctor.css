@@ -47,7 +47,7 @@ h3 {
     text-align: center;
 }
 
-/* Specialist */
+/* Doctor */
 
 .autocomplete {
     display: flex;
@@ -104,6 +104,10 @@ h3 {
 
 .icon {
     justify-self: center;
+}
+
+.buttonsContainer {
+    display: flex;
 }
 
 /* Add */

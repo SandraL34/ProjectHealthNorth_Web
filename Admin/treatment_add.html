@@ -20,9 +20,13 @@
                     <label for="name">Nom de la spécialité</label>
                     <input id="name" type="text" placeholder="Nom de la spécialité">
                     <label for="category">Catégorie</label>
-                    <input id="category" type="text" placeholder="Nom de la catégorie">
-                    <label for="duration">Durée approximative</label>
-                    <input id="duration" type="time">
+                    <select name="category" id="category"></select>
+                    <label for="otherCategory" class="bold">Si autre, préciser</label>
+                    <input id="otherCategory" type="text" placeholder="Nom de la catégorie à créer">
+                    <label for="duration">Durée (en min)</label>
+                    <input id="duration" type="text" placeholder="120">
+                    <label for="price">Tarif</label>
+                    <input id="price" type="text" placeholder="180">
                 </div>
                 <div class="boutonContainer">
                     <a href="treatment_add_confirmation.html" class="bouton">Ajouter à la base de données</a>
@@ -48,6 +52,11 @@
                 footerPath: "../Company/footer.html",
                 allowedRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
             });
+        </script>
+
+        <script src="../js/Admin/treatment.js"></script>
+        <script>
+            getTreatmentInfo();
         </script>
 
     </body>
