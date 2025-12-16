@@ -1,6 +1,41 @@
+/* Global */
 h1 {
     text-align: center;
     margin-bottom: 30px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.bouton {
+    width: 300px;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 12px 32px;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin: 0px auto;
+    margin-top: 20px;
+}
+
+.bouton:hover {
+    font-weight: 600;
+    background-color: #f0f0f0;
 }
 
 .module {
@@ -9,84 +44,159 @@ h1 {
     padding: 20px;
     max-width: 700px;
     margin: 30px auto;
-}
-
-h2 {
     text-align: center;
-    margin-bottom: 20px;
 }
 
-.form {
+/* Center */
+.autocomplete {
     display: flex;
     justify-content: center;
     gap: 30px;
-    margin-bottom: 50px;
+    margin: 30px 0px;
+    position: relative;
+    align-items: flex-start;
+
 }
 
-.bouton {
-    width: 300px;
-    text-decoration: none;
-    color: black;
+.wrapper {
+    position: relative;
+    width: 50%;
+}
+
+.wrapper input {
+    width: 100%;
+}
+
+#suggestionsCenter {
+    list-style: none;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
     background-color: white;
-    border: black 1px;
-    border-style: solid;
-    border-radius: 10px;
-    padding: 12px 32px;
-    font-size: 1em;
-    cursor: pointer;
-    text-align: center;
-    display: inline-block;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+    text-align: left;
 }
-
-.bouton:hover {
-    font-weight: 600;
+#suggestionsCenter li {
+    padding: 8px;
+    cursor: pointer;
+}
+#suggestionsCenter li:hover {
     background-color: #f0f0f0;
 }
 
-h3 {
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-align: center;
+#suggestionsCenter:empty {
+    display: none;
 }
 
-.sousModule {
+/* Results */
+
+.gridDisplayCenter {
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 5px;
+    text-align: left;
+    margin: 20px auto;
+}
+
+.buttonsContainer {
     display: flex;
-    gap: 20px;
-    justify-content: space-around;
-    margin-top: 20px;
-    align-items: center;
-}
-
-.traitHorizontal {
-    width: 1px;
-    height: 100px;
-    border:solid black 1px;
-}
-
-.label, .input {
-    text-align: center;
-}
-
-.shortField {
-    width: 30%;
-}
-
-.boutonContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
 }
 
 .grid {
+    width: 80%;
     display: grid;
     grid-template-columns: 1fr 3fr;
     gap: 5px;
+    text-align: left;
+    margin: 20px auto;
 }
 
-fieldset {
-    padding: 20px;
-    border: solid black 1px;
-    border-radius: 10px;
-    margin-top: 10px;
+/* Change */
+ul {
+    margin-left: 30px;
+    text-align: left;
+}
+
+#doctors {
+    display: flex;
+    align-items: center;
+}
+
+#doctors li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.deleteButton {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+}
+
+.deleteButton img {
+    height: 100%;
+    width: 100%;
+}
+
+.wrapperDoctor {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wrapperDoctor input {
+    width: 90%;
+}
+
+#suggestionsDoctors {
+    list-style: none;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+}
+#suggestionsDoctors li {
+    padding: 8px;
+    cursor: pointer;
+}
+#suggestionsDoctors li:hover {
+    background-color: #f0f0f0;
+}
+
+#suggestionsDoctors:empty {
+    display: none;
+}
+
+.addButton {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+}
+
+.addButton img {
+    height: 100%;
+    width: 100%;
 }

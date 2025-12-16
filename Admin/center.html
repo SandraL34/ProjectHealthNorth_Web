@@ -17,23 +17,14 @@
             <div class="module">
                 <div>
                     <h2>Rechercher un centre</h2>
-                    <div class="form">
-                        <label for="specialist">Nom du centre</label>
-                        <input id="specialist" type="text" class="shortField" placeholder="Nom du centre">
+                    <div class="autocomplete">
+                        <label for="treatment">Nom de l'établissement</label>
+                        <div class="wrapper">
+                            <input id="center" type="text" class="shortField" placeholder="Nom du centre">
+                            <ul id="suggestionsCenter"></ul>
+                        </div>
                     </div>
-                </div>
-
-                <div class="sousModule">
-                    <div>
-                        <h3>Il n'existe pas ? Créez-le !</h3>
-                        <a href="center_add.html" class="bouton">Ajouter un centre</a>
-                    </div>
-                    <div class="traitHorizontal">
-                    </div>
-                    <div>
-                        <h3>Il existe ? Consultez les détails.</h3>
-                        <a href="center_change.html" class="bouton">Modifier le centre</a>
-                    </div>
+                    <a href="center_results.html" class="bouton" id="rechercher">Rechercher</a>
                 </div>
             </div>
         </div>
@@ -58,6 +49,13 @@
                 allowedRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
             });
         </script>
+
+        <script src="../js/Admin/doctor_results_centers.js"></script>
+        <script>
+            initAutocompleteCenter();
+        </script>
+
+        <script src="../js/Admin/center_search.js"></script>
 
     </body>
 </html>

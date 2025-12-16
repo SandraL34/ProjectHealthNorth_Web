@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../style/style.css">
-        <link rel="stylesheet" href="../style/Admin/style_treatment.css">
+        <link rel="stylesheet" href="../style/Admin/style_center.css">
         <title>HealthNorth - Accueil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
@@ -15,22 +15,11 @@
         <div class="container">
             <h1>Espace administrateur</h1>
             <div class="module">
-                <h2>Modifier une spécialité</h2>
-                <div class="grid">
-                    <label for="name">Nom de la spécialité</label>
-                    <input id="name" type="text" placeholder="Nom de la spécialité">
-                    <label for="category">Catégorie</label>
-                    <select name="category" id="category"></select>
-                    <label for="otherCategory">Si autre, préciser</label>
-                    <input id="otherCategory" type="text" placeholder="Nom de la catégorie à créer">
-                    <label for="duration">Durée (en min)</label>
-                    <input id="duration" type="text" placeholder="120">
-                    <label for="price">Tarif</label>
-                    <input id="price" type="text" placeholder="180">
-                </div>
+                <h2>Le centre a bien été supprimé.</h2>
                 <div class="boutonContainer">
-                    <a href="treatment_change_confirmation.html" class="bouton" id="modifyTreatment">Modifier</a>
+                    <a href="accountAdmin.html" class="bouton">Retour à l'accueil</a>
                 </div>
+            </div>
         </div>
 
         <footer id="siteFooter">
@@ -54,12 +43,7 @@
             });
         </script>
 
-        <script src="../js/Admin/treatment.js"></script>
-        <script>
-            getTreatmentInfo();
-        </script>
-
-        <script src="../js/Admin/treatment_change.js"></script>
+        <script src="../js/Admin/center_delete.js"></script>
 
     </body>
 </html>

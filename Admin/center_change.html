@@ -15,51 +15,28 @@
         <div class="container">
             <h1>Espace administrateur</h1>
             <div class="module">
-                <h2>Ajouter un centre</h2>
+                <h2>Modifier un centre</h2>
                 <div class="grid">
-                    <label for="nom">Nom du centre</label>
-                    <input id="nom" type="text" placeholder="Nom du centre">
+                    <label for="name">Nom du centre</label>
+                    <input id="name" type="text" placeholder="Nom du centre">
+                    <label for="type">Type de centre</label>
+                    <select name="type" id="type"></select>
+                    <label for="otherType">Si autre, préciser</label>
+                    <input id="otherType" type="text" placeholder="Nom du type à créer">
                     <label for="email">Email</label>
                     <input id="email" type="email" placeholder="email@example.fr">
-                    <label for="phone">Téléphone</label>
-                    <input id="phone" type="phone" placeholder="0600000000">
+                    <label for="phoneNumber">Téléphone</label>
+                    <input id="phoneNumber" type="text" placeholder="0600000000">
+                    <label for="address">Adresse</label>
+                    <input id="address" type="text" placeholder="5 rue de la Santé 34000 Montpellier">
+                    <label for="latitude">Latitude</label>
+                    <input id="latitude" type="text" placeholder="43.611904995780854">
+                    <label for="longitude">Longitude</label>
+                    <input id="longitude" type="text" placeholder="3.870104618422019">
                 </div>
-                <fieldset>
-                    <legend class="bold">Adresse du centre</legend>
-                    <div class="grid">
-                        <label for="rue">N° et rue</label>
-                        <input type="rue" id="rue" placeholder="5 rue de la Santé">
-                        <label for="complement">Complément</label>
-                        <input id="complement" type="text" placeholder="Appartement 105">
-                        <label for="codePostal">Code postal</label>
-                        <input id="codePostal" type="text" placeholder="34000">
-                        <label for="ville">Ville</label>
-                        <input id="ville" type="text" placeholder="Montpellier">
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend class="bold">Actes pratiqués</legend>
-                    <div class="grid">
-                        <label for="specialty">Spécialité</label>
-                        <input type="specialty" id="specialty" placeholder="Nom de la spécialité">
-                        <label for="actes">Actes pratiqués</label>
-                        <input id="actes" type="text" placeholder="Nom de l'acte">
-                    </div>
-                    <p class="bold">Actes déjà ajoutés</p>
-                </fieldset>
-
-                <fieldset>
-                    <legend class="bold">Spécialistes</legend>
-                    <div class="grid">
-                        <label for="specialist">Nom du spécialiste</label>
-                        <input type="specialist" id="specialist" placeholder="Nom du spécialiste">
-                    </div>
-                    <p class="bold">Spécialistes déjà ajoutés</p>
-                </fieldset>
 
                 <div class="boutonContainer">
-                    <a href="center_change_confirmation.html" class="bouton">Modifier</a>
+                    <a href="center_change_confirmation.html" class="bouton" id="modifyCenter">Modifier</a>
                 </div>
             </div>
         </div>
@@ -84,6 +61,13 @@
                 allowedRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
             });
         </script>
+
+        <script src="../js/Admin/center.js"></script>
+        <script>
+            getCenterInfo();
+        </script>
+
+        <script src="../js/Admin/center_change.js"></script>
 
     </body>
 </html>

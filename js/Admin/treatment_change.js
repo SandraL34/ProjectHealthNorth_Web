@@ -3,7 +3,7 @@
     const token = localStorage.getItem('jwt');
 
     if (!token) {
-        alert("Vous devez être connecté pour modifier le médecin.");
+        alert("Vous devez être connecté pour modifier les actes.");
         window.location.href = "../Company/connexion.html";
     }
 
