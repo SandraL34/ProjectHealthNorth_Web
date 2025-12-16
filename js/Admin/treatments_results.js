@@ -88,7 +88,7 @@ function renderResults(results) {
         divButtons.appendChild(deleteButton);
         deleteButton.addEventListener('click', () => {
             if (!confirm("Voulez-vous vraiment supprimer cet acte ? Cette action est irréversible.")) return;
-            window.location.href = `treatment_delete_confirmation.html?id=${doctorId}`;
+            window.location.href = `treatment_delete_confirmation.html?id=${item.id}`;
         })
     })
 
