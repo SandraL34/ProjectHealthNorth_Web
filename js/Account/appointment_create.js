@@ -41,6 +41,8 @@ document.getElementById("buttonCreateAppointment").addEventListener("click", asy
 
     try {
         const appointment = await createAppointment(data, token);
+    if (appointment?.success) {
+        window.location.href = "appointment_confirmation.html";}
     } catch (error) {
         console.error(error);
         alert("Erreur lors de la création du rendez-vous.");

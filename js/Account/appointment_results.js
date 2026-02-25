@@ -1,7 +1,21 @@
-document.addEventListener("DOMContentLoaded", getAppointmentResults);
-
 const NOW = new Date();
 NOW.setSeconds(0, 0);
+
+let currentWeekOffset = 0;
+let lastFilteredResults = [];
+
+function getMondayOfWeek(offset = 0) {
+    const today = new Date();
+    const day = today.getDay();
+    const mondayOffset = (day === 0 ? -6 : 1 - day) + offset * 7;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() + mondayOffset);
+    return monday.toISOString().split('T')[0];
+}
+
+document.addEventListener("DOMContentLoaded", getAppointmentResults);
+
+let groupedDoctors = {};
 
 async function getAppointmentResults() {
 
@@ -13,8 +27,9 @@ async function getAppointmentResults() {
         return;
     }
 
+    const week = getMondayOfWeek(currentWeekOffset);
     try {
-        const response = await fetch('http://localhost:8000/api/appointment/results', {
+        const response = await fetch(`http://localhost:8000/api/appointment/results?week=${week}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -52,47 +67,48 @@ function parseDateAndTime(dateStr, timeStr) {
     };
 }
 
-function getWeekDates(offset = 0) {
-    const today = new Date();
-    const day = today.getDay();
-    const mondayOffset = (day === 0 ? -6 : 1 - day) + offset * 7;
-    const monday = new Date(today);
-    monday.setDate(today.getDate() + mondayOffset);
-
+function getWeekDates() {
+    const monday = getMondayOfWeek(currentWeekOffset);
     const week = [];
     for (let i = 0; i < 7; i++) {
         const d = new Date(monday);
-        d.setDate(monday.getDate() + i);
+        d.setDate(d.getDate() + i);
         week.push(d.toISOString().split('T')[0]);
     }
     return week;
 }
 
 function groupByDoctor(results) {
-    const doctors = {};
+    const newGrouped = {};
     results.forEach(item => {
-        const doctor = item.doctor || {};
         const doctorId = item.doctorId;
 
-        if (!doctors[doctorId]) {
-            doctors[doctorId] = { doctorId, doctor, slots: {} };
+        if (!newGrouped[doctorId]) {
+            newGrouped[doctorId] = { doctorId, doctor: item.doctor, slots: {} };
         }
 
         const slot = item.slot;
         if (slot && slot.startDate) {
-            if (!doctors[doctorId].slots[slot.startDate]) {
-                doctors[doctorId].slots[slot.startDate] = [];
+            if (!newGrouped[doctorId].slots[slot.startDate]) {
+                newGrouped[doctorId].slots[slot.startDate] = [];
             }
-            doctors[doctorId].slots[slot.startDate].push(slot);
+            newGrouped[doctorId].slots[slot.startDate].push(slot);
         }
     });
 
-    return doctors;
+    Object.keys(newGrouped).forEach(id => {
+        if (groupedDoctors[id]) {
+            groupedDoctors[id].slots = newGrouped[id].slots;
+        } else {
+            groupedDoctors[id] = newGrouped[id];
+        }
+    });
+
+    return groupedDoctors;
 }
 
 function renderResults(results) {
     const container = document.getElementById('container');
-    container.innerHTML = '';
 
     if (!Array.isArray(results) || results.length === 0) {
         container.innerHTML = '<p>Aucun résultat correspondant à votre recherche.</p>';
@@ -102,14 +118,19 @@ function renderResults(results) {
     const grouped = groupByDoctor(results);
 
     Object.values(grouped).forEach(data => {
-        const doctorInfo = getDoctorInfo(data);
-        container.appendChild(doctorInfo);
+    const existingCard = document.getElementById(`doctor-card-${data.doctorId}`);
+        if (existingCard) {
+            if (existingCard._renderCalendar) existingCard._renderCalendar();
+        } else {
+            container.appendChild(getDoctorInfo(data));
+        }
     });
 }
 
 function getDoctorInfo(data) {
     const container = document.createElement('div');
     container.classList.add('result');
+    container.id = `doctor-card-${data.doctorId}`;
 
     const doctor = data.doctor || {};
     const center = doctor.center || {};
@@ -167,11 +188,9 @@ function getDoctorInfo(data) {
 
     calendar.appendChild(nextButton);
 
-    let weekOffset = 0;
-
     function renderCalendar() {
         gridCalendar.innerHTML = '';
-        const weekDates = getWeekDates(weekOffset);
+        const weekDates = getWeekDates();
 
         weekDates.forEach(date => {
             const col = document.createElement('div');
@@ -221,7 +240,7 @@ function getDoctorInfo(data) {
                             centerId: doctor.center.id,
                             doctorName: doctor.firstname + " " + doctor.lastname,
                             centerName: doctor.center.name,
-                            treatmentName: treatments[0].name
+                            treatmentName: treatment ? treatment.name : ''
                         });
                         window.location.href = `appointment_book.html?${params.toString()}`;
                     });
@@ -242,15 +261,17 @@ function getDoctorInfo(data) {
     }
 
     renderCalendar();
-    select.dispatchEvent(new Event('change'));
+
+    container._renderCalendar = renderCalendar;
 
     previousButton.addEventListener('click', () => {
-        weekOffset--;
-        renderCalendar();
+        currentWeekOffset--;
+        getAppointmentResults(); 
     });
+
     nextButton.addEventListener('click', () => {
-        weekOffset++;
-        renderCalendar();
+        currentWeekOffset++;
+        getAppointmentResults();
     });
 
     select.addEventListener('change', () => {
@@ -354,14 +375,6 @@ function isOverlapping(slot, booked, durationMinutes) {
 
     const s = slotStart.getTime();
     const e = slotEnd.getTime();
-
-    console.log("DEBUG overlap check",
-    {
-        slot: { date: slot.startDate, time: slot.startTime },
-        booked: { date: booked.startDate, start: booked.startTime, end: booked.endTime },
-        parsed: { slotStart: s, slotEnd: e, bookedStart: bs, bookedEnd: be }
-    }
-    );
 
     return s < be && e > bs;
 }
