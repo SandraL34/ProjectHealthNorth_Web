@@ -1,0 +1,279 @@
+.documents-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.upload-zone {
+    background: #fff;
+    border: 2px dashed #c8c3bc;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.upload-zone h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1a1814;
+}
+
+.upload-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    align-items: center;
+}
+
+.upload-form input[type="file"] {
+    flex: 1 1 200px;
+    font-size: 0.875rem;
+    padding: 0.4rem;
+    border: 1px solid #e2ddd8;
+    border-radius: 6px;
+    background: #f9f8f6;
+    cursor: pointer;
+}
+
+.upload-form select,
+.upload-form input[type="text"] {
+    padding: 0.45rem 0.8rem;
+    border: 1px solid #e2ddd8;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    background: #f9f8f6;
+    color: #1a1814;
+}
+
+.upload-form select { min-width: 160px; }
+.upload-form input[type="text"] { width: 160px; }
+
+.btn-upload {
+    padding: 0.45rem 1.2rem;
+    background: #1a1814;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+}
+
+.btn-upload:hover    { background: #333; }
+.btn-upload:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.upload-hint {
+    margin-top: 0.6rem;
+    font-size: 0.78rem;
+    color: #9b9590;
+}
+
+.upload-feedback {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    min-height: 1.2em;
+}
+
+.upload-feedback.success { color: #2d5a3d; }
+.upload-feedback.error   { color: #8b2e2e; }
+
+.doc-group { }
+
+.doc-group-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #6b6660;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #e2ddd8;
+}
+
+.doc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.doc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #e2ddd8;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: box-shadow 0.15s;
+}
+
+.doc-row:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.doc-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.doc-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1a1814;
+}
+
+.doc-meta {
+    font-size: 0.78rem;
+    color: #9b9590;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.doc-rdv {
+    background: #e8f0eb;
+    color: #2d5a3d;
+    padding: 0.1rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.72rem;
+}
+
+.doc-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-download {
+    padding: 0.35rem 0.9rem;
+    background: #f0ede8;
+    color: #1a1814;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+}
+
+.btn-download:hover { background: #e2ddd8; }
+
+.btn-delete {
+    padding: 0.35rem 0.6rem;
+    background: #fde8e8;
+    color: #8b2e2e;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-delete:hover { background: #f5d0d0; }
+
+.empty-message {
+    color: #9b9590;
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+}
+
+/* Patient */
+.autocomplete {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px 0px;
+    position: relative;
+    align-items: flex-start;
+
+}
+
+.wrapper {
+    position: relative;
+    width: 50%;
+}
+
+.wrapper input {
+    width: 100%;
+}
+
+#suggestionsPatient {
+    list-style: none;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+#suggestionsPatient li {
+    padding: 8px;
+    cursor: pointer;
+}
+#suggestionsPatient li:hover {
+    background-color: #f0f0f0;
+}
+
+#suggestionsPatient:empty {
+    display: none;
+}
+
+/* Global */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.bouton {
+    width: 300px;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 12px 32px;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    margin: 0px auto;
+    margin-top: 20px;
+}
+
+.bouton:hover {
+    font-weight: 600;
+    background-color: #f0f0f0;
+}
+
+.module {
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 700px;
+    margin: 30px auto;
+    text-align: center;
+}

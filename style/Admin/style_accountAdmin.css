@@ -42,3 +42,56 @@ h2 {
     font-weight: 600;
     background-color: #f0f0f0;
 }
+
+.recherche {
+    border: solid black 1px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.champsRecherche {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    position: relative;
+}
+
+.champsRecherche a {
+    grid-column: 4 / 5;
+    grid-row: 1 / 3;
+}
+
+.autocomplete {
+    position: relative;
+}
+
+#suggestionsQui, #suggestionsOu {
+    list-style: none;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+}
+#suggestionsQui li, #suggestionsOu li {
+    padding: 8px;
+    cursor: pointer;
+}
+#suggestionsQui li:hover, #suggestionsOu li:hover {
+    background-color: #f0f0f0;
+}
+
+#suggestionsQui:empty, #suggestionsOu:empty {
+    display: none;
+}
+
+.autocomplete input {
+    width: 100%;
+    height: 100%;
+}
