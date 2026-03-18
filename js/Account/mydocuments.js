@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
     }
 
-    const patientId = 1; //TODO : Récupérer dynamiquement l'ID du patient connecté
     const section = document.getElementById('documentsSection');
 
     await loadDocuments();
@@ -16,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         try {
 
-            const res = await fetch(`http://localhost:8000/api/documents/patient/${patientId}`, {
+            const res = await fetch(`http://localhost:8000/api/documents`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
