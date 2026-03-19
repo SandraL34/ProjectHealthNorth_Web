@@ -11,7 +11,7 @@
     let allTreatments = [];
 
     async function loadTreatments() {
-        const response = await fetch('http://localhost:8000/api/treatments/list',
+        const response = await fetchWithAuth('http://localhost:8000/api/treatments/list',
             {
                 headers: { 'Authorization': `Bearer ${token}` }
             }
@@ -117,7 +117,7 @@
 
     async function createDoctor(data, token) {
         try {
-            const response = await fetch('http://localhost:8000/api/doctors/add', {
+            const response = await fetchWithAuth('http://localhost:8000/api/doctors/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

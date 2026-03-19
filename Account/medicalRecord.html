@@ -30,8 +30,8 @@
                         <input id="phoneNumber" type="text" placeholder="0600000000">
                         <label for="postalAddress">Adresse</label>
                         <textarea id="postalAddress" name="postalAddress" placeholder="5 rue du Champ 34000 Montpellier" rows="4"></textarea>
-                        <label for="photo">Photo</label>
-                        <input type="file" id="photo" name="photo">
+                        <!-- <label for="photo">Photo</label> 
+                        <input type="file" id="photo" name="photo">-->
                     </div>
                         <p class="bold">Contact d'urgence</p>
                     <div class="grid">
@@ -153,13 +153,17 @@
         </script>
 
         <script src="../js/Account/medicalRecord.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', getMedicalRecord);
-        </script>
 
         <script src="../js/Account/medicalRecord_doctorList.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', getDoctorsList);
+            document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    const patient = await getMedicalRecord();
+                    await getDoctorsList(patient);
+                } catch (e) {
+                    console.error(e);
+                }
+            });
         </script>
         
         <script src="../js/Account/medicalRecord_change.js"></script>

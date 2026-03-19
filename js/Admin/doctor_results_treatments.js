@@ -7,10 +7,10 @@ window.initAutocompleteTreatment = function() {
 
     input.addEventListener('input', () => {
         clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(fetchSuggestionsTreatment, 300);
+        debounceTimeout = setTimeout(fetchWithAuthSuggestionsTreatment, 300);
     });
 
-    async function fetchSuggestionsTreatment() {
+    async function fetchWithAuthSuggestionsTreatment() {
         const query = input.value.trim();
         if (query.length < 3) {
             suggestionsListTreatment.innerHTML = '';
@@ -20,7 +20,7 @@ window.initAutocompleteTreatment = function() {
         suggestionsListTreatment.innerHTML = '';
 
         try {
-            const treatmentsRes = await fetch(
+            const treatmentsRes = await fetchWithAuth(
                 `http://localhost:8000/api/treatments/search?query=${encodeURIComponent(query)}`,
                 {
                     headers: { 'Authorization': `Bearer ${token}` }

@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         expandRows: true,
         allDaySlot: false,
 
-    events: async function(fetchInfo, successCallback, failureCallback) {
+    events: async function(fetchWithAuthInfo, successCallback, failureCallback) {
         try {
-            const weekStart = fetchInfo.startStr.split('T')[0];
+            const weekStart = fetchWithAuthInfo.startStr.split('T')[0];
 
-            const response = await fetch(`http://localhost:8000/api/appointment/results?week=${weekStart}`, {
+            const response = await fetchWithAuth(`http://localhost:8000/api/appointment/results?week=${weekStart}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     let treatment = { name: 'N/A', duration: 60 };
 
                     try {
-                        const appointmentRes = await fetch(
+                        const appointmentRes = await fetchWithAuth(
                             `http://localhost:8000/api/appointments/${item.slot.appointmentId}`,
                             { headers: { 'Authorization': `Bearer ${token}` } }
                         );

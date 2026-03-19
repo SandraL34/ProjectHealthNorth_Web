@@ -3,7 +3,7 @@ async function updateProfileProgress() {
     if (!token) return;
 
     try {
-        const response = await fetch('http://localhost:8000/api/patient/medicalRecord', {
+        const response = await fetchWithAuth('http://localhost:8000/api/patient/medicalRecord', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'

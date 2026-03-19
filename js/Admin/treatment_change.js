@@ -33,7 +33,7 @@
             price
         };
 
-        const res = await fetch("http://localhost:8000/api/treatments/change", {
+        const res = await fetchWithAuth("http://localhost:8000/api/treatments/change", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

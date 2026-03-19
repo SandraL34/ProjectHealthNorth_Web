@@ -7,7 +7,7 @@ async function getPrescriptionData() {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/prescription', {
+        const response = await fetchWithAuth('http://localhost:8000/api/prescription', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -52,8 +52,6 @@ function displayPrescriptions(prescriptions) {
                 <p>${app.report}</p>
                 <h3>Prescription</h3>
                 <p>${app.prescriptionDetails}</p>
-
-            <a class="bouton" href="">Télécharger le PDF</a>
         `;
 
         container.appendChild(div);

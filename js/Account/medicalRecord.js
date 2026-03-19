@@ -7,7 +7,7 @@ async function getMedicalRecord() {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/patient/medicalRecord', {
+        const response = await fetchWithAuth('http://localhost:8000/api/patient/medicalRecord', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -20,6 +20,7 @@ async function getMedicalRecord() {
 
         const patient = await response.json();
         fillPatientForm(patient);
+        return patient;
     } catch (error) {
         console.error(error);
         alert("Erreur lors du chargement du dossier médical.");
@@ -95,11 +96,11 @@ function fillPatientForm(patient) {
 
         if (option.diet == "Végétarien") {
             document.getElementById('vegetarien').checked = true;
-        } else if (option.communicationForm == "Vegan") {
+        } else if (option.diet == "Vegan") {
             document.getElementById('vegan').checked = true;
-        } else if (option.communicationForm == "Sans sel") {
+        } else if (option.diet == "Sans sel") {
             document.getElementById('sansSel').checked = true;
-        } else if (option.communicationForm == "Halal") {
+        } else if (option.diet == "Halal") {
             document.getElementById('halal').checked = true;
         }
     }

@@ -11,7 +11,7 @@ async function getSpecialistResults() {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/doctors/results', {
+        const response = await fetchWithAuth('http://localhost:8000/api/doctors/results', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'

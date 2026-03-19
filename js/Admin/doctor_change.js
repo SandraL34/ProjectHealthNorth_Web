@@ -59,7 +59,7 @@
             availabilities
         };
 
-        const res = await fetch("http://localhost:8000/api/doctors/change", {
+        const res = await fetchWithAuth("http://localhost:8000/api/doctors/change", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

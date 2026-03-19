@@ -7,7 +7,7 @@ if (!token) {
 
 async function getCenterInfo() {
     try {
-        const response = await fetch('http://localhost:8000/api/centers/map', {
+        const response = await fetchWithAuth('http://localhost:8000/api/centers/map', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'

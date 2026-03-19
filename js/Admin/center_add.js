@@ -51,7 +51,7 @@
 
     async function createCenter(data, token) {
         try {
-            const response = await fetch('http://localhost:8000/api/centers/add', {
+            const response = await fetchWithAuth('http://localhost:8000/api/centers/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

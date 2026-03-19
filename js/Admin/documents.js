@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     async function loadDocuments() {
         try {
-            const res = await fetch(`http://localhost:8000/api/documents/patient/${patientId}`, {
+            const res = await fetchWithAuth(`http://localhost:8000/api/documents/patient/${patientId}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const documents = await res.json();
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             feedback.textContent = 'Upload en cours...';
             feedback.className = 'upload-feedback';
 
-            const res = await fetch('http://localhost:8000/api/documents/upload', {
+            const res = await fetchWithAuth('http://localhost:8000/api/documents/upload', {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         link.href = `http://localhost:8000/api/documents/${id}/download`;
         link.setAttribute('download', '');
 
-        fetch(`http://localhost:8000/api/documents/${id}/download`, {
+        fetchWithAuth(`http://localhost:8000/api/documents/${id}/download`, {
             headers: { 'Authorization': `Bearer ${token}` }
         })
         .then(res => {
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!confirm('Supprimer ce document définitivement ?')) return;
 
         try {
-            const res = await fetch(`http://localhost:8000/api/documents/${id}`, {
+            const res = await fetchWithAuth(`http://localhost:8000/api/documents/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

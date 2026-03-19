@@ -7,10 +7,10 @@ window.initAutocompleteWhere = function() {
 
     input.addEventListener('input', () => {
         clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(fetchSuggestionsOu, 300);
+        debounceTimeout = setTimeout(fetchWithAuthSuggestionsOu, 300);
     });
 
-    async function fetchSuggestionsOu() {
+    async function fetchWithAuthSuggestionsOu() {
         const query = input.value.trim();
         if (query.length < 2) {
             suggestionsListOu.innerHTML = '';
@@ -20,7 +20,7 @@ window.initAutocompleteWhere = function() {
         suggestionsListOu.innerHTML = '';
 
         try {
-            const centersRes = await fetch(
+            const centersRes = await fetchWithAuth(
                 `http://localhost:8000/api/centers/search?query=${encodeURIComponent(query)}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 }

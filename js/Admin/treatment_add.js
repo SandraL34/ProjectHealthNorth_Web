@@ -41,7 +41,7 @@
 
     async function createTreatment(data, token) {
         try {
-            const response = await fetch('http://localhost:8000/api/treatments/add', {
+            const response = await fetchWithAuth('http://localhost:8000/api/treatments/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

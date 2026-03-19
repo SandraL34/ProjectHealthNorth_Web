@@ -19,7 +19,7 @@
 
     async function deleteTreatment(id) {
         try { 
-            const response = await fetch (`http://localhost:8000/api/treatments/delete/${id}`, {
+            const response = await fetchWithAuth (`http://localhost:8000/api/treatments/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`

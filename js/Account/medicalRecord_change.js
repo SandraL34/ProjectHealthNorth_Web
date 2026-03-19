@@ -163,7 +163,7 @@ deleteButton.addEventListener("click", async (e) => {
 async function updateMedicalRecord(data) {
 
     try {
-        const response = await fetch('http://localhost:8000/api/medicalrecord/change', {
+        const response = await fetchWithAuth('http://localhost:8000/api/medicalrecord/change', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ async function updateMedicalRecord(data) {
 
 async function deleteMedicalRecord() {
     try {
-        const response = await fetch('http://localhost:8000/api/medicalrecord/delete', {
+        const response = await fetchWithAuth('http://localhost:8000/api/medicalrecord/delete', {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`

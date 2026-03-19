@@ -11,11 +11,17 @@ let originalAppointmentData = null;
 
 async function getAppointmentChanges(weekOffset = 0) {
     try {
+        const idParam = new URLSearchParams(window.location.search).get('id');
+
+        const url = new URL('http://localhost:8000/api/appointment/results');
+        url.searchParams.set('week', getWeekStartISO(weekOffset));
+        if (idParam) url.searchParams.set('appointmentId', idParam);
+
         if (!token) {
             alert("Utilisateur non connecté");
             return;
         }
-        const response = await fetch(`http://localhost:8000/api/appointment/results?week=${getWeekStartISO(weekOffset)}`, {
+        const response = await fetchWithAuth(url.toString(), {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -66,14 +72,27 @@ function filterResults(results) {
     const idParam = new URLSearchParams(window.location.search).get('id');
     const requestedId = idParam ? parseInt(idParam, 10) : null;
 
-    const filtered = results.filter(item => {
-        if (!requestedId) return true;
+    let currentAppointmentSlot = null;
 
-        const appointmentId = item.slot?.appointmentId;
-        return appointmentId === requestedId;
+    results.forEach(item => {
+        if (!currentAppointmentSlot && originalAppointmentData) {
+            const slotDate = item.slot?.startDate;
+            if (slotDate === originalAppointmentData.slot?.startDate) {
+                currentAppointmentSlot = item;
+            }
+        }
     });
 
-    renderResults(filtered, results);
+    const filtered = results.filter(item => {
+        const appointmentId = item.slot?.appointmentId;
+
+        if (appointmentId === requestedId) return true;
+        if (!appointmentId && currentAppointmentSlot === item) return true;
+
+        return false;
+    });
+
+    renderResults(filtered.length ? filtered : [], results);
 }
 
 function updateCalendarOnly(allResults) {
@@ -455,7 +474,7 @@ function cancelAppointment() {
         }
 
         try {
-            const response = await fetch(`http://localhost:8000/api/appointment/cancel/${appointmentId}`, {
+            const response = await fetchWithAuth(`http://localhost:8000/api/appointment/cancel/${appointmentId}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -480,7 +499,7 @@ async function updateAppointment(data, token) {
     console.log("updateAppointment called with:", data);
     console.log("URL:", `http://localhost:8000/api/appointment/${data.appointmentId}`);
     try {
-    const response = await fetch(`http://localhost:8000/api/appointment/${data.appointmentId}`, {
+    const response = await fetchWithAuth(`http://localhost:8000/api/appointment/${data.appointmentId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

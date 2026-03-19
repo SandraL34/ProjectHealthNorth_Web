@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         try {
 
-            const res = await fetch(`http://localhost:8000/api/documents`, {
+            const res = await fetchWithAuth(`http://localhost:8000/api/documents`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     function downloadDoc(id) {
 
-        fetch(`http://localhost:8000/api/documents/${id}/download`, {
+        fetchWithAuth(`http://localhost:8000/api/documents/${id}/download`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

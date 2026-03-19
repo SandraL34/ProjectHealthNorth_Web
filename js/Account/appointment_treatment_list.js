@@ -7,7 +7,7 @@ async function getTreatmentList() {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/treatments/list', {
+        const response = await fetchWithAuth('http://localhost:8000/api/treatments/list', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function loadInvoices() {
         try {
             const [unpaidRes, paidRes] = await Promise.all([
-                fetch('http://localhost:8000/api/invoices?paid=false', {
+                fetchWithAuth('http://localhost:8000/api/invoices?paid=false', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 }),
-                fetch('http://localhost:8000/api/invoices?paid=true', {
+                fetchWithAuth('http://localhost:8000/api/invoices?paid=true', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 })
             ]);
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     async function markAsPaid(id) {
         try {
-            const res = await fetch(`http://localhost:8000/api/invoices/${id}/pay`, {
+            const res = await fetchWithAuth(`http://localhost:8000/api/invoices/${id}/pay`, {
                 method: 'PATCH',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

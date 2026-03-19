@@ -44,7 +44,7 @@
             longitude
         };
 
-        const res = await fetch("http://localhost:8000/api/centers/change", {
+        const res = await fetchWithAuth("http://localhost:8000/api/centers/change", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

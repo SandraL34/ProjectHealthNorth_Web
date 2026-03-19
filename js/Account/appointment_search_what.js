@@ -7,10 +7,10 @@ window.initAutocompleteWhat = function() {
 
     input.addEventListener('input', () => {
         clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(fetchSuggestionsQui, 300);
+        debounceTimeout = setTimeout(fetchWithAuthSuggestionsQui, 300);
     });
 
-    async function fetchSuggestionsQui() {
+    async function fetchWithAuthSuggestionsQui() {
         const query = input.value.trim();
         if (query.length < 3) {
             suggestionsListQui.innerHTML = '';
@@ -20,7 +20,7 @@ window.initAutocompleteWhat = function() {
         suggestionsListQui.innerHTML = '';
 
         try {
-            const doctorsRes = await fetch(
+            const doctorsRes = await fetchWithAuth(
                 `http://localhost:8000/api/doctors/search?query=${encodeURIComponent(query)}`,
                 {
                     headers: { 'Authorization': `Bearer ${token}` }

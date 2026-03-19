@@ -19,7 +19,7 @@
 
     async function deleteCenter(id) {
         try { 
-            const response = await fetch (`http://localhost:8000/api/centers/delete/${id}`, {
+            const response = await fetchWithAuth (`http://localhost:8000/api/centers/delete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`

@@ -51,7 +51,7 @@ document.getElementById("buttonCreateAppointment").addEventListener("click", asy
 
 async function getPatientId(token) {
     try {
-        const res = await fetch('http://localhost:8000/api/patient/medicalRecord', {
+        const res = await fetchWithAuth('http://localhost:8000/api/patient/medicalRecord', {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -63,7 +63,7 @@ async function getPatientId(token) {
         const data = await res.json();
         return data.id;
     } catch (err) {
-        console.error("Erreur fetch patientId :", err);
+        console.error("Erreur fetchWithAuth patientId :", err);
         return null;
     }
 }
@@ -76,7 +76,7 @@ function convertFrToIso(dateFr, timeFr) {
 
 async function createAppointment(data, token) {
     try {
-        const response = await fetch('http://localhost:8000/api/appointment/create', {
+        const response = await fetchWithAuth('http://localhost:8000/api/appointment/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

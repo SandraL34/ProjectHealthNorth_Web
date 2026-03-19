@@ -8,10 +8,10 @@ window.initAutocompletePatient = function() {
 
     input.addEventListener('input', () => {
         clearTimeout(debounceTimeout);
-        debounceTimeout = setTimeout(fetchSuggestionsPatient, 300);
+        debounceTimeout = setTimeout(fetchWithAuthSuggestionsPatient, 300);
     });
 
-    async function fetchSuggestionsPatient() {
+    async function fetchWithAuthSuggestionsPatient() {
         const query = input.value.trim();
         if (query.length < 3) {
             suggestionsListPatient.innerHTML = '';
@@ -21,7 +21,7 @@ window.initAutocompletePatient = function() {
         suggestionsListPatient.innerHTML = '';
 
         try {
-            const patientRes = await fetch(
+            const patientRes = await fetchWithAuth(
                 `http://localhost:8000/api/patients/search?query=${encodeURIComponent(query)}`,
                 {
                     headers: { 'Authorization': `Bearer ${token}` }

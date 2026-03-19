@@ -1,4 +1,4 @@
-async function getDoctorsList() {
+async function getDoctorsList(patient) {
     const token = localStorage.getItem('jwt');
     if (!token) {
         alert("Vous devez être connecté pour accéder à la liste des spécialistes.");
@@ -7,7 +7,7 @@ async function getDoctorsList() {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/doctors/list', {
+        const response = await fetchWithAuth('http://localhost:8000/api/doctors/list', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -18,7 +18,7 @@ async function getDoctorsList() {
         }
 
         const doctors = await response.json();
-        displayDoctors(doctors);
+        displayDoctors(doctors, patient);
 
     } catch (error) {
         console.error(error);
@@ -28,7 +28,7 @@ async function getDoctorsList() {
     window.getDoctorsList.__executed = true;
 }
 
-function displayDoctors(doctors) {
+function displayDoctors(doctors, patient) {
     const select = document.getElementById("doctor");
 
     select.innerHTML = '<option class="bold" value="null">Sélectionner votre spécialiste</option>';
@@ -39,4 +39,8 @@ function displayDoctors(doctors) {
         option.textContent = doctor.firstname + " " + doctor.lastname;
         select.appendChild(option);
     });
+
+    if (patient?.doctor?.id) {
+        select.value = String(patient.doctor.id);
+    }
 }

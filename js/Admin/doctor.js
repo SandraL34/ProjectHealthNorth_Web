@@ -7,7 +7,7 @@ if (!token) {
 
 async function getDoctorInfo() {
     try {
-        const response = await fetch('http://localhost:8000/api/doctors/results', {
+        const response = await fetchWithAuth('http://localhost:8000/api/doctors/results', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ function formatTime(isoString) {
 let allTreatments = [];
 
 async function loadTreatments() {
-    const response = await fetch('http://localhost:8000/api/treatments/list',
+    const response = await fetchWithAuth('http://localhost:8000/api/treatments/list',
         {
             headers: { 'Authorization': `Bearer ${token}` }
         }

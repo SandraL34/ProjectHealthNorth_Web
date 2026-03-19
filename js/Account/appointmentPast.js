@@ -7,7 +7,7 @@ async function getPastAppointmentData() {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/appointment/past', {
+        const response = await fetchWithAuth('http://localhost:8000/api/appointment/past', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
