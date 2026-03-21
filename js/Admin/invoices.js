@@ -54,9 +54,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             </section>`;
 
         container.querySelectorAll('.btn-pay').forEach(btn => {
-            btn.addEventListener('click', async () => {
+            btn.addEventListener('click', () => {
                 const id = btn.dataset.id;
-                await markAsPaid(id);
+                window.location.href = `payment.html?id=${id}`;
             });
         });
 
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 <div class="invoice-card-footer">
                     <button class="btn btn-detail" data-id="${invoice.id}">Voir détail</button>
-                    ${!isPaid ? `<button class="btn btn-pay" data-id="${invoice.id}">Marquer comme payée</button>` : ''}
+                    ${!isPaid ? `<button class="btn btn-pay" data-id="${invoice.id}">Payer</button>` : ''}
                 </div>
             </div>`;
     }
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    ${!invoice.isPaid ? `<button class="btn btn-pay" id="modalPayBtn" data-id="${invoice.id}">Marquer comme payée</button>` : ''}
+                    ${!invoice.isPaid ? `<button class="btn btn-pay" id="modalPayBtn" data-id="${invoice.id}">Payer</button>` : ''}
                     <button class="btn btn-secondary" id="closeModalBtn">Fermer</button>
                 </div>
             </div>`;
@@ -224,9 +224,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         modal.querySelector('#closeModalBtn').addEventListener('click', () => modal.remove());
         modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
 
-        modal.querySelector('#modalPayBtn')?.addEventListener('click', async () => {
-            await markAsPaid(invoice.id);
-            modal.remove();
+        modal.querySelector('#modalPayBtn')?.addEventListener('click', () => {
+            window.location.href = `payment.html?id=${invoice.id}`;
         });
     }
 });

@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../style/style.css">
+                <link rel="stylesheet" href="../style/Admin/style_payment.css">
+        <title>HealthNorth - Paiement en ligne</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="HealthNorth - Leader de la santé depuis 1987">
+    </head>
+
+    <body>
+        <header id="header"></header>
+
+        <div class="container">
+            <h1 id="invoiceTitle"></h1>
+            <div class="module">
+                <h2>Payer en ligne</h2>
+                <p>Veuillez rentrer vos informations bancaires</p>
+
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label for="cardNumber">Numéro de carte</label>
+                        <input type="text" id="cardNumber" name="cardNumber" required> 
+                    </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiryDate">Date d'expiration</label>
+                        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/AA" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <label for="cardholderName">Nom du titulaire</label>
+                        <input type="text" id="cardholderName" name="cardholderName" required>
+                    </div> 
+                </form>
+
+                <div class="boutonContainer">
+                    <button type="submit" form="paymentForm" class="bouton">Paiement en ligne</button>
+                </div>
+            </div>
+            <div class="module">
+                <h2>Un autre moyen de paiement ?</h2>
+                <p>Paiements autorisés : liquide, chèque</p>
+                <div class="boutonContainer">
+                    <a href="#" id="manualPay" class="bouton">Marquer comme payée</a>
+                </div>
+            </div>
+        </div>
+
+        <footer id="siteFooter">
+        </footer>
+
+        <!-- Appel des scripts -->
+
+        <script src="../js/Admin/payment.js"></script>
+        
+        <script src="../js/Company/header.js"></script>
+        <script>
+            initHeader("headerAdmin.html", "../style/Admin/style_headerAdmin.css");
+        </script>
+        
+        <script src="../js/Company/footer.js"></script>
+
+        <script src="../js/Company/auth.js"></script>
+        <script>
+            initPage({
+                headerPath: "headerAdmin.html",
+                footerPath: "../Company/footer.html",
+                allowedRoles: ['ROLE_ADMIN', 'ROLE_DOCTOR']
+            });
+        </script>
+
+    </body>
+</html>
